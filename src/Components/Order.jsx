@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { products } from './data';
+import OrderModal from './OrderModal';
+import './css/modal.css';
 
 const OrderComponent = () => {
 
@@ -9,6 +11,7 @@ const OrderComponent = () => {
   const [productName, setProductName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Function to handle search
   const handleSearch = () => {
@@ -25,10 +28,24 @@ const OrderComponent = () => {
   
   };
 
+   // Function to handle opening the modal
+   const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+    // Function to handle closing the modal
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+      };
+    
+      // Function to handle form submission from the modal
+      const handleModalSubmit = (formData) => {
+        // Implement logic to handle form data submission
+      };
+    const orderId = generateOrderId()
   return (
     <div>
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-4 text-center">Order#: {generateOrderId()}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">{generateOrderId()}</h2>
 
       {/* Search Bar and Input */}
       <div className="flex items-center justify-between mb-4">
@@ -78,7 +95,7 @@ const OrderComponent = () => {
               <td className="border px-4 py-2">{product.quantity}</td>
               <td className="border px-4 py-2">{product.price}</td>
               <td className="border px-4 py-2">
-                <button onClick={() => handleAddProduct(product.id)}>Add</button>
+                <button onClick={() => handleAddProduct(product.id)} className='btn btn-danger btn-sm'>Delete</button>
               </td>
             </tr>
           ))}
@@ -90,8 +107,14 @@ const OrderComponent = () => {
       <div className="flex justify-around mb-4">
         <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">New Order</button>
         <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Cancel Order</button>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Place Order</button>
+        <button onClick={handleOpenModal} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Place Order</button>
       </div>
+
+
+      {
+
+            isModalOpen && <OrderModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleModalSubmit} orderId={orderId} />
+      }
     </div>
   );
 };
@@ -107,5 +130,5 @@ const generateOrderId = () => {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const seconds = now.getSeconds().toString().padStart(2, '0');
-  return `Order#: ${year}${month}${date}Tx${hours}${minutes}${seconds}`;
+  return `Order# : ${year}${month}${date}Tx${hours}${minutes}${seconds}`;
 };
