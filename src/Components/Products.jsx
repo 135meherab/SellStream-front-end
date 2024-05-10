@@ -1,8 +1,32 @@
-import React from 'react';
+import { useState } from 'react';
 import {products} from './data'
+import ProductModal from './ProductModal';
+
+
+
+
 const AllProducts = () => {
+  const [isProductModalOpen, setProductModalOpen] = useState(false);
+
+
+     // Function to handle opening the modal
+     const handleOpenProductModal = () => {
+      setProductModalOpen(true);
+    };
+      // Function to handle closing the modal
+      const handleCloseProductModal = () => {
+          setProductModalOpen(false);
+        };
+      
+        // Function to handle form submission from the modal
+        const handleProductModalSubmit = (formData) => {
+          // Implement logic to handle form data submission
+        };
+
 
     const pd = products
+
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 text-center">All Products</h2>
@@ -30,7 +54,7 @@ const AllProducts = () => {
         </div>
         <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button>
         </div>
-        <button className="bg-green-500 text-white py-2 px-4 rounded-md ml-2 hover:bg-green-600">Add Product</button>
+        <button onClick={handleOpenProductModal} className="bg-green-500 text-white py-2 px-4 rounded-md ml-2 hover:bg-green-600">Add Product</button>
       </div>
 
 
@@ -65,6 +89,13 @@ const AllProducts = () => {
           }
         </tbody>
       </table>
+
+
+      
+      {
+
+      isProductModalOpen && <ProductModal isOpen={isProductModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} />
+      }
     </div>
   );
 };
