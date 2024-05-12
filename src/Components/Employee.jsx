@@ -52,7 +52,7 @@ const Employee = () => {
             />
             <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> {/* Search button */}
           </div>
-          <button onClick={handleOpenProductModal} className="bg-green-500 text-white py-2 px-4 rounded-md ml-2">Add Employee</button> {/* Add Product button */}
+          <button onClick={handleOpenProductModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Employee</button> {/* Add Product button */}
         </div>
 
 

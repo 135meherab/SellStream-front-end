@@ -22,7 +22,7 @@ const DashboardRoute = () => {
         <h1 className='text-2xl font-bold mb-5'>Dashboard</h1>
       {/* {dashboardData && ( */}
         <div className='grid grid-cols-3 gap-[50px] text-gray-300'>
-          <div className="bg-blue-500 p-4 rounded-md">
+          <div className="bg-blue-700 p-4 rounded-md">
             <p className="text-2xl font-bold mb-3">1200</p>
             {/* <p className="text-lg">{dashboardData.totalProducts}</p> */}
             <h2 className="text-xl font-bold mb-2">Total Products</h2>

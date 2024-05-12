@@ -50,9 +50,9 @@ const Customer = () => {
               placeholder="Search with code, name, brand"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
-            <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> {/* Search button */}
+            <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> 
           </div>
-          <button onClick={handleOpenCustomerModal} className="bg-green-500 text-white py-2 px-4 rounded-md ml-2">Add Customer</button> {/* Add Product button */}
+          <button onClick={handleOpenCustomerModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Customer</button> 
         </div>
 
 
