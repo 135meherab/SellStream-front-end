@@ -10,3 +10,23 @@ export const products = [
 
 }
 ]
+export const employees = [
+{code : 'exmaple',
+    name: 'rizwan',
+    email: 'rizwan@sellstream.com',
+    mobile:'+8801794212131',
+    
+
+
+}
+]
+export const customers = [
+{code : 'exmaple',
+    name: 'rizwan',
+    email: 'rizwan@sellstream.com',
+    mobile:'+8801794212131',
+    
+
+
+}
+]

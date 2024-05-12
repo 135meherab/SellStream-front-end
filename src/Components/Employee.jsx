@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import {products} from './data'
+import {employees} from './data'
 import ProductModal from './ProductModal';
 
 
 
 
-const AllProducts = () => {
-  const [isProductModalOpen, setProductModalOpen] = useState(false);
+const Employee = () => {
+  const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
 
 
      // Function to handle opening the modal
      const handleOpenProductModal = () => {
-      setProductModalOpen(true);
+      setEmployeeModalOpen(true);
     };
       // Function to handle closing the modal
       const handleCloseProductModal = () => {
-          setProductModalOpen(false);
+          setEmployeeModalOpen(false);
         };
       
         // Function to handle form submission from the modal
@@ -24,12 +24,12 @@ const AllProducts = () => {
         };
 
 
-    const pd = products
+    const em = employees
 
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 ">Products</h2>
+      <h2 className="text-2xl font-bold mb-4 ">Employee</h2>
 
       <div className="flex items-center justify-between mb-5">
           <div className="flex items-center"> 
@@ -52,7 +52,7 @@ const AllProducts = () => {
             />
             <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> {/* Search button */}
           </div>
-          <button onClick={handleOpenProductModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Product</button> {/* Add Product button */}
+          <button onClick={handleOpenProductModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Employee</button> {/* Add Product button */}
         </div>
 
 
@@ -60,27 +60,25 @@ const AllProducts = () => {
       <table className="w-full border-collapse mb-4">
         <thead>
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Code</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Brand</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Quantity</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Price Per Unit</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Unit of Measurment</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Email</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Mobile No</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Actions</th>
+     
           </tr>
         </thead>
         <tbody>
           
           {
-              pd.map((product) => (
-                <tr key={product.id} className='text-center'>
-                  <td className="border px-4 py-2">{product.code}</td>
-                  <td className="border px-4 py-2">{product.name}</td>
-                  <td className="border px-4 py-2">{product.description}</td>
-                  <td className="border px-4 py-2">{product.brand}</td>
-                  <td className="border px-4 py-2">{product.quantity}</td>
-                  <td className="border px-4 py-2">{product.price}</td>
-                  <td className="border px-4 py-2">{product.uom}</td>
+              em.map((employee, index) => (
+                <tr key={employee.id} className='text-center'>
+                  <td className="border px-4 py-2">{index + 1}</td>
+                  <td className="border px-4 py-2">{employee.name}</td>
+                  <td className="border px-4 py-2">{employee.email}</td>
+                  <td className="border px-4 py-2">{employee.mobile}</td>
+                  <td className="border px-4 py-2"><div> <button className='bg-blue-500 text-white py-2 px-4 rounded-md ml-2'>Edit</button> <button className='bg-red-500 text-white py-2 px-4 rounded-md ml-2'>Delete</button></div></td>
+                
                 </tr>
               ))
             
@@ -92,10 +90,10 @@ const AllProducts = () => {
       
       {
 
-      isProductModalOpen && <ProductModal isOpen={isProductModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} />
+      isEmployeeModalOpen && <ProductModal isOpen={isEmployeeModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} />
       }
     </div>
   );
 };
 
-export default AllProducts;
+export default Employee;
