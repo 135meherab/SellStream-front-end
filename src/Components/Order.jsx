@@ -39,7 +39,7 @@ const OrderComponent = () => {
     
       // Function to handle form submission from the modal
       const handleModalSubmit = (formData) => {
-        // Implement logic to handle form data submission
+
       };
     const orderId = generateOrderId()
   return (
@@ -105,9 +105,9 @@ const OrderComponent = () => {
 
       {/* Action Buttons */}
       <div className="flex justify-around mb-4">
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">New Order</button>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Cancel Order</button>
-        <button onClick={handleOpenModal} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Place Order</button>
+        <button className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">New Order</button>
+        <button className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Cancel Order</button>
+        <button onClick={handleOpenModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Place Order</button>
       </div>
 
 
