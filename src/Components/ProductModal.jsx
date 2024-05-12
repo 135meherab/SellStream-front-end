@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 
 const ProductModal = ({ isOpen, onClose, onSubmit }) => {
+  const [code, setCode] = useState('');
   const [name, setName] = useState('');
-  const [quantity, setQuanity] = useState('cash');
+  const [description, setDescription] = useState('');
+  const [quantity, setQuantity] = useState('cash');
   const [category, setCategory] = useState('');
   const [unit, setUnit] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, quantity, category, unit });
+    onSubmit({ code,name, description, quantity, category, unit });
     setName('');
-    setQuanity('cash');
+    setQuantity('cash');
     setCategory('');
     setUnit('');
     onClose();
@@ -22,15 +24,28 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
       <div className="modal-content">
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">Add Product</h3>
+            <h3 className="text-lg font-medium font-bold leading-6 text-gray-900 mb-4">Add Product</h3>
+          <div className="flex justify-center items-center">
+          <div className="mb-4">
+              <label htmlFor="productCode" className="block text-gray-700 text-sm font-bold mb-2">Code</label>
+              <input type="text" id="productCode" value={code} onChange={(e) => setCode(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>
             <div className="mb-4">
-              <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Product Name</label>
-              <input type="text" id="mobileNumber" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <label htmlFor="productName" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+              <input type="text" id="productName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>
+          </div>
+           <div className="flex justify-center items-center">
+           <div className="mb-4">
+              <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2"> Description</label>
+              <input type="text" id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
             <div className="mb-4">
               <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
-              <input type="number" id="mobileNumber" value={quantity} onChange={(e) => setQuanity(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <input type="number" id="mobileNumber" value={quantity} onChange={(e) => setQuantity(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
+           </div>
+           <div className="flex justify-start items-center">
             <div className="mb-4">
                 <label htmlFor="category" className="block text-gray-700 text-sm font-bold mb-2">Category</label>
                 <select 
@@ -60,6 +75,7 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
                     <option value="category2">Liter</option>
                     <option value="category3">Piece</option>
                 </select>
+            </div>
             </div>
           
                   

@@ -39,7 +39,7 @@ const OrderComponent = () => {
     
       // Function to handle form submission from the modal
       const handleModalSubmit = (formData) => {
-        // Implement logic to handle form data submission
+
       };
     const orderId = generateOrderId()
   return (
