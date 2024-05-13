@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { products } from './data';
+import { productss } from './data';
 import OrderModal from './OrderModal';
 import './css/modal.css';
 
-const OrderComponent = () => {
+const Order = () => {
 
-    const data = products;
+    const data = productss;
   // State variables
   const [productCode, setProductCode] = useState('');
   const [productName, setProductName] = useState('');
@@ -104,11 +104,11 @@ const OrderComponent = () => {
       </table>
 
       {/* Action Buttons */}
-      <div className="flex justify-around mb-4">
+      {/* <div className="flex justify-around mb-4">
         <button className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">New Order</button>
         <button className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Cancel Order</button>
         <button onClick={handleOpenModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Place Order</button>
-      </div>
+      </div> */}
 
 
       {
@@ -119,7 +119,7 @@ const OrderComponent = () => {
   );
 };
 
-export default OrderComponent;
+export default Order;
 
 // Function to generate order ID
 const generateOrderId = () => {
