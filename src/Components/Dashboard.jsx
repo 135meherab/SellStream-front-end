@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import AllProducts from './Products';
 import OrderComponent from './Order';
-import Profile from './Profile';
 import { FaHome, FaBox, FaTags, FaChartBar, FaClipboardList, FaUsers, FaUserFriends, FaFileAlt } from 'react-icons/fa';
 import logo from '../assets/logo.png'
 import DashboardRoute from './DashboradRoute';
@@ -10,6 +9,8 @@ import Categories from './Categories';
 import Customer from './Customer';
 import Reports from './Reports';
 import Sales from './Sales';
+import Purchase from './Purchase';
+import Uom from './Uom.';
 
 
 
@@ -32,7 +33,7 @@ const DashboardPage = () => {
   <ul className="py-4">
     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
       <FaHome className="mr-2" />
-      <Link to='/dashboard'>Dashboard</Link>
+      <Link to='/'>Dashboard</Link>
     </li>
     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
       <FaBox className="mr-2" />
@@ -41,6 +42,14 @@ const DashboardPage = () => {
     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
       <FaTags className="mr-2" />
       <Link to='/category'>Categories</Link>
+    </li>
+    <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+      <FaTags className="mr-2" />
+      <Link to='/uom'>UOM</Link>
+    </li>
+    <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+      <FaTags className="mr-2" />
+      <Link to='/purchase'>Purchase</Link>
     </li>
     <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
       <FaChartBar className="mr-2" />
@@ -77,10 +86,12 @@ const DashboardPage = () => {
         {/* Main Content */}
         <div className="p-4 flex-1">
             <Routes >
-                <Route path="/" element={<Profile />} />
-                <Route path="/dashboard" element={<DashboardRoute />} />
+                {/* <Route path="/" element={<Profile />} /> */}
+                <Route path="/" element={<DashboardRoute />} />
                 <Route path="/products" element={<AllProducts />} />
                 <Route path="/category" element={<Categories />} />
+                <Route path="/uom" element={<Uom />} />
+                <Route path="/purchase" element={<Purchase />} />
                 <Route path="/sales" element={<Sales />} />
                 <Route path="/order" element={<OrderComponent />} />
                 <Route path="/employee" element={<Employee />} />

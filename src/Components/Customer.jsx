@@ -72,7 +72,7 @@ const Customer = () => {
           
           {
               em.map((Customer, index) => (
-                <tr key={Customer.id} className='text-center'>
+                <tr key={index} className='text-center'>
                   <td className="border px-4 py-2">{index + 1}</td>
                   <td className="border px-4 py-2">{Customer.name}</td>
                   <td className="border px-4 py-2">{Customer.email}</td>

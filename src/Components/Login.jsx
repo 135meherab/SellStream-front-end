@@ -1,13 +1,45 @@
 import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+
+
 
 const Login = () => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  // const history = useHistory();
 
-  const handleLogin = (e) => {
+
+
+  const handleLogin = async (e) => {
+
     e.preventDefault();
-    // Add your login logic here
+    try {
+      const response = await fetch('https://sellstream.onrender.com/ad/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      // const data = await response.json();
+
+      if (response.ok) {
+        // const token = data.token;
+        // localStorage.setItem('token', token);
+        // history.push('/');
+      } else {
+        console.log('something went wrong!')
+        // setError(data.message); 
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred. Please try again.');
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-700 flex items-center justify-center bg-gray-100">
@@ -37,6 +69,8 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
+        
+          {/* {error? <p>{error}</p>} */}
         </form>
       </div>
     </div>

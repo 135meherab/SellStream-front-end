@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import  {  useState } from 'react';
 
-const ProductModal = ({ isOpen, onClose, onSubmit }) => {
-  const [code, setCode] = useState('');
+
+
+const ProductModal = ({ isOpen, onClose, onSubmit, categories, units }) => {
+ 
+ 
+  const [productCode, setProductCode] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -9,15 +13,59 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
   const [category, setCategory] = useState('');
   const [unit, setUnit] = useState('');
 
-  const handleSubmit = (e) => {
+
+const handleSubmit = async(e) => {
+
     e.preventDefault();
-    onSubmit({ code,name, description, quantity, price, category, unit });
-    setName('');
-    setQuantity('');
-    setCategory('');
-    setUnit('');
-    onClose();
+    const numberQnt = Number(quantity)
+    const numberPrice = Number(price)
+    const newProduct = {
+      name: name,
+      description: description,
+      product_code: productCode,
+      quantity: numberQnt,
+      price: numberPrice,
+      category: category,
+      uom_name:unit
+    };
+    
+    console.log(newProduct)
+    
+    try {
+      const response = await fetch('https://sellstream.onrender.com/product/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newProduct)
+    });
+  
+
+   
+
+      if (response.ok) {
+        onSubmit(newProduct);
+        
+        // Reset form 
+        setProductCode('');
+        setName('');
+        setDescription('');
+        setQuantity('');
+        setPrice('');
+        setCategory('');
+        setUnit('');
+        
+        // Close the modal
+        onClose();
+      } else {
+        console.error('Failed to add product:', response.statusText, response.status, response);
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+   
   };
+
 
   return (
     <div className={`modal ${isOpen ? 'modal-open' : ''}`}>
@@ -29,7 +77,7 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
           <div className="flex justify-between items-center gap-2">
           <div className="mb-4">
               <label htmlFor="productCode" className="block text-gray-700 text-sm font-bold mb-2">Code</label>
-              <input type="text" id="productCode" value={code} onChange={(e) => setCode(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <input type="text" id="productCode" value={productCode} onChange={(e) => setProductCode(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
             <div className="mb-4">
               <label htmlFor="productName" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
@@ -61,25 +109,31 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
-                    <option value="">Select a category</option>
-                    <option value="category1">Category 1</option>
-                    <option value="category2">Category 2</option>
-                    <option value="category3">Category 3</option>
+                  {
+                    categories?.map((category) =>(
+
+                      <option key={category.id} value={category.name}>{category.name}</option>
+                    ))
+                  }
+                  
                 </select>
             </div>
             <div className="mb-4">
-                <label htmlFor="category" className="block text-gray-700 text-sm font-bold mb-2">Unit of Measurment</label>
+                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">Unit of Measurement</label>
                 <select 
-                    id="category" 
+                    id="uom" 
                     value={unit} 
-                    onChange={(e) => setUnit(e.target.value)} 
+                    onChange={(e) => setUnit(e.target.value)}  
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
-                    <option value="">Select a Unit</option>
-                    <option value="category1">Kg</option>
-                    <option value="category2">Liter</option>
-                    <option value="category3">Piece</option>
+                  {
+                    units?.map(unit=>(
+
+                      <option key={unit.id} value={unit.name}>{unit.name}</option>
+                    ))
+                  }
+                   
                 </select>
             </div>
             </div>

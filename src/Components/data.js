@@ -1,4 +1,4 @@
-export const products = [
+export const productss = [
 {code : 'exmaple',
     name: 'product1',
     description: 'expmple.description',
