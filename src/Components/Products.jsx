@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import {products} from './data'
+import { useEffect, useState } from 'react';
 import ProductModal from './ProductModal';
 
 
@@ -7,7 +6,51 @@ import ProductModal from './ProductModal';
 
 const AllProducts = () => {
   const [isProductModalOpen, setProductModalOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [units, setUnits] = useState([]);
+  
+  useEffect(() => {
+    fetchData();
+    categoryList()
+    unitList()
+  }, []);
 
+  const categoryList = async()=>{
+    try{
+      const response = await fetch("https://sellstream.onrender.com/category/")
+        const categoryData = await response.json()
+        // console.log(categoryData)
+        setCategories(categoryData)
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const unitList= async()=>{
+    try{
+      const response = await fetch('https://sellstream.onrender.com/measurement/')
+      const units = await response.json();
+      // console.log(units)
+      setUnits(units)
+
+    }catch(error){
+      console.log('unit list fetch Error', error)
+    }
+  }
+
+  
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://sellstream.onrender.com/product/');
+      const data = await response.json();
+      // console.log(data)
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    }
+  };
 
      // Function to handle opening the modal
      const handleOpenProductModal = () => {
@@ -20,11 +63,10 @@ const AllProducts = () => {
       
         // Function to handle form submission from the modal
         const handleProductModalSubmit = (formData) => {
-          // Implement logic to handle form data submission
+          setProducts(...products, formData)
         };
 
 
-    const pd = products
 
 
   return (
@@ -63,7 +105,7 @@ const AllProducts = () => {
             <th className="border-b-2 border-gray-300 px-4 py-2">Code</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Brand</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Category</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Quantity</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Price Per Unit</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Unit of Measurment</th>
@@ -72,15 +114,15 @@ const AllProducts = () => {
         <tbody>
           
           {
-              pd.map((product) => (
+              products.map((product) => (
                 <tr key={product.id} className='text-center'>
-                  <td className="border px-4 py-2">{product.code}</td>
+                  <td className="border px-4 py-2">{product.product_code}</td>
                   <td className="border px-4 py-2">{product.name}</td>
                   <td className="border px-4 py-2">{product.description}</td>
-                  <td className="border px-4 py-2">{product.brand}</td>
+                  <td className="border px-4 py-2">{product.category}</td>
                   <td className="border px-4 py-2">{product.quantity}</td>
                   <td className="border px-4 py-2">{product.price}</td>
-                  <td className="border px-4 py-2">{product.uom}</td>
+                  <td className="border px-4 py-2">{product.uom_name}</td>
                 </tr>
               ))
             
@@ -92,7 +134,7 @@ const AllProducts = () => {
       
       {
 
-      isProductModalOpen && <ProductModal isOpen={isProductModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} />
+      isProductModalOpen && <ProductModal isOpen={isProductModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} categories={categories} units={units} />
       }
     </div>
   );
