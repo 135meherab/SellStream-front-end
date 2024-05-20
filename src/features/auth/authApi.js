@@ -3,32 +3,32 @@ import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        register: builder.mutation({
-            query: (data)=>({
-                url: '/shop/sign_up/',
-                method:"POST",
-                body: data,
-            }),
+        // register: builder.mutation({
+        //     query: (data)=>({
+        //         url: '/shop/sign_up/',
+        //         method:"POST",
+        //         body: data,
+        //     }),
 
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
-                try{
-                    const result = await queryFulfilled;
+        //     async onQueryStarted(arg, {queryFulfilled, dispatch}){
+        //         try{
+        //             const result = await queryFulfilled;
 
-                    localStorage.setItem("auth", JSON.stringify({
-                        token: result.data.token,
+        //             localStorage.setItem("auth", JSON.stringify({
+        //                 token: result.data.token,
                         
-                    }))
+        //             }))
 
-                    dispatch(userLoggedIn({
-                        token: result.data.token,
+        //             dispatch(userLoggedIn({
+        //                 token: result.data.token,
                         
-                    }))
-                }catch(err) {
-                    // error part
-                    }
-            }
+        //             }))
+        //         }catch(err) {
+        //             // error part
+        //             }
+        //     }
 
-        }),
+        // }),
         login: builder.mutation({
             query: (data)=>({
                 url: '/shop/login/',
