@@ -1,50 +1,49 @@
 import { useEffect, useState } from 'react';
-import { useAddCustomerMutation, useGetCustomersQuery } from '../features/products/productsApi';
-import CustomerModal from './modals/CustomerModal.jsx';
-import {customersss} from './data'
+import { useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation } from '../features/products/productsApi';
+import ShopModal from './modals/ShopModal';
+import { shopssss } from './data.js';
 
-
-
-function Customer() {
-  const [isCustomerModalOpen, setCustomerModalOpen] = useState(false);
-  const [customerName, setCustomerName] = useState('');
+function Shop() {
+  const [isShopModalOpen, setShopModalOpen] = useState(false);
+  const [shopName, setShopName] = useState('');
   const [error, setError] = useState('');
-  const[data, setData] = useState([]);
+  const [data, setData] = useState([])
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
-  const { data: customer, isLoading, isError, error: responseError } = useGetCustomersQuery();
-  const[addCustomer] = useAddCustomerMutation()
- 
+  const { data: shops, isLoading, isError, error: responseError } = useGetCategoriesQuery();
+  const [addCategory] = useAddCategoryMutation()
+  const [updateCategory] = useUpdateCategoryMutation()
+  const [deleteCategory] = useDeleteCategoryMutation()
 
   useEffect(() => {
-    setData(customersss)
+    setData(shopssss)
     if (responseError) {
       setError(responseError.error);
     }
-  }, [responseError, error]);
+  }, [responseError]);
 
-  // Handle modal open/close
-  const handleOpenCustomerModal = () => {
-    setCustomerModalOpen(true);
+  const handleOpenShopModal = () => {
+    setShopModalOpen(true);
   };
 
-  const handleCloseCustomerModal = () => {
-    setCustomerModalOpen(false);
+  const handleCloseShopModal = () => {
+    setShopModalOpen(false);
   };
 
-  const handleCustomerModalSubmit = (formData) => {
-      addCustomer(formData)
+  const handleShopModalSubmit = (formData) => {
+    addCategory(formData)
   };
-
-  const handleAddCustomer = async (e) => {
+  const handleAddShop = async(e)=>{
     e.preventDefault();
-    // Logic to add a shop
-  };
 
-  const handleEdit = (customer) => {
-    setEditRowId(customer.id);
-    setCurrentEditValues(customer);
+
+   
+  }
+
+  const handleEdit = (shop) => {
+    setEditRowId(shop.id);
+    setCurrentEditValues(shop);
   };
 
   const handleInputChange = (e) => {
@@ -56,18 +55,19 @@ function Customer() {
   };
 
   const handleUpdate = () => {
-    const updatedCustomer = data.map((customer) =>
-      customer.id === editRowId ? currentEditValues : customer
+    const updatedShop = data.map((shop) =>
+      shop.id === editRowId ? currentEditValues : shop
     );
-    setData(updatedCustomer)
-    setCurrentEditValues(updatedCustomer)
+    
     setEditRowId(null);
-    // updateCustomer(updatedCustomer.id, updatedCustomer)
+    setData(updatedShop)
+    updateCategory(updatedShop.id, updatedShop)
   };
 
-  const handleDelete = (id) => {
-    // deleteCustomer(id)
-  };
+  const handleDelete= (id)=>{
+    deleteCategory(id)
+  }
+
   const handleCancel = () => {
     setEditRowId(null);
   };
@@ -80,8 +80,8 @@ function Customer() {
         <td>Loading....</td>
       </tr>
     );
-  } 
-  // else if (!isLoading && isError) {
+  }
+  //  else if (!isLoading && isError) {
   //   content = (
   //     <tr>
   //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold">
@@ -97,16 +97,25 @@ function Customer() {
   //   );
   // } 
   else if (!isLoading) {
-    content = data?.map((customer, index) => (
-      <tr key={customer.id} className="text-center">
+    content = data.map((shop, index) => (
+      <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
-        {editRowId === customer.id ? (
+        {editRowId === shop.id ? (
           <>
             <td className="border px-4 py-2">
               <input
                 type="text"
                 name="name"
                 value={currentEditValues.name}
+                onChange={handleInputChange}
+                className="w-[100px]border rounded px-2 py-1"
+              /> 
+            </td>
+            <td className="border px-4 py-2">
+              <input
+                type="text"
+                name="address"
+                value={currentEditValues.address}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
@@ -120,21 +129,11 @@ function Customer() {
                 className="w-[100px] border rounded px-2 py-1"
               />
             </td>
-            
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="purchase"
-                value={currentEditValues.total_purchase}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="shop"
-                value={currentEditValues.shop}
+                name="ownerName"
+                value={currentEditValues.ownerName}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
@@ -158,20 +157,20 @@ function Customer() {
           </>
         ) : (
           <>
-            <td className="border px-4 py-2">{customer.name}</td>
-            <td className="border px-4 py-2">{customer.phone}</td>
-            <td className="border px-4 py-2">{customer.total_purchase}</td>
-            <td className="border px-4 py-2">{customer.shop}</td>
+            <td className="border px-4 py-2">{shop.name}</td>
+            <td className="border px-4 py-2">{shop.address}</td>
+            <td className="border px-4 py-2">{shop.phone}</td>
+            <td className="border px-4 py-2">{shop.ownerName}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
-                  onClick={() => handleEdit(customer)}
+                  onClick={() => handleEdit(shop)}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(customer.id)}
+                onClick={() => handleDelete(shop.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Delete
@@ -186,21 +185,21 @@ function Customer() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Customer</h2>
+      <h2 className="text-2xl font-bold mb-4">Shops</h2>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center ">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">
             <input
               type="text"
-              id="customerName"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              placeholder="customer Name"
+              id="shopName"
+              value={shopName}
+              onChange={(e) => setShopName(e.target.value)}
+              placeholder="Shop Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddCustomer}
+              onClick={handleAddShop}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search
@@ -208,36 +207,37 @@ function Customer() {
           </div>
         </div>
         <button
-          onClick={handleOpenCustomerModal}
+          onClick={handleOpenShopModal}
           className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
         >
-          Add Customer
+          Add Shop
         </button>
       </div>
-
-      <table className="w-full border-collapse mb-4">
+ 
+      {/* Table */}
+      <table className="w-full border-collapse mb-4 text-sm">
         <thead>
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">customer Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Shop Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Address</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Contact No</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Total Purchase</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Shop</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Owner Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>
         </thead>
         <tbody>{content}</tbody>
       </table>
 
-      {isCustomerModalOpen && (
-        <CustomerModal
-          isOpen={isCustomerModalOpen}
-          onClose={handleCloseCustomerModal}
-          onSubmit={handleCustomerModalSubmit}
+      {isShopModalOpen && (
+        <ShopModal
+          isOpen={isShopModalOpen}
+          onClose={handleCloseShopModal}
+          onSubmit={handleShopModalSubmit}
         />
       )}
     </div>
   );
 }
 
-export default Customer;
+export default Shop;
