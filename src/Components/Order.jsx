@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { productss } from './data';
-import OrderModal from './OrderModal';
+import OrderModal from './modals/OrderModal';
 import './css/modal.css';
 
 const Order = () => {

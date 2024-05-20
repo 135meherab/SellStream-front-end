@@ -1,44 +1,47 @@
-import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../features/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { userLoggedIn } from '../features/auth/authSlice';
 
 
 
 
 const Login = () => {
-
-  const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // const history = useHistory();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+const [login, {data, isLoading, error: responseError}] = useLoginMutation()
+  
 
+const handleLogin = async(e) => {
+  e.preventDefault();
+  setError('');
 
+ try  {
+  login({ username, password });
+ }catch(error){
+  setError(error) || 'Logging Problem';
+ }
 
-  const handleLogin = async (e) => {
+ 
+};
 
-    e.preventDefault();
-    try {
-      const response = await fetch('https://sellstream.onrender.com/ad/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      // const data = await response.json();
-
-      if (response.ok) {
-        // const token = data.token;
-        // localStorage.setItem('token', token);
-        // history.push('/');
-      } else {
-        console.log('something went wrong!')
-        // setError(data.message); 
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setError('An error occurred. Please try again.');
-    }
-  };
+useEffect(() => {
+  if (responseError?.data) {
+    setError(responseError.error); 
+    
+  }
+  if (data?.token){
+    // console.log(data.token)
+    dispatch(userLoggedIn({token: data.token}))
+    navigate('/dashboard/main')
+  }
+}, [data, navigate, responseError, dispatch]);
+    
+  
 
 
   return (
@@ -47,12 +50,12 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-center mb-6 text-primary">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">Email</label>
+            <label htmlFor="username" className="block text-gray-700">User Name</label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
               required
             />
@@ -68,9 +71,15 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
+          <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
         
-          {/* {error? <p>{error}</p>} */}
+          {
+            error !== '' && <p className='text-red-500 text-center'>{error}</p> 
+          }
+          {
+            isLoading && <p className='text-green-500 bg-green-200 text-center'>Loading...</p>
+          }
+
         </form>
       </div>
     </div>
