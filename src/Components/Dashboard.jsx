@@ -82,14 +82,15 @@ const DashboardPage = () => {
               <Link to='/dashboard/customer'>Customer</Link>
             </li>
             <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+              <FaUserFriends className="mr-2" />
+              <Link to='/dashboard/user'>Users</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
               <FaUsers className="mr-2" />
               <Link to='/dashboard/employee'>Employee</Link>
             </li>
             
-            <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-              <FaUserFriends className="mr-2" />
-              <Link to='/dashboard/user'>Users</Link>
-            </li>
+            
             <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
               <FaFileAlt className="mr-2" />
               <Link to='/dashboard/report'>Reports</Link>
@@ -101,16 +102,17 @@ const DashboardPage = () => {
         <div className="flex flex-col flex-1">
           {/* Header */}
          
-          <div className="bg-primary p-4 flex justify-between items-center">
+          <div className="bg-primary p-4 flex justify-between items-center flex-wrap">
             <button className="md:hidden text-white" onClick={toggleDrawer}>
               ☰
             </button>
-            <h1 className="text-lg font-semibold hidden md:block">Welcome Mr. / Ms. User</h1>
-            <h1 className="text-lg font-semibold">Admin Dashboard</h1>
-            <div className="relative" onClick={toggleDropdown}>
+          
+            <h1 className="text-lg font-semibold "> Dashboard</h1>
+            <div className="relative flex justify-center items-center" onClick={toggleDropdown}>
+            <h1 className="text-lg font-semibold hidden md:block ">Welcome Mr. / Ms. User</h1>
               <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
               {isDropdownOpen && (
-                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg py-1 z-50">
+                 <div className="absolute right-0 mt-[125px] w-48 bg-white border rounded shadow-lg py-1 z-50">
                  <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                    <FaUser className="mr-2" /> User Profile
                  </Link>
