@@ -15,6 +15,7 @@ import Branches from './Branches';
 import Customer from './Customer';
 import Users from './Users';
 import userAvatar from '../assets/avater.png'
+import Profile from './Profile';
 const DashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -114,7 +115,8 @@ const DashboardPage = () => {
               {isDropdownOpen && (
                  <div className="absolute right-0 mt-[125px] w-48 bg-white border rounded shadow-lg py-1 z-50">
                  <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
-                   <FaUser className="mr-2" /> User Profile
+                   <FaUser className="mr-2" /> 
+                   <Link to='/dashboard/profile'>User Profile</Link>
                  </Link>
                  <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                    <FaSignOutAlt className="mr-2" /> Logout
@@ -140,6 +142,8 @@ const DashboardPage = () => {
               <Route path="customer" element={<Customer />} />
               <Route path="user" element={<Users />} />
               <Route path="report" element={<Reports />} />
+              <Route path="profile" element={<Profile />} />
+
             </Routes>
           </div>
         </div>
