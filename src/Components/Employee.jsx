@@ -159,11 +159,11 @@ const Employee =() => {
         ) : (
           <>
             <td className="border px-4 py-2">{employee.fullname}</td>
-            <td className="border px-4 py-2">{employee.address}</td>
-            <td className="border px-4 py-2">{employee.age}</td>
+            {/* <td className="border px-4 py-2">{employee.address}</td> */}
+            {/* <td className="border px-4 py-2">{employee.age}</td> */}
             <td className="border px-4 py-2">{employee.email}</td>
             <td className="border px-4 py-2">{employee.phone}</td>
-            <td className="border px-4 py-2">{employee.bank_account}</td>
+            {/* <td className="border px-4 py-2">{employee.bank_account}</td> */}
             <td className="border px-4 py-2">{employee.gender}</td>
             <td className="border px-4 py-2">{employee.designation}</td>
             <td className="border px-4 py-2">{employee.branch}</td>
@@ -225,11 +225,11 @@ const Employee =() => {
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Address</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Age</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Address</th> */}
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Age</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Email</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Phone</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Bank Account</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Bank Account</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Gender</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Designation</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Branch</th>
