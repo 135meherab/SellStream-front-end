@@ -1,9 +1,40 @@
 import { useEffect, useState } from 'react';
-import OrderModal from './OrderModal';
+import OrderModal from './modals/OrderModal';
 import './css/modal.css';
 
 const Purchase = () => {
-
+  const productsData  = [
+    {
+        id: 1,
+        product_code: 4001,
+        name: "Dell Laptop",
+        description:'Electronics Items',
+        price: 40000.00,
+        quantity: 12,
+        category: "Electronics",
+        uom_name: 'piece'
+    },
+    {
+      id: 2,
+      product_code: 4002,
+      name: "Dell Mouse",
+      description:'Electronics Items',
+      price: 120.00,
+      quantity: 120,
+      category: "Electronics",
+      uom_name: 'piece'
+  },
+  {
+    id: 3,
+    product_code: 4003,
+    name: "Dell Keyboard",
+    description:'Electronics Items',
+    price: 500.00,
+    quantity: 100,
+    category: "Electronics",
+    uom_name: 'piece'
+},
+   ]
 
   // State variables
   const [productCode, setProductCode] = useState('')
@@ -36,14 +67,17 @@ const fetchData = async () => {
 
   // Function to handle search
   const handleSearch = () => {
-    const result = products.filter(product => product.product_code == productCode)
+    const result = productsData.filter(product => product.product_code == productCode)
     setSearchResult(result)
+    setProductCode('');
   };
 
 
   const handleAddProduct = (product) => {
     const productWithQuantity = { ...product, quantity: 0 };
     setOrderItem(prevItems => [...prevItems, productWithQuantity]);
+    setSearchResult([]);
+    setProductCode('');
 };
 
 const handleQuantityChange = (value, index) => {
@@ -90,8 +124,7 @@ useEffect(() => {
                       mobileNo: formData.mobileNo,
                       orderItems: orderItem,
                       total: total,
-                      discount: discount,
-                      pay: pay
+                     
                   })
               });
       
@@ -175,7 +208,7 @@ useEffect(() => {
              
               <td className="border px-4 py-2">{product.price * product.quantity}</td>
               <td className="border px-4 py-2">
-                <button onClick={() => handleAddProduct(product.id)} className='bg-red-400 py-2 p text-white px-2 mr-2 rounded-md border'>Delete</button>
+                <button className='bg-red-400 py-2 p text-white px-2 mr-2 rounded-md border'>Delete</button>
               </td>
             </tr>
           ))}

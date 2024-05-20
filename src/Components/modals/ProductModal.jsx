@@ -17,8 +17,11 @@ const ProductModal = ({ isOpen, onClose, onSubmit, categories, units }) => {
 const handleSubmit = async(e) => {
 
     e.preventDefault();
+    
+    // convert number into text
     const numberQnt = Number(quantity)
     const numberPrice = Number(price)
+
     const newProduct = {
       name: name,
       description: description,
@@ -119,7 +122,7 @@ const handleSubmit = async(e) => {
                 </select>
             </div>
             <div className="mb-4">
-                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">Unit of Measurement</label>
+                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                     id="uom" 
                     value={unit} 

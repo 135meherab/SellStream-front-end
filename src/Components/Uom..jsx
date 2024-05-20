@@ -6,7 +6,20 @@ function Uom() {
   const [unit, setUnit] = useState('');
   const [error, setError] = useState('');
 
- 
+ const unitsData  = [
+  {
+      id: 1,
+      name: "kg"
+  },
+  {
+      id: 2,
+      name: "Liter"
+  },
+  {
+      id: 3,
+      name: "Piece"
+  },
+ ]
   useEffect(()=>{
     const getUnits = async()=>{
     const response = await fetch('https://sellstream.onrender.com/measurement/');
@@ -67,18 +80,25 @@ function Uom() {
       <table className="w-full border-collapse mb-4">
         <thead>
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2 ">SL No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2"> UOM Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2"> Action</th>
           
           </tr>
         </thead>
         <tbody>
           
           {
-              units.map((category, index) => (
+              unitsData.map((unit, index) => (
                 <tr key={index} className='text-center'>
                   <td className="border px-4 py-2">{index+1}</td>
-                  <td className="border px-4 py-2">{category.name}</td>
+                  <td className="border px-4 py-2">{unit.name}</td>
+                  <td className="border px-4 py-2">
+                    <div className="flex justify-center items-center mx-2">
+                      <button className='bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80'>Edit</button>
+                      <button className='bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80'>Delete</button>
+                    </div>
+                  </td>
                  
                 </tr>
               ))

@@ -1,35 +1,35 @@
 import { useState } from 'react';
-import {employees} from './data'
+import {customersss} from './data'
 import ProductModal from './modals/ProductModal';
 
 
 
 
-const Employee = () => {
-  const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
+const Users = () => {
+  const [isCustomerModalOpen, setCustomerModalOpen] = useState(false);
 
 
      // Function to handle opening the modal
-     const handleOpenProductModal = () => {
-      setEmployeeModalOpen(true);
+     const handleOpenCustomerModal = () => {
+      setCustomerModalOpen(true);
     };
       // Function to handle closing the modal
-      const handleCloseProductModal = () => {
-          setEmployeeModalOpen(false);
+      const handleCloseCustomerModal = () => {
+          setCustomerModalOpen(false);
         };
       
         // Function to handle form submission from the modal
-        const handleProductModalSubmit = (formData) => {
+        const handleCustomerModalSubmit = (formData) => {
           // Implement logic to handle form data submission
         };
 
 
-    const em = employees
+    const em = customersss
 
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 ">Employee</h2>
+      <h2 className="text-2xl font-bold mb-4 ">Users</h2>
 
       <div className="flex items-center justify-between mb-5">
           <div className="flex items-center"> 
@@ -50,9 +50,9 @@ const Employee = () => {
               placeholder="Search with code, name, brand"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
-            <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> {/* Search button */}
+            <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button> 
           </div>
-          <button onClick={handleOpenProductModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Employee</button> {/* Add Product button */}
+          <button onClick={handleOpenCustomerModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80">Add Users</button> 
         </div>
 
 
@@ -61,7 +61,9 @@ const Employee = () => {
         <thead>
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">User Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">First Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Last Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Email</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Mobile No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Actions</th>
@@ -71,12 +73,12 @@ const Employee = () => {
         <tbody>
           
           {
-              em.map((employee, index) => (
-                <tr key={employee.id} className='text-center'>
+              em.map((Customer, index) => (
+                <tr key={index} className='text-center'>
                   <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2">{employee.name}</td>
-                  <td className="border px-4 py-2">{employee.email}</td>
-                  <td className="border px-4 py-2">{employee.mobile}</td>
+                  <td className="border px-4 py-2">{Customer.name}</td>
+                  <td className="border px-4 py-2">{Customer.email}</td>
+                  <td className="border px-4 py-2">{Customer.mobile}</td>
                   <td className="border px-4 py-2"><div> <button className='bg-blue-500 text-white py-2 px-4 rounded-md ml-2'>Edit</button> <button className='bg-red-500 text-white py-2 px-4 rounded-md ml-2'>Delete</button></div></td>
                 
                 </tr>
@@ -90,10 +92,10 @@ const Employee = () => {
       
       {
 
-      isEmployeeModalOpen && <ProductModal isOpen={isEmployeeModalOpen} onClose={handleCloseProductModal} onSubmit={handleProductModalSubmit} />
+      isCustomerModalOpen && <ProductModal isOpen={isCustomerModalOpen} onClose={handleCloseCustomerModal} onSubmit={handleCustomerModalSubmit} />
       }
     </div>
   );
 };
 
-export default Employee;
+export default Users;
