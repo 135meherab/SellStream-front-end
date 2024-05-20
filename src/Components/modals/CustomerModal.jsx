@@ -40,7 +40,7 @@ const handleSubmit = async(e) => {
           
            <div className="flex justify-between items-center gap-2">
            <div className="mb-4">
-              <label htmlFor="customerName" className="block text-gray-700 text-sm font-bold mb-2">customer Name</label>
+              <label htmlFor="customerName" className="block text-gray-700 text-sm font-bold mb-2">Customer Name</label>
               <input type="text" id="customerName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
            <div className="mb-4">
@@ -49,14 +49,14 @@ const handleSubmit = async(e) => {
             </div>
           
           </div>
-          <div className="mb-4">
-              <label htmlFor="purchase" className="block text-gray-700 text-sm font-bold mb-2">Total Purchase</label>
-              <input type="text" id="purchase" value={totalPurchase} onChange={(e) => setTotalPurchase(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
+          
            
            <div className="flex justify-between items-center">
            
-                    
+           <div className="mb-4">
+              <label htmlFor="purchase" className="block text-gray-700 text-sm font-bold mb-2">Total Purchase</label>
+              <input type="text" id="purchase" value={totalPurchase} onChange={(e) => setTotalPurchase(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>  
              <div className="mb-4">
                 <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
                 <select 

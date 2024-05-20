@@ -156,3 +156,48 @@ export const customersss = [
     shop: 'departmental'
   },
 ]
+export const usersss = [
+ {   id : 1,
+    username: 'fuad',
+    first_name:'Md Almas',
+    last_name: 'fuad',
+    email: 'fuad@sellstream.com'
+  },
+ {   id : 2,
+    username: 'rizwan',
+    first_name:'Md Riduanul',
+    last_name: 'haque',
+    email: 'riduan@sellstream.com'
+  },
+ {   id : 3,
+    username: 'solaiman',
+    first_name:'Md sifat bin',
+    last_name: 'solainman',
+    email: 'solaiman@sellstream.com'
+  },
+ {   id : 4,
+    username: 'mehrab',
+    first_name:'Md Mehrab',
+    last_name: 'Hossain',
+    email: 'mehrab@sellstream.com'
+  },
+ {   id : 5,
+    username: 'nizum',
+    first_name:'Md Nizum',
+    last_name: 'Islam',
+    email: 'nizum@sellstream.com'
+  },
+ {   id : 5,
+    username: 'sifat',
+    first_name:'Md Mim',
+    last_name: 'Shifat',
+    email: 'shifat@sellstream.com'
+  },
+ 
+]
+
+export const employeesss =[
+    {
+        
+    }
+]
