@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {  Routes, Route, Link } from 'react-router-dom';
 import AllProducts from './Products';
 import OrderComponent from './Order';
 import { FaHome, FaBox, FaTags, FaChartBar, FaClipboardList, FaSignOutAlt, FaUser, FaUsers, FaShoppingBag, FaUserFriends, FaFileAlt, FaStore, FaSitemap, FaTimes } from 'react-icons/fa';
@@ -16,9 +16,17 @@ import Customer from './Customer';
 import Users from './Users';
 import userAvatar from '../assets/avater.png'
 import Profile from './Profile';
+import { useLogoutMutation } from '../features/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { userLoggedOut } from '../features/auth/authSlice';
+
+
 const DashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch()
+  const [logout] = useLogoutMutation()
 
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
@@ -28,7 +36,9 @@ const DashboardPage = () => {
   };
 
   const handleLogout = () => {
-    // Add logout logic here
+    logout()
+    dispatch(userLoggedOut())
+
   };
 
   return (
@@ -119,7 +129,7 @@ const DashboardPage = () => {
                    <Link to='/dashboard/profile'>User Profile</Link>
                  </Link>
                  <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
-                   <FaSignOutAlt className="mr-2" /> Logout
+                   <FaSignOutAlt className="mr-2 text-red-600" /> <p className='text-red-600'>Logout</p>
                  </button>
                </div>          
 

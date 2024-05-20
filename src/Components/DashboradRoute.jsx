@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
 
 const DashboardRoute = () => {
-  const [dashboardData, setDashboardData] = useState(null);
+  // const [dashboardData, setDashboardData] = useState(null);
 
 
 
@@ -9,7 +8,7 @@ const DashboardRoute = () => {
     <div className="text-sm md:text-md">
         <h1 className='text-2xl font-bold mb-5'>Dashboard</h1>
       {/* {dashboardData && ( */}
-        <div className='grid grid-cols-1 md:lg:grid-cols-3 lg:grid-cols-3 gap-[40px] text-gray-300'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:lg:grid-cols-3 lg:grid-cols-3 gap-[40px] text-gray-300'>
           <div className="bg-blue-600 p-4 rounded-md">
             <p className="text-2xl font-bold mb-3">1200</p>
             {/* <p className="text-lg">{dashboardData.totalProducts}</p> */}
