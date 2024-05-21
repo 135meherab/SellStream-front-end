@@ -48,8 +48,8 @@ const DashboardPage = () => {
         <div className={`bg-gray-800 text-white fixed md:static md:w-64 h-full text-sm md:text-md ${isDrawerOpen ? 'w-64' : 'w-0'} transition-width duration-300 overflow-hidden`}>
           <div className="p-4 text-xl font-bold flex justify-between items-center">
             <div className="flex items-center text-white">
-              <img src={logo} alt="logo" width='50' className='bg-white w-12 h-12 rounded-full p-1 ' />
-              <h1 className="ml-2">SellStream</h1>
+              <img src={logo} alt="logo" width='50' className='bg-gray-400 w-12 h-12 rounded-full p-1 ' />
+              <h1 className="ml-2 text-primary">SellStream</h1>
             </div>
             <button className="md:hidden text-white" onClick={toggleDrawer}>
               <FaTimes />
@@ -118,12 +118,12 @@ const DashboardPage = () => {
               ☰
             </button>
           
-            <h1 className="text-lg font-semibold "> Dashboard</h1>
+            <h1 className="text-lg font-semibold ">POS Dashboard</h1>
             <div className="relative flex justify-center items-center" onClick={toggleDropdown}>
             <h1 className="text-lg font-semibold hidden md:block ">Welcome Mr. / Ms. User</h1>
               <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
               {isDropdownOpen && (
-                 <div className="absolute right-0 mt-[125px] w-48 bg-white border rounded shadow-lg py-1 z-50">
+                 <div className="absolute right-0 mt-[125px] mr-[15px] w-48 bg-white border rounded shadow-lg py-1 z-50">
                  <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                    <FaUser className="mr-2" /> 
                    <Link to='/dashboard/profile'>User Profile</Link>

@@ -39,7 +39,7 @@ export const authApi = apiSlice.injectEndpoints({
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const result = await queryFulfilled;
-                    console.log(result)
+                    // console.log(result.data.token)
 
                     localStorage.setItem("auth", JSON.stringify({
                         token: result.data.token,

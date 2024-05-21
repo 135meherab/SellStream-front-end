@@ -18,7 +18,7 @@ function Branches() {
   const[updateBranch] = useUpdateBranchMutation()
   const [deleteBranch] = useDeleteBranchMutation()
   useEffect(() => {
-    setData(branchesss)
+    // setData(branchesss)
     if (responseError) {
       setError(responseError.error);
     }
@@ -55,16 +55,13 @@ function Branches() {
     });
   };
 
-  const handleUpdate = () => {
-    const updatedBranch = data.map((branch) =>
-      branch.id === editRowId ? currentEditValues : branch
-    );
-
-    setData(updatedBranch)
+  const handleUpdate = async () => {
+  
     setEditRowId(null);
-    updateBranch(updatedBranch.id, updatedBranch)
-
+    console.log(currentEditValues)
+    updateBranch({id:currentEditValues.id, ...currentEditValues});
   };
+  
 
   const handleDelete = (id) => {
     deleteBranch(id)
@@ -78,31 +75,31 @@ function Branches() {
 
   if (isLoading) {
     content = (
-      <tr className="text-green-500 bg-green-200 text-center my-5">
-        <td>Loading....</td>
+      <tr >
+        <td className="text-green-500 bg-green-200 text-center my-5" colSpan="9">Loading....</td>
       </tr>
     );
   } 
-  // else if (!isLoading && isError) {
-  //   content = (
-  //     <tr>
-  //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold">
-  //         {error || 'Something went wrong'}
-  //       </td>
-  //     </tr>
-  //   );
-  // } else if (!isLoading && !isError && shops?.length === 0) {
-  //   content = (
-  //     <tr className="text-red-500 bg-red-200 text-center my-5">
-  //       <td>No data Found!</td>
-  //     </tr>
-  //   );
-  // } 
-  else if (!isLoading) {
-    content = data?.map((shop, index) => (
-      <tr key={shop.id} className="text-center text-sm">
+  else if (!isLoading && isError) {
+    content = (
+      <tr>
+        <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
+          {error || 'Something went wrong'}
+        </td>
+      </tr>
+    );
+  } else if (!isLoading && !isError && branches?.length === 0) {
+    content = (
+      <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
+        <td>No data Found!</td>
+      </tr>
+    );
+  } 
+  else if (!isLoading && !isError && branches?.length >0 ) {
+    content = branches?.map((branch, index) => (
+      <tr key={branch.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
-        {editRowId === shop.id ? (
+        {editRowId === branch.id ? (
           <>
             <td className="border px-4 py-2">
               <input
@@ -116,7 +113,7 @@ function Branches() {
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="address"
+                name="location"
                 value={currentEditValues.location}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
@@ -125,7 +122,7 @@ function Branches() {
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="phone"
+                name="shop"
                 value={currentEditValues.shop}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
@@ -150,19 +147,19 @@ function Branches() {
           </>
         ) : (
           <>
-            <td className="border px-4 py-2">{shop.name}</td>
-            <td className="border px-4 py-2">{shop.location}</td>
-            <td className="border px-4 py-2">{shop.shop}</td>
+            <td className="border px-4 py-2">{branch.name}</td>
+            <td className="border px-4 py-2">{branch.location}</td>
+            <td className="border px-4 py-2">{branch.shop}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
-                  onClick={() => handleEdit(shop)}
+                  onClick={() => handleEdit(branch)}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(shop.id)}
+                  onClick={() => handleDelete(branch.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Delete

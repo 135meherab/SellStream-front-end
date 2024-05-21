@@ -13,7 +13,7 @@ function Customer() {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
-  const { data: customer, isLoading, isError, error: responseError } = useGetCustomersQuery();
+  const { data: customers, isLoading, isError, error: responseError } = useGetCustomersQuery();
   const[addCustomer] = useAddCustomerMutation()
  
 
@@ -76,28 +76,28 @@ function Customer() {
 
   if (isLoading) {
     content = (
-      <tr className="text-green-500 bg-green-200 text-center my-5">
-        <td>Loading....</td>
+      <tr >
+        <td className="text-green-500 bg-green-200 text-center my-5 " colSpan="9">Loading....</td>
       </tr>
     );
   } 
-  // else if (!isLoading && isError) {
-  //   content = (
-  //     <tr>
-  //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold">
-  //         {error || 'Something went wrong'}
-  //       </td>
-  //     </tr>
-  //   );
-  // } else if (!isLoading && !isError && shops?.length === 0) {
-  //   content = (
-  //     <tr className="text-red-500 bg-red-200 text-center my-5">
-  //       <td>No data Found!</td>
-  //     </tr>
-  //   );
-  // } 
-  else if (!isLoading) {
-    content = data?.map((customer, index) => (
+  else if (!isLoading && isError) {
+    content = (
+      <tr>
+        <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
+          {error || 'Something went wrong'}
+        </td>
+      </tr>
+    );
+  } else if (!isLoading && !isError && customers?.length === 0) {
+    content = (
+      <tr >
+        <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
+      </tr>
+    );
+  } 
+  else if (!isLoading && customers?.length > 0) {
+    content = customers?.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === customer.id ? (

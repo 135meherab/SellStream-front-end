@@ -20,6 +20,9 @@ const AllProducts = () => {
   const [updateProduct, { data: updateData, isLoading: updateIsLoading, isError: updateIsError, error: productUpdateError }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
+  
+ 
+
   useEffect(() => {
     setData(productss);
   }, []);
@@ -41,7 +44,7 @@ const AllProducts = () => {
   
 
   const handleDeleteProduct = (id) => {
-    dispatch(deleteProduct(id));
+    dispatch(deleteProduct(id)).unwrap();
   };
 
   useEffect(() => {
@@ -65,15 +68,10 @@ const AllProducts = () => {
   };
 
   // Function to save the edited row
-  const handleUpdate = () => {
-    const updatedData = data.map((product) =>
-      product.id === editRowId ? currentEditValues : product
-    );
-    setData(updatedData);
+  const handleUpdate = async(id) => {
+   
     setEditRowId(null);
-    dispatch(updateProduct(updatedData.id, updatedData));
-    // Optionally send the updated data to the server
-    // await fetch('/api/update-endpoint', { method: 'POST', body: JSON.stringify(currentEditValues) });
+    dispatch(updateProduct({id, currentEditValues}));
   };
 
   // Function to cancel the edit mode
@@ -177,7 +175,7 @@ const AllProducts = () => {
             </td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
-                <button onClick={handleUpdate} className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Update</button>
+                <button onClick={()=>handleUpdate(currentEditValues.id)} className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Update</button>
                 <button onClick={handleCancel} className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Cancel</button>
               </div>
             </td>
@@ -263,5 +261,4 @@ const AllProducts = () => {
     </div>
   );
 };
-
 export default AllProducts;
