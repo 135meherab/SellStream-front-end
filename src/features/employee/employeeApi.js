@@ -22,9 +22,9 @@ export const employeeApi = apiSlice.injectEndpoints({
       }),
     }),
     updateEmployee:builder.mutation({
-      query: (id, data) => ({
+      query: ({id, data}) => ({
         url:`employee/employee/${id}`,
-        method: "POST",
+        method: "PATCH",
         body: data,
         invalidatesTags: ["employee"]  
       }),
@@ -32,7 +32,7 @@ export const employeeApi = apiSlice.injectEndpoints({
     deleteEmployee:builder.mutation({
       query: (id) => ({
         url:`employee/employee/${id}`,
-        method: "POST",
+        method: "DELETE",
         invalidatesTags: ["employee"]  
       }),
     }),
@@ -54,9 +54,9 @@ export const employeeApi = apiSlice.injectEndpoints({
         }),
       }),
       updateDesignation:builder.mutation({
-        query: (id, data) => ({
+        query: ({id, data}) => ({
           url:`employee/designation/${id}`,
-          method: "POST",
+          method: "PATCH",
           body: data,
           invalidatesTags: ["designation"]  
         }),
@@ -64,7 +64,7 @@ export const employeeApi = apiSlice.injectEndpoints({
       deleteDesignation:builder.mutation({
         query: (id) => ({
           url:`employee/designation/${id}`,
-          method: "POST",
+          method: "DELETE",
           invalidatesTags: ["designation"]  
         }),
       }),
@@ -150,4 +150,4 @@ export const {
   useGetOccasionQuery,
   useAddOccasionMutation,
   
-} = apiSlice;
+} = employeeApi;

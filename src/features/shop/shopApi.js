@@ -1,27 +1,28 @@
 
 import { apiSlice } from '../api/apiSlice';
 
-export const employeeApi = apiSlice.injectEndpoints({
+export const shopApi = apiSlice.injectEndpoints({
   tagTypes: ["shops", 'branch',],
   endpoints: (builder) => ({
 
     // shop endpoints
     getShops: builder.query({
-      query: () => '/shop/list',
+      query: () => '/shop/get/',
+      keepUnusedDataFor: 5,
       provideTags:["shops"]
     }),
     addShop: builder.mutation({
       query: (data) => ({
-        url: "/shop/createshop",
+        url: "/shop/createshop/",
         method: "POST",
         body: data,
       }),
       invalidatesTags:["shops"]
     }),
     updateShop: builder.mutation({
-      query: (id, data) => ({
+      query: ({id, ...data}) => ({
         url: `/shop/update/${id}`,
-        method: "POST",
+        method: "PATCH",
         body: data,
       }),
       invalidatesTags:["shops"]
@@ -44,9 +45,9 @@ export const employeeApi = apiSlice.injectEndpoints({
       invalidatesTags:["branch"]
     }),
     updateBranch: builder.mutation({
-      query: (id, data) => ({
+      query: ({id, data}) => ({
         url: `/shop/branch/${id}`,
-        method: "POST",
+        method: "PATCH",
         body: data,
       }),
       invalidatesTags:["branch"]
@@ -54,7 +55,7 @@ export const employeeApi = apiSlice.injectEndpoints({
     DeleteBranch: builder.mutation({
       query: (id) => ({
         url: `/shop/branch/${id}`,
-        method: "POST",
+        method: "DELETE",
       }),
       invalidatesTags:["branch"]
     }),
@@ -76,4 +77,4 @@ export const {
   useUpdateBranchMutation,
   useDeleteBranchMutation,
 
-} = apiSlice;
+} = shopApi;
