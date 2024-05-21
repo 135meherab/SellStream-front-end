@@ -64,11 +64,11 @@ const handleSubmit = async(e) => {
           </div>
            <div className="flex justify-between items-center gap-2">
            <div className="mb-4">
-              <label htmlFor="buyingPrice" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+              <label htmlFor="buyingPrice" className="block text-gray-700 text-sm font-bold mb-2">Buying Price</label>
               <input type="text" id="buyingPrice" value={buyingPrice} onChange={(e) => setBuyingPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
            <div className="mb-4">
-              <label htmlFor="sellingPrice" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+              <label htmlFor="sellingPrice" className="block text-gray-700 text-sm font-bold mb-2">Selling Price</label>
               <input type="text" id="sellingPrice" value={sellingPrice} onChange={(e) => setSellingPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
           

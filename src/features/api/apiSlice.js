@@ -15,7 +15,7 @@ export const apiSlice = createApi({
       }
       // console.log(token)
       if(token){
-        headers.set('Authorization', `Bearer ${token}`),
+        headers.set('Authorization', `Token ${token}`),
         headers.set('Content-Type', 'application/json')
       }
       // headers.set('Access-Control-Allow-Origin', '*');
@@ -28,7 +28,7 @@ export const apiSlice = createApi({
     // },
    
   }),
-  
+  keepUnusedDataFor: 30,
   endpoints: () => ({}),
   
 });

@@ -8,6 +8,7 @@ export const shopApi = apiSlice.injectEndpoints({
     // shop endpoints
     getShops: builder.query({
       query: () => '/shop/get/',
+      keepUnusedDataFor: 5,
       provideTags:["shops"]
     }),
     addShop: builder.mutation({
@@ -46,7 +47,7 @@ export const shopApi = apiSlice.injectEndpoints({
     updateBranch: builder.mutation({
       query: ({id, data}) => ({
         url: `/shop/branch/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: data,
       }),
       invalidatesTags:["branch"]

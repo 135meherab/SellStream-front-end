@@ -98,7 +98,7 @@ const Employee =() => {
   // } 
   else if (!isLoading) {
     content = data?.map((employee, index) => (
-      <tr key={employee.id} className="text-center">
+      <tr key={index} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === employee.id ? (
           <>
