@@ -1,18 +1,23 @@
 import  {  useState } from 'react';
+import { useGetCategoriesQuery } from '../../features/products/productsApi';
+import { useGetBranchesQuery } from '../../features/shop/shopApi';
 
 
 
-const ProductModal = ({ isOpen, onClose, onSubmit, categories, units }) => {
+const ProductModal = ({ isOpen, onClose, onSubmit }) => {
  
  
   const [productCode, setProductCode] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [price, setPrice] = useState('');
+  const [buyingPrice, setBuyingPrice] = useState('');
+  const [sellingPrice, setSellingPrice] = useState('');
   const [category, setCategory] = useState('');
-  const [unit, setUnit] = useState('');
+  const [branch, setBranch] = useState('');
 
+  const {data: categories} = useGetCategoriesQuery()
+  const {data: branches} = useGetBranchesQuery()
 
 const handleSubmit = async(e) => {
 
@@ -20,52 +25,22 @@ const handleSubmit = async(e) => {
     
     // convert number into text
     const numberQnt = Number(quantity)
-    const numberPrice = Number(price)
+    const numberPrice1 = Number(buyingPrice)
+    const numberPrice2 = Number(sellingPrice)
 
     const newProduct = {
-      name: name,
-      description: description,
       product_code: productCode,
+      name: name,
+      product_description: description,
+      buying_price: numberPrice1,
+      selling_price: numberPrice2,
       quantity: numberQnt,
-      price: numberPrice,
-      category: category,
-      uom_name:unit
+      branch: branch,
+      category:category
     };
     
     console.log(newProduct)
     
-    try {
-      const response = await fetch('https://sellstream.onrender.com/product/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newProduct)
-    });
-  
-
-   
-
-      if (response.ok) {
-        onSubmit(newProduct);
-        
-        // Reset form 
-        setProductCode('');
-        setName('');
-        setDescription('');
-        setQuantity('');
-        setPrice('');
-        setCategory('');
-        setUnit('');
-        
-        // Close the modal
-        onClose();
-      } else {
-        console.error('Failed to add product:', response.statusText, response.status, response);
-      }
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
    
   };
 
@@ -89,8 +64,12 @@ const handleSubmit = async(e) => {
           </div>
            <div className="flex justify-between items-center gap-2">
            <div className="mb-4">
-              <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
-              <input type="text" id="price" value={price} onChange={(e) => setPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <label htmlFor="buyingPrice" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+              <input type="text" id="buyingPrice" value={buyingPrice} onChange={(e) => setBuyingPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>
+           <div className="mb-4">
+              <label htmlFor="sellingPrice" className="block text-gray-700 text-sm font-bold mb-2">Price</label>
+              <input type="text" id="sellingPrice" value={sellingPrice} onChange={(e) => setSellingPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
           
             <div className="mb-4">
@@ -124,16 +103,16 @@ const handleSubmit = async(e) => {
             <div className="mb-4">
                 <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
-                    id="uom" 
-                    value={unit} 
-                    onChange={(e) => setUnit(e.target.value)}  
+                    id="branch" 
+                    value={branch} 
+                    onChange={(e) => setBranch(e.target.value)}  
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
                   {
-                    units?.map(unit=>(
+                    branches?.map(branch=>(
 
-                      <option key={unit.id} value={unit.name}>{unit.name}</option>
+                      <option key={branch.id} value={branch.name}>{branch.name}</option>
                     ))
                   }
                    

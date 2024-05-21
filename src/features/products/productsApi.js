@@ -21,9 +21,9 @@ export const productsApi = apiSlice.injectEndpoints({
       invalidatesTags:["products"]
     }),
     updateProduct: builder.mutation({
-      query: (id, data) => ({
+      query: ({id, ...data}) => ({
         url: `/product/products/${id}`,
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags:["products"]
@@ -39,21 +39,21 @@ export const productsApi = apiSlice.injectEndpoints({
 
     // Categories endpoints
     getCategories: builder.query({
-      query: () => '/product/categories',
+      query: () => '/product/categories/',
       provideTags:["categories"]
     }),
     addCategory: builder.mutation({
       query: (data) => ({
-        url: "/product/categories",
+        url: "/product/categories/",
         method: "POST",
         body: data,
       }),
       invalidatesTags:["categories"]
     }),
     updateCategory: builder.mutation({
-      query: (id,data) => ({
+      query: ({id,...data}) => ({
         url: `/product/categories/${id}`,
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags:["categories"]
@@ -61,7 +61,7 @@ export const productsApi = apiSlice.injectEndpoints({
     deleteCategory: builder.mutation({
       query: (id) => ({
         url: `/product/categories/${id}`,
-        method: "POST",
+        method: "DELETE",
         
       }),
       invalidatesTags:["categories"]
@@ -89,7 +89,7 @@ export const productsApi = apiSlice.injectEndpoints({
     updateOrder: builder.mutation({
       query: (id,data) => ({
         url: `/product/order/${id}`,
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags:["order"]
@@ -97,7 +97,7 @@ export const productsApi = apiSlice.injectEndpoints({
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/product/order/${id}`,
-        method: "POST",
+        method: "DELETE",
         
       }),
       invalidatesTags:["order"]

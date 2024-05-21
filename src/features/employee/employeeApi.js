@@ -150,4 +150,4 @@ export const {
   useGetOccasionQuery,
   useAddOccasionMutation,
   
-} = apiSlice;
+} = employeeApi;

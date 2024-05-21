@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import OrderModal from './modals/OrderModal';
 import './css/modal.css';
+import { useGetProductsQuery } from '../features/products/productsApi';
 
 const Purchase = () => {
   const productsData  = [
@@ -43,31 +44,28 @@ const Purchase = () => {
   const [total, setTotal] = useState(0);
 
   const [searchResult, setSearchResult] = useState([]);
-  const [products, setProducts] = useState([]);
-  
+  const [error, setError] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const { data: products, isLoading, isError, error: responseError } = useGetProductsQuery();
 
- // fetch products from database 
-// fetch products from database 
+
 useEffect(() => {
-  fetchData()
-}, []);
-
-const fetchData = async () => {
-  try {
-    const response = await fetch('https://sellstream.onrender.com/product/');
-    const data = await response.json();
-    console.log(data)
-    setProducts(data);
-  } catch (error) {
-    console.error('Error fetching dashboard data:', error);
+  if (responseError) {
+    setError(responseError.error);
   }
-};
+}, [responseError]);
+
 
 
   // Function to handle search
   const handleSearch = () => {
-    const result = productsData.filter(product => product.product_code == productCode)
+    const result = products.filter(product => {
+      product.product_code == productCode
+    })
+    if(!result){
+      setError('Invalid Product Code!')
+    }
     setSearchResult(result)
     setProductCode('');
   };
@@ -171,6 +169,8 @@ useEffect(() => {
                              <button onClick={() => handleAddProduct(product)} className="bg-primary text-white py-2 px-2 mx-2 rounded-md hover:bg-opacity-08">Add to Order</button>
                         </li>
                     ))}
+
+                    {error && <p className='text-red-600 text-center'>{error}</p>}
                 </ul>
             </div>
 

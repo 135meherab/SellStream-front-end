@@ -13,13 +13,13 @@ function Categories() {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
-  const { data: category, isLoading, isError, error: responseError } = useGetCategoriesQuery();
+  const { data: categories, isLoading, isError, error: responseError } = useGetCategoriesQuery();
   const[addCategory] = useAddCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
   const [deleteCategory] = useDeleteCategoryMutation()
 
   useEffect(() => {
-    setData(categoriyyy)
+    // setData(categoriyyy)
     if (responseError) {
       setError(responseError.error);
     }
@@ -57,13 +57,9 @@ function Categories() {
   };
 
   const handleUpdate = () => {
-    const updatedCategory = data.map((category) =>
-      category.id === editRowId ? currentEditValues : category
-    );
-
-    setCurrentEditValues(updatedCategory)
+   
     setEditRowId(null);
-    updateCategory(updatedCategory.id, updatedCategory)
+    updateCategory(currentEditValues.id,currentEditValues)
   };
 
   const handleDelete = (id) => {
@@ -77,28 +73,28 @@ function Categories() {
 
   if (isLoading) {
     content = (
-      <tr className="text-green-500 bg-green-200 text-center my-5">
-        <td>Loading....</td>
+      <tr >
+        <td className="text-green-500 bg-green-200 text-center my-5" colSpan="9">Loading....</td>
       </tr>
     );
   } 
-  // else if (!isLoading && isError) {
-  //   content = (
-  //     <tr>
-  //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold">
-  //         {error || 'Something went wrong'}
-  //       </td>
-  //     </tr>
-  //   );
-  // } else if (!isLoading && !isError && shops?.length === 0) {
-  //   content = (
-  //     <tr className="text-red-500 bg-red-200 text-center my-5">
-  //       <td>No data Found!</td>
-  //     </tr>
-  //   );
-  // } 
-  else if (!isLoading) {
-    content = data?.map((category, index) => (
+  else if (!isLoading && isError) {
+    content = (
+      <tr>
+        <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
+          {error || 'Something went wrong'}
+        </td>
+      </tr>
+    );
+  } else if (!isLoading && !isError && categories?.length === 0) {
+    content = (
+      <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
+        <td>No data Found!</td>
+      </tr>
+    );
+  } 
+  else if (!isLoading && !isError && categories?.length > 0) {
+    content = categories?.map((category, index) => (
       <tr key={category.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === category.id ? (

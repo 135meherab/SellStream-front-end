@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation } from '../features/products/productsApi';
 import ShopModal from './modals/ShopModal';
-import { shopssss } from './data.js';
+import { PiShoppingCartSimpleDuotone } from 'react-icons/pi';
+import { useAddShopMutation, useGetShopsQuery, useUpdateShopMutation } from '../features/shop/shopApi';
+// import { shopssss } from './data.js';
 
 function Shop() {
   const [isShopModalOpen, setShopModalOpen] = useState(false);
@@ -11,13 +12,12 @@ function Shop() {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
-  const { data: shops, isLoading, isError, error: responseError } = useGetCategoriesQuery();
-  const [addCategory] = useAddCategoryMutation()
-  const [updateCategory] = useUpdateCategoryMutation()
-  const [deleteCategory] = useDeleteCategoryMutation()
+  const { data: shops, isLoading, isError, error: responseError } = useGetShopsQuery();
+ const [addShop] = useAddShopMutation();
+ const [updateShop] = useUpdateShopMutation();
 
   useEffect(() => {
-    setData(shopssss)
+    // setData(shops)
     if (responseError) {
       setError(responseError.error);
     }
@@ -32,7 +32,7 @@ function Shop() {
   };
 
   const handleShopModalSubmit = (formData) => {
-    addCategory(formData)
+    addShop(formData)
   };
   const handleAddShop = async(e)=>{
     e.preventDefault();
@@ -61,12 +61,12 @@ function Shop() {
     
     setEditRowId(null);
     setData(updatedShop)
-    updateCategory(updatedShop.id, updatedShop)
+    updateShop(updatedShop.id, updatedShop)
   };
 
-  const handleDelete= (id)=>{
-    deleteCategory(id)
-  }
+  // const handleDelete= (id)=>{
+  //   deleteCategory(id)
+  // }
 
   const handleCancel = () => {
     setEditRowId(null);
@@ -76,28 +76,28 @@ function Shop() {
 
   if (isLoading) {
     content = (
-      <tr className="text-green-500 bg-green-200 text-center my-5">
-        <td>Loading....</td>
+      <tr >
+        <td className="text-green-500 bg-green-200 text-center my-5" colSpan="9">Loading....</td>
       </tr>
     );
   }
-  //  else if (!isLoading && isError) {
-  //   content = (
-  //     <tr>
-  //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold">
-  //         {error || 'Something went wrong'}
-  //       </td>
-  //     </tr>
-  //   );
-  // } else if (!isLoading && !isError && shops?.length === 0) {
-  //   content = (
-  //     <tr className="text-red-500 bg-red-200 text-center my-5">
-  //       <td>No data Found!</td>
-  //     </tr>
-  //   );
-  // } 
-  else if (!isLoading) {
-    content = data.map((shop, index) => (
+   else if (!isLoading && isError) {
+    content = (
+      <tr  >
+        <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
+          {error || 'Something went wrong'}
+        </td>
+      </tr>
+    );
+  } else if (!isLoading && !isError && shops?.length === 0) {
+    content = (
+      <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
+        <td>No data Found!</td>
+      </tr>
+    );
+  } 
+  else if (!isLoading && !isError && shops?.length > 0) {
+    content = shops.map((shop, index) => (
       <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === shop.id ? (
@@ -133,7 +133,7 @@ function Shop() {
               <input
                 type="text"
                 name="ownerName"
-                value={currentEditValues.ownerName}
+                value={currentEditValues.user}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
@@ -160,7 +160,7 @@ function Shop() {
             <td className="border px-4 py-2">{shop.name}</td>
             <td className="border px-4 py-2">{shop.address}</td>
             <td className="border px-4 py-2">{shop.phone}</td>
-            <td className="border px-4 py-2">{shop.ownerName}</td>
+            <td className="border px-4 py-2">{shop.user}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button

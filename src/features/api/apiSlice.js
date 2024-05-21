@@ -1,15 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { LiaEtsy } from 'react-icons/lia';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://sellstream.onrender.com/',
+    baseUrl: 'https://sellstream.onrender.com',
      prepareHeaders: (headers, {getState}) => {
-      const token = getState()?.auth?.token;
+      let token = getState()?.auth?.token;
+      // console.log(token)
+
+      if (!token) {
+        const authData = JSON.parse(localStorage.getItem('auth'));
+        token = authData?.token;
+      }
+      // console.log(token)
       if(token){
-        headers.set('Authorization', `Bearer ${token}`)
+        headers.set('Authorization', `Bearer ${token}`),
+        headers.set('Content-Type', 'application/json')
       }
       // headers.set('Access-Control-Allow-Origin', '*');
+      // console.log('Headers set:', headers);
       return headers;
     },
     // fetchFn: (input, init) => {

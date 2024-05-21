@@ -65,13 +65,13 @@ const AllProducts = () => {
   };
 
   // Function to save the edited row
-  const handleUpdate = () => {
+  const handleUpdate = async() => {
     const updatedData = data.map((product) =>
       product.id === editRowId ? currentEditValues : product
     );
     setData(updatedData);
     setEditRowId(null);
-    dispatch(updateProduct(updatedData.id, updatedData));
+    await dispatch(updateProduct({id: currentEditValues.id, ...currentEditValues})).unwrap();
     // Optionally send the updated data to the server
     // await fetch('/api/update-endpoint', { method: 'POST', body: JSON.stringify(currentEditValues) });
   };
