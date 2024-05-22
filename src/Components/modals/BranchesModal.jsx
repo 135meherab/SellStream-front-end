@@ -22,7 +22,9 @@ const handleSubmit = async(e) => {
     };
     
     console.log(newShop)
-    
+    onSubmit(newShop)
+
+    onClose()
    
    
   };

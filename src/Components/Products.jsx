@@ -2,30 +2,24 @@ import { useEffect, useState } from 'react';
 import ProductModal from './modals/ProductModal';
 import { useAddProductMutation, useDeleteProductMutation, useGetProductsQuery, useUpdateProductMutation } from '../features/products/productsApi';
 import { useDispatch } from 'react-redux';
-import { productss, shopssss } from './data.js';
 
 const AllProducts = () => {
   // Local state
   const [isProductModalOpen, setProductModalOpen] = useState(false);
   const [productsList, setProductsList] = useState([]);
   const [error, setError] = useState('');
-  const [data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
 
   // Redux
-  const dispatch = useDispatch();
   const { data: products, isLoading, isError, error: responseError } = useGetProductsQuery();
-  const [updateProduct, { data: updateData, isLoading: updateIsLoading, isError: updateIsError, error: productUpdateError }] = useUpdateProductMutation();
+  const [updateProduct, { isError: updateIsError, error: productUpdateError }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
- 
+//  console.log(products)
 
-  useEffect(() => {
-    setData(productss);
-  }, []);
 
   // Handle modal open/close
   const handleOpenProductModal = () => {
@@ -44,14 +38,17 @@ const AllProducts = () => {
   
 
   const handleDeleteProduct = (id) => {
-    dispatch(deleteProduct(id)).unwrap();
+    deleteProduct(id);
   };
 
   useEffect(() => {
     if (responseError) {
       setError(responseError.error);
     }
-  }, [responseError]);
+    if(updateIsError){
+      setError(productUpdateError)
+    }
+  }, [responseError, productUpdateError, updateIsError]);
 
   const handleEdit = (product) => {
     setEditRowId(product.id);
@@ -71,7 +68,7 @@ const AllProducts = () => {
   const handleUpdate = async(id) => {
    
     setEditRowId(null);
-    dispatch(updateProduct({id, currentEditValues}));
+    updateProduct({id, currentEditValues});
   };
 
   // Function to cancel the edit mode

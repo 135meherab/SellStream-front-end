@@ -11,20 +11,10 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
     e.preventDefault();
 
     const newOrder = {name, mobileNumber, paymentMethod, givenAmount, paybackAmount};
+   
+    onSubmit(newOrder);
 
-    try{  
-      const response = await fetch('api', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        bode: JSON.stringify(newOrder)
-      });
-
-
-      if(response.ok){
-        onSubmit(newOrder);
-
+    console.log(newOrder)
         setName('');
         setMobileNumber('');
         setPaymentMethod('');
@@ -32,16 +22,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
         setPaybackAmount('');
         
         onClose();
-
-      }else{
-        console.log('request failed')
-      }
-    }catch(error){
-        console.log('something wrong with the post request!')
-    }
-    
-    
-  };
+};
 
   return (
     <div className={`modal ${isOpen ? 'modal-open' : ''}`}>

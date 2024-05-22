@@ -60,9 +60,9 @@ const Employee =() => {
       employee.id === editRowId ? currentEditValues : employee
     );
     setData(updatedEmployee)
-    setCurrentEditValues(updatdEmployee)
+    setCurrentEditValues(updatedEmployee)
     setEditRowId(null);
-    // updateemployee(updatedemployee.id, updatedemployee)
+    // updateemployee({id:currentEditValues.id, ...currentEditValues})
   };
 
   const handleDelete = (id) => {

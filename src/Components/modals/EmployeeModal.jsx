@@ -35,10 +35,10 @@ const handleSubmit = async(e) => {
       designation: designation,
       branch: branch
     };
-    
-    console.log(newEmployee)
     onSubmit(newEmployee)
-   
+    console.log(newEmployee)
+    
+   onClose()
    
   };
 

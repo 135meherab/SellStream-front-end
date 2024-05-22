@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import OrderModal from './modals/OrderModal';
 import './css/modal.css';
-import { useGetProductsQuery } from '../features/products/productsApi';
+import { useSelector } from 'react-redux';
 
 const Purchase = () => {
   const productsData  = [
@@ -47,18 +47,11 @@ const Purchase = () => {
   const [error, setError] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const { data: products, isLoading, isError, error: responseError } = useGetProductsQuery();
+const products = useSelector(state => state.products)
+console.log(products)
 
 
-useEffect(() => {
-  if (responseError) {
-    setError(responseError.error);
-  }
-}, [responseError]);
-
-
-
-  // Function to handle search
+ // Function to handle search
   const handleSearch = () => {
     const result = products.filter(product => {
       product.product_code == productCode
@@ -111,29 +104,7 @@ useEffect(() => {
       // Function to handle form submission from the modal
       const handleModalSubmit = async(formData) => {
        
-          try {
-              const response = await fetch('api', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                      customerName: formData.customerName,
-                      mobileNo: formData.mobileNo,
-                      orderItems: orderItem,
-                      total: total,
-                     
-                  })
-              });
-      
-              if (response.ok) {
-                  console.log('Transaction saved successfully!');
-              } else {
-                  console.error('Failed to save transaction:', response.statusText);
-              }
-          } catch (error) {
-              console.error('Error saving transaction:', error);
-          }
+         
       };
     const orderId = generateOrderId()
  

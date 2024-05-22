@@ -23,9 +23,9 @@ const handleSubmit = async(e) => {
       shop: shop,
     };
     
-    console.log(newCustomer)
     onSubmit(newCustomer)
-   
+    console.log(newCustomer)
+   onClose()
    
   };
 

@@ -26,9 +26,9 @@ const handleSubmit = async(e) => {
       confirm_password: confirmPassword
     };
     
-    console.log(newUser)
     onSubmit(newUser)
-   
+    console.log(newUser)
+   onClose()
    
   };
 
