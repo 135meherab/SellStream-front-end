@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedIn } from '../features/auth/authSlice';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -22,8 +23,10 @@ const handleLogin = async(e) => {
 
  try  {
   login({ username, password });
+  
  }catch(error){
   setError(error) || 'Logging Problem';
+  toast.error(error);
  }
 
  
@@ -38,6 +41,9 @@ useEffect(() => {
     // console.log(data.token)
     dispatch(userLoggedIn({token: data.token}))
     navigate('/dashboard/main')
+    // navigate('/home')
+  toast.success('Login successful!');
+
   }
 }, [data, navigate, responseError, dispatch]);
     

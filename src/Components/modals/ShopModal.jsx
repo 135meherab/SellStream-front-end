@@ -2,7 +2,7 @@ import  {  useState } from 'react';
 
 
 
-const ShopModal = ({ isOpen, onClose, onSubmit, categories, units }) => {
+const ShopModal = ({ isOpen, onClose, onSubmit, categories}) => {
  
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -24,10 +24,10 @@ const handleSubmit = async(e) => {
       user: user,
     };
     
-    console.log(newShop)
     onSubmit(newShop)
+    console.log(newShop)
    
-   
+   onClose()
   };
 
 

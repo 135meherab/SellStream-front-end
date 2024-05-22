@@ -61,7 +61,7 @@ function Shop() {
     
     setEditRowId(null);
     setData(updatedShop)
-    updateShop(updatedShop.id, updatedShop)
+    updateShop({id: currentEditValues.id, ...currentEditValues})
   };
 
   // const handleDelete= (id)=>{
