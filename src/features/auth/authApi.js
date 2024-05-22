@@ -1,34 +1,11 @@
+
 import { apiSlice } from "../api/apiSlice";
-import { userLoggedIn } from "./authSlice";
+// import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        // register: builder.mutation({
-        //     query: (data)=>({
-        //         url: '/shop/sign_up/',
-        //         method:"POST",
-        //         body: data,
-        //     }),
 
-        //     async onQueryStarted(arg, {queryFulfilled, dispatch}){
-        //         try{
-        //             const result = await queryFulfilled;
-
-        //             localStorage.setItem("auth", JSON.stringify({
-        //                 token: result.data.token,
-                        
-        //             }))
-
-        //             dispatch(userLoggedIn({
-        //                 token: result.data.token,
-                        
-        //             }))
-        //         }catch(err) {
-        //             // error part
-        //             }
-        //     }
-
-        // }),
+        // try login
         login: builder.mutation({
             query: (data)=>({
                 url: '/shop/login/',
@@ -39,13 +16,9 @@ export const authApi = apiSlice.injectEndpoints({
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
                     const result = await queryFulfilled;
-                    // console.log(result.data.token)
+                    console.log(result.data.token)
 
-                    localStorage.setItem("auth", JSON.stringify({
-                        token: result.data.token,
-                        
-                        
-                    }))
+                    localStorage.setItem('auth', result.data.token) 
 
                     // dispatch(userLoggedIn({
                     //     token: result.data.token,
@@ -54,31 +27,36 @@ export const authApi = apiSlice.injectEndpoints({
                 }catch(error) {
                     console.error('Error saving token to local storage', error);
                     }
-          
                 }
 
         }),
 
+        // try logout
         logout: builder.mutation({
             query:()=>({
                 url: '/shop/logout/',
-                method: "POST"
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('auth')}`,
+                },
             }),
 
             async onQueryStarted(arg, {queryFulfilled}){
                 try{
-                     await queryFulfilled;
+                    await queryFulfilled;
 
                     localStorage.removeItem("auth")
 
                 }catch(error) {
                     console.error('Error during logout:', error);
                     }
-          
                 }
         })
         
     })
 })
+
+
+
 
 export const {useLoginMutation, useRegisterMutation, useLogoutMutation} = authApi;

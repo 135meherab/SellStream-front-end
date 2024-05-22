@@ -4,18 +4,21 @@ import { LiaEtsy } from 'react-icons/lia';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
+    // For production
     baseUrl: 'https://sellstream.onrender.com',
+    // For local server
+    // baseUrl: 'http://127.0.0.1:8000',      
      prepareHeaders: (headers, {getState}) => {
-      let token = getState()?.auth?.token;
+      let token = getState()?.auth;
       // console.log(token)
 
       if (!token) {
         const authData = JSON.parse(localStorage.getItem('auth'));
-        token = authData?.token;
+        token = authData;
       }
       // console.log(token)
       if(token){
-        headers.set('Authorization', `Token ${token}`),
+        headers.set('Authorization', `Bearer ${token}`),
         headers.set('Content-Type', 'application/json')
       }
       // headers.set('Access-Control-Allow-Origin', '*');
