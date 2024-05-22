@@ -20,10 +20,10 @@ const handleSubmit = async(e) => {
       shop: shop,
     };
     
-    console.log(newCategory)
     onSubmit(newCategory)
+    console.log(newCategory)
    
-   
+   onClose()
   };
 
 

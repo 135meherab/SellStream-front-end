@@ -7,8 +7,11 @@ export const productsApi = apiSlice.injectEndpoints({
     // products endpoints
     getProducts: builder.query({
       query: () => '/product/products',
-      provideTags:["products"]
+      provideTags:["products"],
+
+
     }),
+
     getProduct: builder.query({
       query: (productId) => `/product/products/${productId}`,
     }),

@@ -59,7 +59,7 @@ function Categories() {
   const handleUpdate = () => {
    
     setEditRowId(null);
-    updateCategory(currentEditValues.id,currentEditValues)
+    updateCategory({id:currentEditValues.id, ...currentEditValues})
   };
 
   const handleDelete = (id) => {

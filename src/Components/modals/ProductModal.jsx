@@ -5,8 +5,7 @@ import { useGetBranchesQuery } from '../../features/shop/shopApi';
 
 
 const ProductModal = ({ isOpen, onClose, onSubmit }) => {
- 
- 
+
   const [productCode, setProductCode] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -25,22 +24,24 @@ const handleSubmit = async(e) => {
     
     // convert number into text
     const numberQnt = Number(quantity)
-    const numberPrice1 = Number(buyingPrice)
-    const numberPrice2 = Number(sellingPrice)
+    // const numberPrice1 = Number(buyingPrice)
+    // const numberPrice2 = Number(sellingPrice)
+    const numberCategory = Number(category)
+    const numberBranch = Number(branch)
 
     const newProduct = {
       product_code: productCode,
       name: name,
       product_description: description,
-      buying_price: numberPrice1,
-      selling_price: numberPrice2,
+      buying_price: buyingPrice,
+      selling_price: sellingPrice,
       quantity: numberQnt,
-      branch: branch,
-      category:category
+      branch: numberBranch,
+      category:numberCategory
     };
-    
     console.log(newProduct)
-    
+    onSubmit(newProduct)
+    onClose()
    
   };
 
@@ -91,10 +92,11 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                    <option value="" disabled selected>Select a Category</option>
                   {
                     categories?.map((category) =>(
 
-                      <option key={category.id} value={category.name}>{category.name}</option>
+                      <option key={category.id} value={category.id}>{category.name}</option>
                     ))
                   }
                   
@@ -109,10 +111,11 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                    <option value="" disabled selected>Select a branch</option>
                   {
                     branches?.map(branch=>(
 
-                      <option key={branch.id} value={branch.name}>{branch.name}</option>
+                      <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))
                   }
                    
