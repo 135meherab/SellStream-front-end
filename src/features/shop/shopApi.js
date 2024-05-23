@@ -5,12 +5,14 @@ export const shopApi = apiSlice.injectEndpoints({
   tagTypes: ["shops", 'branch',],
   endpoints: (builder) => ({
 
-    // shop endpoints
+    // start shop endpoints
+    // Get shops
     getShops: builder.query({
       query: () => '/shop/get/',
       keepUnusedDataFor: 5,
       provideTags:["shops"]
     }),
+    // Add shop
     addShop: builder.mutation({
       query: (data) => ({
         url: "/shop/createshop/",
@@ -19,6 +21,7 @@ export const shopApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags:["shops"]
     }),
+    // Update shop
     updateShop: builder.mutation({
       query: ({id, ...data}) => ({
         url: `/shop/update/${id}/`,
@@ -28,7 +31,8 @@ export const shopApi = apiSlice.injectEndpoints({
       invalidatesTags:["shops"]
     }),
 
-    // branch endpoints
+    // start branch endpoints
+    // Get branches
     getBranches: builder.query({
       query: () => '/shop/branch/',
       provideTags:["branch"]
@@ -36,6 +40,7 @@ export const shopApi = apiSlice.injectEndpoints({
     getBranch: builder.query({
       query: (id) => `/shop/branch/${id}/`,
     }),
+    // Add branches
     addBranch: builder.mutation({
       query: (data) => ({
         url: "/shop/branch/",
@@ -44,6 +49,7 @@ export const shopApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags:["branch"]
     }),
+    // Update branches
     updateBranch: builder.mutation({
       query: ({id, data}) => ({
         url: `/shop/branch/${id}/`,
@@ -52,6 +58,7 @@ export const shopApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags:["branch"]
     }),
+    // Delete branches
     DeleteBranch: builder.mutation({
       query: (id) => ({
         url: `/shop/branch/${id}/`,
@@ -59,8 +66,32 @@ export const shopApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags:["branch"]
     }),
+  }),
+});
 
+// Add authentication headers to each request
+export const authEnhancer = (fetchBaseQuery) => (args, api, extraOptions) => {
+    // retrieve the authentication token
+    const token = localStorage.getItem('auth');
 
+    // call the original fetchBaseQuery function
+    const result = fetchBaseQuery(args, api, extraOptions);
+
+    // Include authentication token
+    if (token) {
+        result.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return result;
+}
+
+// Inject the authentication enhancer
+shopApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getShops: builder.query({
+      ...shopApi.endpoints.getShops,
+      queryFn: authEnhancer(shopApi.endpoints.getShops.queryFn)
+    }),
   }),
 });
 

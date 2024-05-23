@@ -14,6 +14,7 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
   const [category, setCategory] = useState('');
   const [branch, setBranch] = useState('');
 
+  // Get data for categories and branches
   const {data: categories} = useGetCategoriesQuery()
   const {data: branches} = useGetBranchesQuery()
 
@@ -38,7 +39,6 @@ const handleSubmit = async(e) => {
     console.log(newProduct)
     onSubmit(newProduct)
     onClose()
-   
   };
 
 
@@ -50,7 +50,7 @@ const handleSubmit = async(e) => {
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <h3 className="text-lg font-medium font-bold leading-6 text-gray-900 mb-4">Add Product</h3>
           <div className="flex justify-between items-center gap-2">
-          
+
             <div className="mb-4">
               <label htmlFor="productName" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
               <input type="text" id="productName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />

@@ -182,7 +182,9 @@ const AllProducts = () => {
           <>
             <td className="border px-4 py-2 whitespace-nowrap">{product.product_code}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.name}</td>
+
             <td className="border px-4 py-2 whitespace-nowrap">{product.product_description}</td>
+
             <td className="border px-4 py-2 whitespace-nowrap">{product.category_name}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.quantity}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.selling_price}</td>
