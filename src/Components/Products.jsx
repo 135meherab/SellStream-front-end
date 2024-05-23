@@ -181,11 +181,11 @@ const AllProducts = () => {
           <>
             <td className="border px-4 py-2 whitespace-nowrap">{product.product_code}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.name}</td>
-            <td className="border px-4 py-2 whitespace-nowrap">{product.product_description}</td>
-            <td className="border px-4 py-2 whitespace-nowrap">{product.category}</td>
+            <td className="border px-4 py-2 whitespace-nowrap">{product.product_description.length > 50 ? `${product.product_description.slice(0, 50)}...`: product.product_description}</td>
+            <td className="border px-4 py-2 whitespace-nowrap">{product.category_name}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.quantity}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.selling_price}</td>
-            <td className="border px-4 py-2 whitespace-nowrap">{product.branch}</td>
+            <td className="border px-4 py-2 whitespace-nowrap">{product.branch_name}</td>
             <td className="border px-4 py-2 whitespace-nowrap">
               <div className="flex justify-center items-center mx-2">
                 <button onClick={() => handleEdit(product)} className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Edit</button>
