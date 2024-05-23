@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LiaEtsy } from 'react-icons/lia';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -9,8 +8,10 @@ export const apiSlice = createApi({
     // For local server
     // baseUrl: 'http://127.0.0.1:8000',      
      prepareHeaders: (headers, {getState}) => {
-      let token = getState()?.auth;
-      // console.log(token)
+
+      let token = getState()?.auth.token;
+      console.log(token)
+
 
       if (!token) {
         const authData = JSON.parse(localStorage.getItem('auth'));

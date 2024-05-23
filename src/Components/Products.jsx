@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import ProductModal from './modals/ProductModal';
 import { useAddProductMutation, useDeleteProductMutation, useGetProductsQuery, useUpdateProductMutation } from '../features/products/productsApi';
-import { useDispatch } from 'react-redux';
 
 const AllProducts = () => {
   // Local state
@@ -13,12 +12,12 @@ const AllProducts = () => {
 
 
   // Redux
-  const { data: products, isLoading, isError, error: responseError } = useGetProductsQuery();
+  const { data: products, isLoading, isError, error: responseError, refetch:productRefetch } = useGetProductsQuery();
   const [updateProduct, { isError: updateIsError, error: productUpdateError }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
-//  console.log(products)
+ console.log(products)
 
 
   // Handle modal open/close
@@ -32,6 +31,7 @@ const AllProducts = () => {
 
   const handleProductModalSubmit = (formData) => {
     addProduct(formData)
+    productRefetch()
     setProductsList([...productsList, formData]);
   };
 
@@ -39,6 +39,7 @@ const AllProducts = () => {
 
   const handleDeleteProduct = (id) => {
     deleteProduct(id);
+    productRefetch()
   };
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const AllProducts = () => {
       setError(responseError.error);
     }
     if(updateIsError){
-      setError(productUpdateError)
+      setError(productUpdateError.error)
     }
   }, [responseError, productUpdateError, updateIsError]);
 
@@ -68,7 +69,7 @@ const AllProducts = () => {
   const handleUpdate = async(id) => {
    
     setEditRowId(null);
-    updateProduct({id, currentEditValues});
+    updateProduct({id: id, ...currentEditValues});
   };
 
   // Function to cancel the edit mode
@@ -97,7 +98,7 @@ const AllProducts = () => {
   } else if (!isLoading && !isError && products?.length === 0) {
     content = (
       <tr>
-        <td className='mb-5 pb-5 text-center text-green-600 font-bold' colSpan="9">No Products Found!</td>
+        <td className='mb-5 pb-5 text-center text-red-600 bg-red-300 py-5 font-bold' colSpan="9">No Products Found!</td>
       </tr>
     );
   } 
@@ -128,7 +129,7 @@ const AllProducts = () => {
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="description"
+                name="product_description"
                 value={currentEditValues.product_description}
                 onChange={handleInputChange}
                 className=" w-[100px] border rounded px-2 py-1"
@@ -136,7 +137,7 @@ const AllProducts = () => {
             </td>
             <td className="border px-4 py-2">
               <input
-                type="text"
+                type="number"
                 name="category"
                 value={currentEditValues.category}
                 onChange={handleInputChange}
@@ -155,7 +156,7 @@ const AllProducts = () => {
             <td className="border px-4 py-2">
               <input
                 type="number"
-                name="price"
+                name="selling_price"
                 value={currentEditValues.selling_price}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
@@ -163,7 +164,7 @@ const AllProducts = () => {
             </td>
             <td className="border px-4 py-2">
               <input
-                type="text"
+                type="number"
                 name="branch"
                 value={currentEditValues.branch}
                 onChange={handleInputChange}
@@ -181,7 +182,9 @@ const AllProducts = () => {
           <>
             <td className="border px-4 py-2 whitespace-nowrap">{product.product_code}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.name}</td>
-            <td className="border px-4 py-2 whitespace-nowrap">{product.product_description.length > 50 ? `${product.product_description.slice(0, 50)}...`: product.product_description}</td>
+
+            <td className="border px-4 py-2 whitespace-nowrap">{product.product_description}</td>
+
             <td className="border px-4 py-2 whitespace-nowrap">{product.category_name}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.quantity}</td>
             <td className="border px-4 py-2 whitespace-nowrap">{product.selling_price}</td>
@@ -202,7 +205,7 @@ const AllProducts = () => {
     <div>
       <h2 className="text-2xl font-bold mb-4">Products</h2>
 
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-5 text-sm">
         <div className="flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +240,7 @@ const AllProducts = () => {
             <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Category</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Quantity</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Price Per Unit</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Selling Price</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Branch</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>

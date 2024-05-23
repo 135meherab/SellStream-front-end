@@ -7,15 +7,15 @@ export const employeeApi = apiSlice.injectEndpoints({
 
     //Employee endpoints
     getEmployees: builder.query({
-      query: () => '/employee/employee',
+      query: () => '/employee/employee/',
       provideTags:["employee"]
     }),
     getEmployee: builder.query({
-      query: (id) => `/employee/employee/${id}`,
+      query: (id) => `/employee/employee/${id}/`,
     }),
     addEmployee:builder.mutation({
       query: (data) => ({
-        url:`employee/employee`,
+        url:`employee/employee/`,
         method: "POST",
         body: data,
         invalidatesTags: ["employee"]  
@@ -23,7 +23,7 @@ export const employeeApi = apiSlice.injectEndpoints({
     }),
     updateEmployee:builder.mutation({
       query: ({id, data}) => ({
-        url:`employee/employee/${id}`,
+        url:`employee/employee/${id}/`,
         method: "PATCH",
         body: data,
         invalidatesTags: ["employee"]  
@@ -31,7 +31,7 @@ export const employeeApi = apiSlice.injectEndpoints({
       }),
     deleteEmployee:builder.mutation({
       query: (id) => ({
-        url:`employee/employee/${id}`,
+        url:`employee/employee/${id}/`,
         method: "DELETE",
         invalidatesTags: ["employee"]  
       }),
@@ -39,15 +39,15 @@ export const employeeApi = apiSlice.injectEndpoints({
       // designation endpoints
 
       getDesignations: builder.query({
-        query: () => '/employee/designation',
+        query: () => '/employee/designation/',
         provideTags:["designation"]
       }),
       getDesignation: builder.query({
-        query: (id) => `/employee/designation/${id}`,
+        query: (id) => `/employee/designation/${id}/`,
       }),
       addDesignation:builder.mutation({
         query: (data) => ({
-          url:`employee/designation`,
+          url:`employee/designation/`,
           method: "POST",
           body: data,
           invalidatesTags: ["designation"]  
@@ -55,7 +55,7 @@ export const employeeApi = apiSlice.injectEndpoints({
       }),
       updateDesignation:builder.mutation({
         query: ({id, data}) => ({
-          url:`employee/designation/${id}`,
+          url:`employee/designation/${id}/`,
           method: "PATCH",
           body: data,
           invalidatesTags: ["designation"]  
@@ -63,7 +63,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         }),
       deleteDesignation:builder.mutation({
         query: (id) => ({
-          url:`employee/designation/${id}`,
+          url:`employee/designation/${id}/`,
           method: "DELETE",
           invalidatesTags: ["designation"]  
         }),
@@ -75,7 +75,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         provideTags:["attendance"]
       }),
       getAttendance: builder.query({
-        query: (id) => `/employee/attendance/${id}`,
+        query: (id) => `/employee/attendance/${id}/`,
       }),
       addAttendance:builder.mutation({
         query: (data) => ({

@@ -6,7 +6,6 @@ import { useGetBranchesQuery } from '../../features/shop/shopApi';
 
 const ProductModal = ({ isOpen, onClose, onSubmit }) => {
 
-  const [productCode, setProductCode] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -25,8 +24,6 @@ const handleSubmit = async(e) => {
     
     // convert number into text
     const numberQnt = Number(quantity)
-    // const numberPrice1 = Number(buyingPrice)
-    // const numberPrice2 = Number(sellingPrice)
     const numberCategory = Number(category)
     const numberBranch = Number(branch)
 
@@ -48,18 +45,19 @@ const handleSubmit = async(e) => {
   return (
     <div className={`modal ${isOpen ? 'modal-open' : ''}`}>
       <div className="modal-overlay" onClick={onClose}></div>
-      <div className="modal-content">
+      <div className="modal-content text-sm">
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <h3 className="text-lg font-medium font-bold leading-6 text-gray-900 mb-4">Add Product</h3>
           <div className="flex justify-between items-center gap-2">
-          {/* <div className="mb-4">
-              <label htmlFor="productCode" className="block text-gray-700 text-sm font-bold mb-2">Code</label>
-              <input type="text" id="productCode" value={productCode} onChange={(e) => setProductCode(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div> */}
+
             <div className="mb-4">
               <label htmlFor="productName" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
               <input type="text" id="productName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
+              <input type="number" id="mobileNumber" value={quantity} onChange={(e) => setQuantity(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
           </div>
            <div className="flex justify-between items-center gap-2">
@@ -72,10 +70,7 @@ const handleSubmit = async(e) => {
               <input type="text" id="sellingPrice" value={sellingPrice} onChange={(e) => setSellingPrice(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
           
-            <div className="mb-4">
-              <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Quantity</label>
-              <input type="number" id="mobileNumber" value={quantity} onChange={(e) => setQuantity(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
+           
            </div>
            <div className="mb-4">
               <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2"> Description</label>
