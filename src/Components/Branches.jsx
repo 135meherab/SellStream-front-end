@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import BranchesModal from './modals/BranchesModal';
-import {branchesss} from './data'
 import { useAddBranchMutation, useDeleteBranchMutation, useGetBranchesQuery, useUpdateBranchMutation } from '../features/shop/shopApi';
 
 
@@ -9,7 +8,6 @@ function Branches() {
   const [isBranchesModalOpen, setBranchesModalOpen] = useState(false);
   const [branchName, setBranchName] = useState('');
   const [error, setError] = useState('');
-  const [data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
@@ -17,8 +15,8 @@ function Branches() {
   const [addBranch] = useAddBranchMutation()
   const[updateBranch] = useUpdateBranchMutation()
   const [deleteBranch] = useDeleteBranchMutation()
+
   useEffect(() => {
-    // setData(branchesss)
     if (responseError) {
       setError(responseError.error);
     }
@@ -176,7 +174,7 @@ function Branches() {
     <div>
       <h2 className="text-2xl font-bold mb-4">Branches</h2>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">
             <input

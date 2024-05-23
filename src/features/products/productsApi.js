@@ -6,18 +6,18 @@ export const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // products endpoints
     getProducts: builder.query({
-      query: () => '/product/products',
+      query: () => '/product/products/',
       provideTags:["products"],
 
 
     }),
 
     getProduct: builder.query({
-      query: (productId) => `/product/products/${productId}`,
+      query: (productId) => `/product/products/${productId}/`,
     }),
     addProduct: builder.mutation({
       query: (data) => ({
-        url: "/product/products",
+        url: "/product/products/",
         method: "POST",
         body: data,
       }),
@@ -25,7 +25,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     updateProduct: builder.mutation({
       query: ({id, ...data}) => ({
-        url: `/product/products/${id}`,
+        url: `/product/products/${id}/`,
         method: "PATCH",
         body: data,
       }),
@@ -33,7 +33,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `/product/products/${id}`,
+        url: `/product/products/${id}/`,
         method: "DELETE",
         
       }),
@@ -56,7 +56,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     updateCategory: builder.mutation({
       query: ({id,...data}) => ({
-        url: `/product/categories/${id}`,
+        url: `/product/categories/${id}/`,
         method: "PATCH",
         body: data,
       }),
@@ -64,7 +64,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     deleteCategory: builder.mutation({
       query: (id) => ({
-        url: `/product/categories/${id}`,
+        url: `/product/categories/${id}/`,
         method: "DELETE",
         
       }),
@@ -84,7 +84,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     addOrder: builder.mutation({
       query: (data) => ({
-        url: "/product/order",
+        url: "/product/order/",
         method: "POST",
         body: data,
       }),
@@ -92,7 +92,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     updateOrder: builder.mutation({
       query: (id,data) => ({
-        url: `/product/order/${id}`,
+        url: `/product/order/${id}/`,
         method: "PATCH",
         body: data,
       }),
@@ -100,7 +100,7 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     deleteOrder: builder.mutation({
       query: (id) => ({
-        url: `/product/order/${id}`,
+        url: `/product/order/${id}/`,
         method: "DELETE",
         
       }),

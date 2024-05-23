@@ -188,7 +188,7 @@ function Customer() {
     <div>
       <h2 className="text-2xl font-bold mb-4">Customer</h2>
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">
             <input
@@ -215,7 +215,7 @@ function Customer() {
         </button>
       </div>
 
-      <table className="w-full border-collapse mb-4">
+      <table className="w-full border-collapse mb-4 text-sm">
         <thead>
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
