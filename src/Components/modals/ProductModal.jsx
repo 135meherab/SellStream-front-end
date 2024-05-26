@@ -14,12 +14,7 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
   const [category, setCategory] = useState('');
   const [branch, setBranch] = useState('');
 
-<<<<<<< HEAD
 
-  // redux
-=======
-  // Get data for categories and branches
->>>>>>> 2302a6eb5074430ef09b49b6a0e48d94b04cdd46
   const {data: categories} = useGetCategoriesQuery()
   const {data: branches} = useGetBranchesQuery()
 // console.log(branches)

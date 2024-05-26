@@ -14,9 +14,7 @@ const AllProducts = () => {
 
 
   // Redux
-  const { data: products, isLoading, isError, error: responseError, refetch:productRefetch } = useGetProductsQuery(
-    // {refetchOnMountOrArgChange: true}
-  );
+  const { data: products, isLoading, isError, error: responseError} = useGetProductsQuery();
   const [updateProduct, { isError: isUpdateError, error: updateError }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
@@ -81,8 +79,7 @@ const AllProducts = () => {
    try{
     
     setEditRowId(null);
-    updateProduct({id: id, ...currentEditValues});
-    await productRefetch().unwrap()
+    await  updateProduct({id: id, ...currentEditValues}).unwrap()
     toast.success(`Successfully Updated the product`)
     setError('')
    }catch(error){
