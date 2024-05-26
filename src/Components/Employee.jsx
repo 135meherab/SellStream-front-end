@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
-import { useAddEmployeeMutation, useGetEmployeesQuery } from '../features/employee/employeeApi.js';
+import { useAddEmployeeMutation, useDeleteEmployeeMutation, useGetEmployeesQuery, useUpdateEmployeeMutation } from '../features/employee/employeeApi.js';
 import EmployeeModal from './modals/EmployeeModal.jsx';
-import {employeesss} from './data'
+import { toast } from 'react-toastify';
 
 
 
 const Employee =() => {
+  // local state
   const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
   const [employeeName, setEmployeeName] = useState('');
   const [error, setError] = useState('');
-  const[data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
-  const { data: employee, isLoading, isError, error: responseError } = useGetEmployeesQuery();
-  const[addEmployee] = useAddEmployeeMutation()
- 
 
+  // redux
+  const { data: employees, isLoading, isError, error: responseError } = useGetEmployeesQuery();
+  const[addEmployee] = useAddEmployeeMutation()
+  const [ updateEmployee] = useUpdateEmployeeMutation()
+  const [deleteEmployee] = useDeleteEmployeeMutation()
+
+// initial error
   useEffect(() => {
-    setData(employeesss)
     if (responseError) {
       setError(responseError.error);
     }
@@ -28,18 +31,30 @@ const Employee =() => {
   const handleOpenEmployeeModal = () => {
     setEmployeeModalOpen(true);
   };
-
+// Handle modal open/close
   const handleCloseEmployeeModal = () => {
     setEmployeeModalOpen(false);
   };
 
-  const handleEmployeeModalSubmit = (formData) => {
-      addEmployee(formData)
+
+  // Add Employee
+  const handleEmployeeModalSubmit = async(formData) => {
+    try{
+      await addEmployee(formData).unwrap()
+      toast.success(`${formData.fullname} Employee has been added Successfully!`)
+      setError('')
+    }catch(error){
+      setError(error)
+      toast.error(error)
+      console.log(error)
+    }
+      
   };
 
-  const handleAddEmployee = async (e) => {
+
+  // handle search employee
+  const handleSearchEmployee = async (e) => {
     e.preventDefault();
-    // Logic to add a shop
   };
 
   const handleEdit = (employee) => {
@@ -55,19 +70,33 @@ const Employee =() => {
     });
   };
 
-  const handleUpdate = () => {
-    const updatedEmployee = data.map((employee) =>
-      employee.id === editRowId ? currentEditValues : employee
-    );
-    setData(updatedEmployee)
-    setCurrentEditValues(updatedEmployee)
-    setEditRowId(null);
-    // updateemployee({id:currentEditValues.id, ...currentEditValues})
-  };
+ // update employee
+ const handleUpdate = async() => {
+    
+  try{
+  setEditRowId(null);
+  await updateEmployee({id: currentEditValues.id, ...currentEditValues}).unwrap()
+  toast.success('Employee has been updated successfully')
+  setError('')
+  }catch(error){
+    setError(error)
+    toast.error(error)
+    console.log(error)
+  }
+};
 
-  const handleDelete = (id) => {
-    // deleteemployee(id)
-  };
+// Delete employee
+const handleDelete= async (id)=>{
+  try{
+    await deleteEmployee(id).unwrap()
+    toast.success('Employee has been deleted successfully')
+    setError('')
+  }catch(error){
+    setError(error)
+    toast.error(error)
+    console.log(error)
+  }
+}
   const handleCancel = () => {
     setEditRowId(null);
   };
@@ -81,23 +110,23 @@ const Employee =() => {
       </tr>
     );
   } 
-  // else if (!isLoading && isError) {
-  //   content = (
-  //     <tr>
-  //       <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
-  //         {error || 'Something went wrong'}
-  //       </td>
-  //     </tr>
-  //   );
-  // } else if (!isLoading && !isError && shops?.length === 0) {
-  //   content = (
-  //     <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
-  //       <td>No data Found!</td>
-  //     </tr>
-  //   );
-  // } 
-  else if (!isLoading) {
-    content = data?.map((employee, index) => (
+  else if (!isLoading && isError) {
+    content = (
+      <tr>
+        <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
+          {error || 'Something went wrong'}
+        </td>
+      </tr>
+    );
+  } else if (!isLoading && !isError && employees?.results.length === 0) {
+    content = (
+      <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
+        <td>No data Found!</td>
+      </tr>
+    );
+  } 
+  else if (!isLoading && employees?.results.length >0) {
+    content = employees?.results.map((employee, index) => (
       <tr key={index} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === employee.id ? (
@@ -205,7 +234,7 @@ const Employee =() => {
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddEmployee}
+              onClick={handleSearchEmployee}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search

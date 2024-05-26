@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import BranchesModal from './modals/BranchesModal';
 import { useAddBranchMutation, useDeleteBranchMutation, useGetBranchesQuery, useUpdateBranchMutation } from '../features/shop/shopApi';
+import { toast } from 'react-toastify';
 
 
 
@@ -27,22 +28,35 @@ function Branches() {
     setBranchesModalOpen(true);
   };
 
+  // Modal close
   const handleCloseBranchesModal = () => {
     setBranchesModalOpen(false);
   };
 
-  const handleBranchesModalSubmit = (formData) => {
-    addBranch(formData)
+  // Add Branch
+  const handleBranchesModalSubmit = async(formData) => {
+    try{
+      await addBranch(formData)
+      toast.success(`The Branch ${formData.name} has been added Successfully!`)
+      setError('')
+    }catch(error){
+      setError(error.data.detail)
+      toast.error(error.data.detail)
+      console.log("Error During add Branch: ", error.status, error.data.detail)
+    }
   };
 
-  const handleAddShop = async (e) => {
+  const handleSearchBranch = async (e) => {
     e.preventDefault();
-    // Logic to add a shop
+    // Logic to add a branch
   };
 
   const handleEdit = (branch) => {
     setEditRowId(branch.id);
     setCurrentEditValues(branch);
+  };
+  const handleCancel = () => {
+    setEditRowId(null);
   };
 
   const handleInputChange = (e) => {
@@ -53,21 +67,36 @@ function Branches() {
     });
   };
 
+  // Update Branch
   const handleUpdate = async () => {
   
-    setEditRowId(null);
-    console.log(currentEditValues)
-    updateBranch({id:currentEditValues.id, ...currentEditValues});
+   try{
+      setEditRowId(null);
+      await updateBranch({id:currentEditValues.id, ...currentEditValues}).unwrap();
+      toast.success(`Branch Updated Successfully!`)
+      setError('');
+    }catch(error){
+      setError(error.data.detail)
+      toast.error(error.data.detail)
+      console.log('Error during update Branch: ', error.status, error.data.detail)
+    }
+    
   };
   
-
-  const handleDelete = (id) => {
-    deleteBranch(id)
+// Delete Branch
+  const handleDelete = async(id) => {
+    try{
+      await deleteBranch(id).unwrap();
+      toast.success(`Branch Deleted Successfully!`)
+      setError('');
+    }catch(error){
+      setError(error.data.detail);
+      toast.error(error.data.detail);
+      console.log("error during delete branch: ", error.status, error.data.detail)
+    }
   }
 
-  const handleCancel = () => {
-    setEditRowId(null);
-  };
+
 
   let content = null;
 
@@ -86,15 +115,15 @@ function Branches() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && branches?.length === 0) {
+  } else if (!isLoading && !isError && branches?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && branches?.length >0 ) {
-    content = branches?.map((branch, index) => (
+  else if (!isLoading && !isError && branches?.results.length >0 ) {
+    content = branches?.results.map((branch, index) => (
       <tr key={branch.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === branch.id ? (
@@ -183,10 +212,10 @@ function Branches() {
               value={branchName}
               onChange={(e) => setBranchName(e.target.value)}
               placeholder="Branch Name"
-              className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
+              className="w-full border roundesd-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddShop}
+              onClick={handleSearchBranch}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search

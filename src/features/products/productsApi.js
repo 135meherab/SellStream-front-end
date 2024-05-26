@@ -3,7 +3,7 @@ import { apiSlice } from '../api/apiSlice';
 
 // Api for products, categories, orders, and customers
 export const productsApi = apiSlice.injectEndpoints({
-  tagTypes: ["products, categories", "order", "customer"],
+  
   endpoints: (builder) => ({
 
 
@@ -11,7 +11,7 @@ export const productsApi = apiSlice.injectEndpoints({
     // Get products
     getProducts: builder.query({
       query: () => '/product/products/',
-      provideTags:["products"],
+      providesTags:["Products"],
 
 
     }),
@@ -27,7 +27,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
 
     // Update products
@@ -37,7 +37,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
 
     // Delete products
@@ -47,7 +47,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
 
     // start Categories endpoints
@@ -55,7 +55,7 @@ export const productsApi = apiSlice.injectEndpoints({
     getCategories: builder.query({
       query: () => '/product/categories/',
       keepUnusedDataFor: 30,
-      provideTags:["categories"]
+      providesTags:["Categories"]
     }),
     // Add categories
     addCategory: builder.mutation({
@@ -64,7 +64,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
     // Update categories
     updateCategory: builder.mutation({
@@ -73,7 +73,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
     // Delete categories
     deleteCategory: builder.mutation({
@@ -82,7 +82,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
    
    
@@ -90,7 +90,7 @@ export const productsApi = apiSlice.injectEndpoints({
     //  Get Order
     getOrder: builder.query({
       query: () => '/product/order/',
-      provideTags:["order"]
+      providesTags:["Order"]
     }),
     getOrders: builder.query({
       query: () => `/product/order_list/`,
@@ -105,7 +105,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
     // Update Order
     updateOrder: builder.mutation({
@@ -114,7 +114,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
     // Delete Order
     deleteOrder: builder.mutation({
@@ -123,13 +123,13 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
 
     //start Customer Endpoint
     getCustomers: builder.query({
       query: () => '/product/customer_list/',
-      provideTags:["customer"]
+      providesTags:["Customers"]
     }),
     addCustomer: builder.mutation({
       query: (data) => ({
@@ -137,7 +137,22 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["customer"]
+      invalidatesTags:["Customers"]
+    }),
+    updateCustomer: builder.mutation({
+      query: ({id, ...data}) => ({
+        url: `product/customer_list/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags:["Customers"]
+    }),
+    deleteCustomer: builder.mutation({
+      query: (id) => ({
+        url: `product/customer_list/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags:["Customers"]
     }),
 
   }),
@@ -168,5 +183,7 @@ export const {
 
   useGetCustomersQuery,
   useAddCustomerMutation,
+  useUpdateCustomerMutation,
+  useDeleteCustomerMutation
 
 } = productsApi;

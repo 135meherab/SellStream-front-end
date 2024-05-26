@@ -16,11 +16,11 @@ const handleSubmit = async(e) => {
 
     e.preventDefault();
     
-    const phoneNumber = Number(phone)
     const newCustomer = {
-      name: name,
-      hope: phoneNumber,
-      shop: shop,
+      name,
+      phone,
+      totalPurchase,
+      shop,
     };
     
     onSubmit(newCustomer)
@@ -66,10 +66,11 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                  <option value="" disabled selected>Select a Shop</option>
                   {
-                    shops?.map((shop) =>(
+                    shops?.results.map((shop) =>(
 
-                      <option key={shop.id} value={shop.name}>{shop.name}</option>
+                      <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))
                   }
                   

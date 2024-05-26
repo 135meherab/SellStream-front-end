@@ -45,31 +45,11 @@ const Order = () => {
   return (
     <div>
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-4 text-center">{generateOrderId()}</h2>
+      {/* <h2 className="text-2xl font-bold mb-4 text-center">{generateOrderId()}</h2> */}
 
       {/* Search Bar and Input */}
       <div className="flex items-center justify-between mb-4">
-        <div className='flex justify-center items-center'> 
-            <label htmlFor="Product Code">Product:</label>
-        <input
-          type="text"
-          placeholder="Product Code"
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-          className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
-        />
-        
-        </div>
-        <div className='flex justify-center items-center'> 
-            <label htmlFor="Product Code">Quantity:</label>
-      <input
-          type="text"
-          placeholder="Quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          className="border rounded-md py-2 px-4 mr-2 focus:outline-none"
-        />
-      </div>
+      <h2 className='font-bold text-left text-2xl'>Order History</h2>
       
       </div>
 

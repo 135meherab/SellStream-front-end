@@ -5,7 +5,7 @@ import { useGetBranchesQuery } from '../../features/shop/shopApi';
 
 
 const ProductModal = ({ isOpen, onClose, onSubmit }) => {
-
+// local state
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -14,10 +14,10 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
   const [category, setCategory] = useState('');
   const [branch, setBranch] = useState('');
 
-  // Get data for categories and branches
+
   const {data: categories} = useGetCategoriesQuery()
   const {data: branches} = useGetBranchesQuery()
-
+// console.log(branches)
 const handleSubmit = async(e) => {
 
     e.preventDefault();
@@ -36,7 +36,7 @@ const handleSubmit = async(e) => {
       branch: numberBranch,
       category:numberCategory
     };
-    console.log(newProduct)
+    // console.log(newProduct)
     onSubmit(newProduct)
     onClose()
   };
@@ -88,7 +88,7 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a Category</option>
                   {
-                    categories?.map((category) =>(
+                    categories?.results.map((category) =>(
 
                       <option key={category.id} value={category.id}>{category.name}</option>
                     ))
@@ -107,7 +107,7 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a branch</option>
                   {
-                    branches?.map(branch=>(
+                    branches?.results.map((branch) =>(
 
                       <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))
