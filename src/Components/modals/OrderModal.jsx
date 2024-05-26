@@ -42,31 +42,20 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
             </div>
           </div>
             <div className="">
-              <p>Products Details</p>
-              <table>
-                  <thead>
-                    <tr>
-                      <div className="flex justify-between">
-                      <th>Name</th>
-                      <th>Quantity</th>
-                      </div>
-                    </tr>
-                  </thead>
-                  <table>
-                      {orderItem.map((item, index) => (
-                            <tr key={index} >
-                           <div className="flex justify-between">
-                                <td>{item.name}</td>
-                                <td>{item.quantity}</td>
-                            </div>
-                            </tr>
-                      ))}
-                  </table>
-
-              </table>
+              <p className='text-center font-bold'>Products Details</p>
+              <div className="flex justify-between items-center">
+                <h1 className='font-bold'>Items</h1>
+                <h1 className='font-bold'>Quantity</h1>
+              </div>
+                {orderItem?.map((item) =>{
+                <div  className="flex justify-between items-center">
+                    <h1>item.name</h1>
+                    <h1>item.quantity</h1>
+                </div>
+                })}
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-end items-center mt-3">
             <div className="mb-4">
                 <label htmlFor="givenAmount" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
                 <p>{total}</p>

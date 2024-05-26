@@ -13,7 +13,7 @@ const EmployeeModal = ({ isOpen, onClose, onSubmit }) => {
   const [gender, setGender] = useState('');
   const [designation, setDesignation] = useState('');
   const [branch, setBranch] = useState('');
-  const [isManager, setIsManager] = useState('');
+  const [isManager, setIsManager] = useState(false);
   const [bankAccount, setBankAccount] = useState('');
 
   const {data:branches, isLoading, isError} = useGetBranchesQuery()
@@ -22,13 +22,12 @@ const handleSubmit = async(e) => {
 
     e.preventDefault();
     
-    const phoneNumber = Number(phone)
     const newEmployee = {
       fullname: name,
       address: address,
       age: age,
       email:email,
-      phone: phoneNumber,
+      phone: phone,
       bank_account: bankAccount,
       gender: gender,
       is_manager:isManager,
@@ -98,6 +97,7 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                 <option value="" disabled selected>Select a Gender</option>
                  <option  value='Male'>Male</option>
                  <option  value='Female'>Female</option>
                  <option  value='Others'>Others</option>
@@ -108,10 +108,10 @@ const handleSubmit = async(e) => {
               <input type="text" id="account" value={bankAccount} onChange={(e) => setBankAccount(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
            
-           <div className="mb-4 w-[100px]">
-              <label htmlFor="isManager" className="block text-gray-700 text-sm font-bold mb-2">Is Manager</label>
-              <input type="text" id="isManager" value={isManager} onChange={(e) => setIsManager(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
+            <div className="mb-4 w-[100px]">
+                <label htmlFor="isManager" className="block text-gray-700 text-sm font-bold mb-2">Is Manager</label>
+                <input type="checkbox" id="isManager" checked={isManager} onChange={(e) => setIsManager(e.target.checked)} className="border rounded-md py-2 px-4 w-full focus:outline-none" />
+              </div>
                     
              <div className="mb-4">
                 <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
@@ -122,8 +122,9 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                  <option value="" disabled selected>Select a Branch</option>
                   {
-                    branches?.map((branch) =>(
+                    branches?.results.map((branch) =>(
 
                       <option key={branch.id} value={branch.name}>{branch.name}</option>
                     ))

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useAddCustomerMutation, useGetCustomersQuery } from '../features/products/productsApi';
+import { useAddCustomerMutation, useDeleteCustomerMutation, useGetCustomersQuery, useUpdateCustomerMutation } from '../features/products/productsApi';
 import CustomerModal from './modals/CustomerModal.jsx';
-import {customersss} from './data'
+import { toast } from 'react-toastify';
 
 
 
 function Customer() {
+  //local State
   const [isCustomerModalOpen, setCustomerModalOpen] = useState(false);
   const [customerName, setCustomerName] = useState('');
   const [error, setError] = useState('');
@@ -13,12 +14,14 @@ function Customer() {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
+
+  //redux
   const { data: customers, isLoading, isError, error: responseError } = useGetCustomersQuery();
   const[addCustomer] = useAddCustomerMutation()
- 
-
+  const [updateCustomer] = useUpdateCustomerMutation()
+  const [deleteCustomer] = useDeleteCustomerMutation()
+  //initial error
   useEffect(() => {
-    setData(customersss)
     if (responseError) {
       setError(responseError.error);
     }
@@ -29,17 +32,27 @@ function Customer() {
     setCustomerModalOpen(true);
   };
 
+  // handle close modal
   const handleCloseCustomerModal = () => {
     setCustomerModalOpen(false);
   };
 
-  const handleCustomerModalSubmit = (formData) => {
-      addCustomer(formData)
+  // Add Customer 
+  const handleCustomerModalSubmit = async(formData) => {
+    try{
+      await addCustomer(formData).unwrap();
+      toast.success(`Customer ${formData.name} Added Successfully!`)
+      setError('');
+    }catch(error){
+      setError(error.data.detail);
+      toast.error(error.data.detail);
+      console.log("Error During Add Customer: ", error.status, error.data.detail)
+    }
   };
 
-  const handleAddCustomer = async (e) => {
+  const handleSearchCustomer = async (e) => {
     e.preventDefault();
-    // Logic to add a shop
+    
   };
 
   const handleEdit = (customer) => {
@@ -55,18 +68,31 @@ function Customer() {
     });
   };
 
-  const handleUpdate = () => {
-    const updatedCustomer = data.map((customer) =>
-      customer.id === editRowId ? currentEditValues : customer
-    );
-    setData(updatedCustomer)
-    setCurrentEditValues(updatedCustomer)
+  const handleUpdate = async() => {
+    
     setEditRowId(null);
-    // updateCustomer(updatedCustomer.id, updatedCustomer)
+    try{
+      await updateCustomer({id: currentEditValues.id, ...currentEditValues}).unwrap();
+      toast.success(`Customer Updated Successfully!`)
+      setError('');
+    }catch(error){
+      setError(error.data.detail);
+      toast.error(error.data.detail);
+      console.log("Error During update Customer: ", error.status, error.data.detail)
+    }
   };
 
-  const handleDelete = (id) => {
-    // deleteCustomer(id)
+  // Delete customer
+  const handleDelete = async(id) => {
+    try{
+      await deleteCustomer(id).unwrap();
+      toast.success(`Customer Deleted Successfully!`)
+      setError('');
+    }catch(error){
+      setError(error.data.detail);
+      toast.error(error.data.detail);
+      console.log("Error During delete Customer: ", error.status, error.data.detail)
+    }
   };
   const handleCancel = () => {
     setEditRowId(null);
@@ -89,15 +115,15 @@ function Customer() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && customers?.length === 0) {
+  } else if (!isLoading && !isError && customers?.results.length === 0) {
     content = (
       <tr >
         <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && customers?.length > 0) {
-    content = customers?.map((customer, index) => (
+  else if (!isLoading && customers?.results.length > 0) {
+    content = customers?.results.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === customer.id ? (
@@ -200,7 +226,7 @@ function Customer() {
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddCustomer}
+              onClick={handleSearchCustomer}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search

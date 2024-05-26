@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {  Routes, Route, Link } from 'react-router-dom';
 import AllProducts from './Products';
 import OrderComponent from './Order';
-import { FaHome, FaBox, FaTags, FaChartBar, FaClipboardList, FaSignOutAlt, FaUser, FaUsers, FaShoppingBag, FaUserFriends, FaFileAlt, FaStore, FaSitemap, FaTimes } from 'react-icons/fa';
+import {FaChevronRight , FaChevronLeft, FaHome, FaBox, FaTags, FaChartBar, FaClipboardList, FaSignOutAlt, FaUser, FaUsers, FaShoppingBag, FaUserFriends, FaFileAlt, FaStore, FaSitemap, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import DashboardRoute from './DashboradRoute';
 import Employee from './Employee';
@@ -24,15 +24,22 @@ import { userLoggedOut } from '../features/auth/authSlice';
 const DashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const dispatch = useDispatch()
-  const [logout] = useLogoutMutation()
+const[logout] = useLogoutMutation()
 
+
+const toggleEmployee = ()=>{
+  setIsOpen(!isOpen);
+
+}
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
   };
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+
   };
 
   const handleLogout = () => {
@@ -98,9 +105,27 @@ const DashboardPage = () => {
               <FaUserFriends className="mr-2" />
               <Link to='/dashboard/user'>Users</Link>
             </li>
-            <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-              <FaUsers className="mr-2" />
-              <Link to='/dashboard/employee'>Employee</Link>
+
+            
+            <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex flex-col items-start">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center">
+                    <FaUsers className="mr-2" />
+                    <Link to='/dashboard/employee'>Employee</Link>
+                  </div>
+                  <FaChevronRight />
+                </div>
+                <ul className="absolute left-full top-0 mt-2 ml-2 bg-gray-800 text-white rounded shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-opacity duration-300">
+                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                    <Link to='/dashboard/employee/designation'>Designation</Link>
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                    <Link to='/dashboard/employee/attendance'>Attendance</Link>
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                    <Link to='/dashboard/employee/leave'>Leave</Link>
+                  </li>
+                </ul>
             </li>
             
             

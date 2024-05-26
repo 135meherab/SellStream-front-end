@@ -1,23 +1,29 @@
 import  {  useState } from 'react';
+import { useGetShopsQuery } from '../../features/shop/shopApi';
 
 
 
-const CategoryModal = ({ isOpen, onClose, onSubmit,categories }) => {
+const CategoryModal = ({ isOpen, onClose, onSubmit }) => {
  
+  //local state
   const [name, setName] = useState('');
   const [uom, setUom] = useState('');
   const [shop, setShop] = useState('');
+
+// redux
+const {data: shops} = useGetShopsQuery()
 
 
 const handleSubmit = async(e) => {
 
     e.preventDefault();
-    
+    // number into string
+    const shopId = Number(shop)
 
     const newCategory = {
       name: name,
       uom: uom,
-      shop: shop,
+      shop: shopId,
     };
     
     onSubmit(newCategory)
@@ -41,30 +47,16 @@ const handleSubmit = async(e) => {
               <input type="text" id="shopName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
           
-          
+            <div className="mb-4">
+                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">UOM</label>
+                <input type="text" id="uom" value={uom} onChange={(e) => setUom(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+            </div>
             
            </div>
            
            <div className="flex justify-between items-center">
            
-             <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">UOM</label>
-                <select 
-                    id="shop" 
-                    value={uom} 
-                    onChange={(e) => setUom(e.target.value)} 
-                    className="border rounded-md py-2 px-4 w-full focus:outline-none"
-                    required
-                >
-                  {
-                    categories?.map((category) =>(
-
-                      <option key={category.id} value={category.name}>{category.name}</option>
-                    ))
-                  }
-                  
-                </select>
-            </div>
+            
            
              <div className="mb-4">
                 <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
@@ -75,10 +67,11 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                  <option value="" disabled selected>Select a Shop</option>
                   {
-                    categories?.map((category) =>(
+                    shops?.results.map((shop) =>(
 
-                      <option key={category.id} value={category.name}>{category.name}</option>
+                      <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))
                   }
                   

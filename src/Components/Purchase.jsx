@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import OrderModal from './modals/OrderModal';
 import './css/modal.css';
 import { useSelector } from 'react-redux';
+import { useGetProductsQuery } from '../features/products/productsApi';
 
 const Purchase = () => {
+
   const productsData  = [
     {
         id: 1,
-        product_code: 4001,
+        product_code: "4001",
         name: "Dell Laptop",
         description:'Electronics Items',
         price: 40000.00,
@@ -17,7 +19,7 @@ const Purchase = () => {
     },
     {
       id: 2,
-      product_code: 4002,
+      product_code: "4002",
       name: "Dell Mouse",
       description:'Electronics Items',
       price: 120.00,
@@ -27,7 +29,7 @@ const Purchase = () => {
   },
   {
     id: 3,
-    product_code: 4003,
+    product_code: "4003",
     name: "Dell Keyboard",
     description:'Electronics Items',
     price: 500.00,
@@ -47,21 +49,26 @@ const Purchase = () => {
   const [error, setError] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-const products = useSelector(state => state.products)
-console.log(products)
+const {data: products} = useGetProductsQuery()
 
 
  // Function to handle search
   const handleSearch = () => {
-    const result = products.filter(product => {
+    const result = products.filter((product) => {
       product.product_code == productCode
     })
+    console.log(result)
+
     if(!result){
       setError('Invalid Product Code!')
+    }else{
+      setSearchResult(result)
+      setProductCode('');
     }
-    setSearchResult(result)
-    setProductCode('');
+    
   };
+  console.log(searchResult)
+console.log(productCode)
 
 
   const handleAddProduct = (product) => {

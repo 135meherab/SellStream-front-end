@@ -2,12 +2,12 @@ import { apiSlice } from '../api/apiSlice';
 
 
 export const productsApi = apiSlice.injectEndpoints({
-  tagTypes: ["products, categories", "order", "customer"],
+  
   endpoints: (builder) => ({
     // products endpoints
     getProducts: builder.query({
       query: () => '/product/products/',
-      provideTags:["products"],
+      providesTags:["Products"],
 
 
     }),
@@ -21,7 +21,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
     updateProduct: builder.mutation({
       query: ({id, ...data}) => ({
@@ -29,7 +29,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
@@ -37,14 +37,14 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["products"]
+      invalidatesTags:["Products"]
     }),
 
     // Categories endpoints
     getCategories: builder.query({
       query: () => '/product/categories/',
       keepUnusedDataFor: 30,
-      provideTags:["categories"]
+      providesTags:["Categories"]
     }),
     addCategory: builder.mutation({
       query: (data) => ({
@@ -52,7 +52,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
     updateCategory: builder.mutation({
       query: ({id,...data}) => ({
@@ -60,7 +60,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
     deleteCategory: builder.mutation({
       query: (id) => ({
@@ -68,7 +68,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["categories"]
+      invalidatesTags:["Categories"]
     }),
    
    
@@ -76,7 +76,7 @@ export const productsApi = apiSlice.injectEndpoints({
 
     getOrder: builder.query({
       query: () => '/product/order/',
-      provideTags:["order"]
+      providesTags:["Order"]
     }),
     getOrders: builder.query({
       query: () => '/product/order_list/',
@@ -88,7 +88,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
     updateOrder: builder.mutation({
       query: (id,data) => ({
@@ -96,7 +96,7 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
     deleteOrder: builder.mutation({
       query: (id) => ({
@@ -104,13 +104,13 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "DELETE",
         
       }),
-      invalidatesTags:["order"]
+      invalidatesTags:["Order"]
     }),
 
     // Customer Endpoint
     getCustomers: builder.query({
       query: () => '/product/customer_list/',
-      provideTags:["customer"]
+      providesTags:["Customers"]
     }),
     addCustomer: builder.mutation({
       query: (data) => ({
@@ -118,7 +118,22 @@ export const productsApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["customer"]
+      invalidatesTags:["Customers"]
+    }),
+    updateCustomer: builder.mutation({
+      query: ({id, ...data}) => ({
+        url: `product/customer_list/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags:["Customers"]
+    }),
+    deleteCustomer: builder.mutation({
+      query: (id) => ({
+        url: `product/customer_list/${id}/`,
+        method: "DELETE",
+      }),
+      invalidatesTags:["Customers"]
     }),
 
   }),
@@ -149,5 +164,7 @@ export const {
 
   useGetCustomersQuery,
   useAddCustomerMutation,
+  useUpdateCustomerMutation,
+  useDeleteCustomerMutation
 
 } = productsApi;

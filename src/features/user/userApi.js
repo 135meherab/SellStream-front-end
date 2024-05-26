@@ -4,7 +4,7 @@ import { userLoggedIn } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAllUser: builder.query({
-            query: ()=>('/shop/user/list/'),
+            query: ()=>('/shop/users/list/'),
 
         }),
         getUser: builder.query({
