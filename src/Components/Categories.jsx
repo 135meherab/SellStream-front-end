@@ -50,7 +50,7 @@ function Categories() {
     }catch(error){
       setError(error.data.detail)
       toast.error(error.data.detail)
-      console.log('Error during adding category: ', error.status, error.data.detail)
+      console.log('Error during adding category: ', error, error.status, error.data.detail)
     }
   };
 

@@ -49,7 +49,21 @@ const handleSubmit = async(e) => {
           
             <div className="mb-4">
                 <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">UOM</label>
-                <input type="text" id="uom" value={uom} onChange={(e) => setUom(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+                <select 
+                    id="uom" 
+                    value={uom} 
+                    onChange={(e) => setUom(e.target.value)} 
+                    className="border rounded-md py-2 px-4 w-full focus:outline-none"
+                    required
+                >
+                   <option value="" disabled selected>Select a UOM</option>
+                   <option  value="kg">Kilogram</option>
+                   <option  value="g">Gram</option>
+                   <option  value="l">Liter</option>
+                   <option  value="ml">Milliliter</option>
+                   <option  value="pcs">Piece</option>
+               </select>
+                 
             </div>
             
            </div>
