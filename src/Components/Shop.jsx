@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import ShopModal from './modals/ShopModal';
-import { PiShoppingCartSimpleDuotone } from 'react-icons/pi';
-import { useAddShopMutation, useGetShopsQuery, useUpdateShopMutation } from '../features/shop/shopApi';
-// import { shopssss } from './data.js';
+import { useAddShopMutation, useDeleteShopMutation, useGetShopsQuery, useUpdateShopMutation } from '../features/shop/shopApi';
+import { toast } from 'react-toastify';
 
 function Shop() {
+  //local state
   const [isShopModalOpen, setShopModalOpen] = useState(false);
   const [shopName, setShopName] = useState('');
   const [error, setError] = useState('');
@@ -12,10 +12,13 @@ function Shop() {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
+  //redux
   const { data: shops, isLoading, isError, error: responseError } = useGetShopsQuery();
  const [addShop] = useAddShopMutation();
  const [updateShop] = useUpdateShopMutation();
+const [deleteShop] = useDeleteShopMutation()
 
+ //initial error
   useEffect(() => {
     // setData(shops)
     if (responseError) {
@@ -23,16 +26,30 @@ function Shop() {
     }
   }, [responseError]);
 
+
+  //modal open
   const handleOpenShopModal = () => {
     setShopModalOpen(true);
   };
 
+
+  //modal close
   const handleCloseShopModal = () => {
     setShopModalOpen(false);
   };
 
-  const handleShopModalSubmit = (formData) => {
-    addShop(formData)
+
+  // Add Shop
+  const handleShopModalSubmit = async (formData) => {
+    try{
+      await addShop(formData).unwrap()
+      toast.success(`${formData.name} Shop has been added Successfully!`)
+      setError('')
+    }catch(error){
+      setError(error)
+      toast.error(error)
+      console.log(error)
+    }
   };
   const handleAddShop = async(e)=>{
     e.preventDefault();
@@ -40,12 +57,14 @@ function Shop() {
 
    
   }
-
+  // handle edit
   const handleEdit = (shop) => {
     setEditRowId(shop.id);
     setCurrentEditValues(shop);
   };
 
+
+  // handle edit
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCurrentEditValues({
@@ -54,19 +73,37 @@ function Shop() {
     });
   };
 
-  const handleUpdate = () => {
+  // update shop
+  const handleUpdate = async() => {
     const updatedShop = data.map((shop) =>
       shop.id === editRowId ? currentEditValues : shop
     );
     
+    try{
     setEditRowId(null);
     setData(updatedShop)
-    updateShop({id: currentEditValues.id, ...currentEditValues})
+    await updateShop({id: currentEditValues.id, ...currentEditValues}).unwrap()
+    toast.success('Shop has been updated successfully')
+    setError('')
+    }catch(error){
+      setError(error)
+      toast.error(error)
+      console.log(error)
+    }
   };
 
-  // const handleDelete= (id)=>{
-  //   deleteCategory(id)
-  // }
+  // Delete Shop
+  const handleDelete= async (id)=>{
+    try{
+      await deleteShop(id).unwrap()
+      toast.success('Shop has been deleted successfully')
+      setError('')
+    }catch(error){
+      setError(error)
+      toast.error(error)
+      console.log(error)
+    }
+  }
 
   const handleCancel = () => {
     setEditRowId(null);
@@ -89,15 +126,15 @@ function Shop() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && shops?.length === 0) {
+  } else if (!isLoading && !isError && shops?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && shops?.length > 0) {
-    content = shops.map((shop, index) => (
+  else if (!isLoading && !isError && shops?.results.length > 0) {
+    content = shops?.results.map((shop, index) => (
       <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === shop.id ? (

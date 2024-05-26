@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import ProductModal from './modals/ProductModal';
 import { useAddProductMutation, useDeleteProductMutation, useGetProductsQuery, useUpdateProductMutation } from '../features/products/productsApi';
+import { toast } from 'react-toastify';
+
 
 const AllProducts = () => {
   // Local state
@@ -12,46 +14,47 @@ const AllProducts = () => {
 
 
   // Redux
-  const { data: products, isLoading, isError, error: responseError, refetch:productRefetch } = useGetProductsQuery();
-  const [updateProduct, { isError: updateIsError, error: productUpdateError }] = useUpdateProductMutation();
+  const { data: products, isLoading, isError, error: responseError} = useGetProductsQuery();
+  const [updateProduct, { isError: isUpdateError, error: updateError }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
  console.log(products)
-
+ //set error
+ useEffect(() => {
+  if (responseError) {
+    setError(responseError.error);
+    toast.error(error);
+  }
+ 
+  
+}, [responseError,  error]);
 
   // Handle modal open/close
   const handleOpenProductModal = () => {
     setProductModalOpen(true);
   };
 
+  // handle modal close
   const handleCloseProductModal = () => {
     setProductModalOpen(false);
   };
 
-  const handleProductModalSubmit = (formData) => {
-    addProduct(formData)
-    productRefetch()
-    setProductsList([...productsList, formData]);
+    // Add product by submitting modal
+  const handleProductModalSubmit = async(formData) => {
+    try {
+      await addProduct(formData).unwrap();
+      toast.success(`Successfully added the product ${formData.name}`)
+      setError('')
+      setProductsList([...productsList, formData]);
+    } catch (error) {
+      setError(error)
+      console.error('Failed to add product: ', error);
+    }
   };
 
-  
-
-  const handleDeleteProduct = (id) => {
-    deleteProduct(id);
-    productRefetch()
-  };
-
-  useEffect(() => {
-    if (responseError) {
-      setError(responseError.error);
-    }
-    if(updateIsError){
-      setError(productUpdateError.error)
-    }
-  }, [responseError, productUpdateError, updateIsError]);
-
-  const handleEdit = (product) => {
+   // handle edit
+   const handleEdit = (product) => {
     setEditRowId(product.id);
     setCurrentEditValues(product);
   };
@@ -65,17 +68,42 @@ const AllProducts = () => {
     });
   };
 
-  // Function to save the edited row
-  const handleUpdate = async(id) => {
-   
-    setEditRowId(null);
-    updateProduct({id: id, ...currentEditValues});
-  };
-
   // Function to cancel the edit mode
   const handleCancel = () => {
     setEditRowId(null);
   };
+
+  //update the product and Function to save the edited row and 
+  const handleUpdate = async(id) => {
+   
+   try{
+    
+    setEditRowId(null);
+    await  updateProduct({id: id, ...currentEditValues}).unwrap()
+    toast.success(`Successfully Updated the product`)
+    setError('')
+   }catch(error){
+    setError(updateError)
+    toast.error(error)
+   }
+  };
+  
+// delete product
+  const handleDeleteProduct = async(product) => {
+    try{
+     await deleteProduct(product.id).unwrap();
+      toast.success(`Successfully Deleted the product ${product.name}`)
+      setError('')
+    }catch(error){
+      setError(error.data.detail)
+      console.log('Error during Deleting product: ', error.status, error.data.detail)
+    }
+  };
+
+ 
+
+
+ 
 
   // Decide what to render
   let content = null;
@@ -95,15 +123,15 @@ const AllProducts = () => {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && products?.length === 0) {
+  } else if (!isLoading && !isError && products?.results.length === 0) {
     content = (
       <tr>
         <td className='mb-5 pb-5 text-center text-red-600 bg-red-300 py-5 font-bold' colSpan="9">No Products Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && products?.length > 0) {
-    content = products.map((product, index) => (
+  else if (!isLoading && !isError && products?.results.length > 0) {
+    content = products?.results.map((product, index) => (
       <tr key={product.id} className="text-center">
         <td className="border  px-4 py-2">{index + 1}</td>
         {editRowId === product.id ? (
@@ -192,7 +220,7 @@ const AllProducts = () => {
             <td className="border px-4 py-2 whitespace-nowrap">
               <div className="flex justify-center items-center mx-2">
                 <button onClick={() => handleEdit(product)} className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Edit</button>
-                <button onClick={() => handleDeleteProduct(product.id)} className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Delete</button>
+                <button onClick={() => handleDeleteProduct(product)} className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80">Delete</button>
               </div>
             </td>
           </>
@@ -230,9 +258,10 @@ const AllProducts = () => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto text-center">
       <table className="w-full border-collapse mb-4 text-sm table-auto min-w-full divide-y divide-gray-200">
         <thead>
+          {error && <tr ><td className='text-center text-red-700 bg-red-300'>{error}</td></tr>}
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Code</th>

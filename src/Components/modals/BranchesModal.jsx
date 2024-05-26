@@ -1,12 +1,16 @@
 import  {  useState } from 'react';
+import { useGetShopsQuery } from '../../features/shop/shopApi';
 
 
 
-const BranchesModal = ({ isOpen, onClose, onSubmit,categories }) => {
- 
+const BranchesModal = ({ isOpen, onClose, onSubmit }) => {
+// local state
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [shop, setShop] = useState('');
+
+// Redux
+const {data: shops} = useGetShopsQuery()
 
 
 const handleSubmit = async(e) => {
@@ -14,15 +18,14 @@ const handleSubmit = async(e) => {
     e.preventDefault();
     
     // convert number into text
-
-    const newShop = {
+    const shopId = Number(shop)
+    const newBranch = {
       name: name,
       location: location,
-      shop: shop,
+      shop: shopId,
     };
     
-    console.log(newShop)
-    onSubmit(newShop)
+    onSubmit(newBranch)
 
     onClose()
    
@@ -62,10 +65,11 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                  <option value="" disabled selected>Select a Shop</option>
                   {
-                    categories?.map((category) =>(
+                    shops?.results.map((shop) =>(
 
-                      <option key={category.id} value={category.name}>{category.name}</option>
+                      <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))
                   }
                   

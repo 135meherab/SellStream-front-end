@@ -10,7 +10,7 @@ export const apiSlice = createApi({
      prepareHeaders: (headers, {getState}) => {
 
       let token = getState()?.auth.token;
-      console.log(token)
+      // console.log(token)
 
 
       if (!token) {
@@ -19,20 +19,17 @@ export const apiSlice = createApi({
       }
       // console.log(token)
       if(token){
-        headers.set('Authorization', `Bearer ${token}`),
+        headers.set('Authorization', `Token ${token}`),
         headers.set('Content-Type', 'application/json')
       }
-      // headers.set('Access-Control-Allow-Origin', '*');
-      // console.log('Headers set:', headers);
+
       return headers;
     },
-    // fetchFn: (input, init) => {
-    //   init.mode = 'no-cors'; // Setting mode to no-cors
-    //   return fetch(input, init);
-    // },
+   
    
   }),
   keepUnusedDataFor: 30,
+  tagTypes: ["Products", "Categories", "Order", "Customer", "Branch", "Shop", "Customers", "Employee", "Designation", "Attendance", "Leave", "Occasion"],
   endpoints: () => ({}),
   
 });

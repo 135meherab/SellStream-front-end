@@ -2,26 +2,25 @@ import  {  useState } from 'react';
 
 
 
-const ShopModal = ({ isOpen, onClose, onSubmit, categories}) => {
+const ShopModal = ({ isOpen, onClose, onSubmit}) => {
  
+  //local state
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [user, setUser] = useState('');
+  const [phone, setPhone] = useState('');
+  // const [user, setUser] = useState('');
 
+// redux
 
+//handle submit for adding shop
 const handleSubmit = async(e) => {
 
     e.preventDefault();
-    
-    // convert number into text
-    const numberMbl = Number(mobile)
+     const newShop = {
+      name,
+      address,
+      phone
 
-    const newShop = {
-      name: name,
-      address: address,
-      mobile: numberMbl,
-      user: user,
     };
     
     onSubmit(newShop)
@@ -41,8 +40,8 @@ const handleSubmit = async(e) => {
           
            <div className="flex justify-between items-center gap-2">
            <div className="mb-4">
-              <label htmlFor="shopName" className="block text-gray-700 text-sm font-bold mb-2">Shop Name</label>
-              <input type="text" id="shopName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Shop Name</label>
+              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
            <div className="mb-4">
               <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
@@ -54,10 +53,10 @@ const handleSubmit = async(e) => {
            
            <div className="flex justify-between items-center">
            <div className="mb-4">
-              <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Mobile No</label>
-              <input type="text" id="mobileNumber" value={mobile} onChange={(e) => setMobile(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Mobile No</label>
+              <input type="text" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
-             <div className="mb-4">
+             {/* <div className="mb-4">
                 <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop Owner</label>
                 <select 
                     id="user" 
@@ -66,15 +65,16 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
+                  <option value="" disabled selected>Select a User</option>
                   {
-                    categories?.map((category) =>(
+                    users?.map((user) =>(
 
-                      <option key={category.id} value={category.name}>{category.name}</option>
+                      <option key={user.id} value={user.id}>{user.name}</option>
                     ))
                   }
                   
                 </select>
-            </div>
+            </div> */}
             
             </div>
           

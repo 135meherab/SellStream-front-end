@@ -10,7 +10,7 @@ export const shopApi = apiSlice.injectEndpoints({
     getShops: builder.query({
       query: () => '/shop/get/',
       keepUnusedDataFor: 5,
-      provideTags:["shops"]
+      providesTags:["Shops"]
     }),
     // Add shop
     addShop: builder.mutation({
@@ -19,7 +19,7 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["shops"]
+      invalidatesTags:["Shops"]
     }),
     // Update shop
     updateShop: builder.mutation({
@@ -28,14 +28,22 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["shops"]
+      invalidatesTags:["Shops"]
+    }),
+    deleteShop: builder.mutation({
+      query: (id) => ({
+        url: `/shop/update/${id}/`,
+        method: "DELETE",
+        body: data,
+      }),
+      invalidatesTags:["Shops"]
     }),
 
     // start branch endpoints
     // Get branches
     getBranches: builder.query({
       query: () => '/shop/branch/',
-      provideTags:["branch"]
+      providesTags:["Branch"]
     }),
     getBranch: builder.query({
       query: (id) => `/shop/branch/${id}/`,
@@ -47,7 +55,7 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags:["branch"]
+      invalidatesTags:["Branch"]
     }),
     // Update branches
     updateBranch: builder.mutation({
@@ -56,7 +64,7 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags:["branch"]
+      invalidatesTags:["Branch"]
     }),
     // Delete branches
     DeleteBranch: builder.mutation({
@@ -64,7 +72,7 @@ export const shopApi = apiSlice.injectEndpoints({
         url: `/shop/branch/${id}/`,
         method: "DELETE",
       }),
-      invalidatesTags:["branch"]
+      invalidatesTags:["Branch"]
     }),
   }),
 });
@@ -100,7 +108,7 @@ export const {
   useGetShopsQuery, 
   useAddShopMutation,
   useUpdateShopMutation,
-
+  useDeleteShopMutation,
   // Branch
   useGetBranchesQuery,
   useGetBranchQuery,

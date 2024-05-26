@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAddUserMutation, useGetAllUserQuery } from '../features/user/userApi.js';
 import UserModal from './modals/UserModal.jsx';
-import {usersss} from './data'
-
+import { toast } from 'react-toastify';
 
 
 function User() {
@@ -16,6 +15,7 @@ function User() {
   const { data: users, isLoading, isError, error: responseError } = useGetAllUserQuery();
   const[addUser] = useAddUserMutation()
  
+  console.log(users)
 
   useEffect(() => {
     // setData(usersss)
@@ -33,8 +33,17 @@ function User() {
     setUserModalOpen(false);
   };
 
-  const handleUserModalSubmit = (formData) => {
-      addUser(formData)
+  const handleUserModalSubmit = async(formData) => {
+      try{
+        await addUser(formData).unwrap()
+        toast.info("Please Check your Email To Confirm")
+        setError('')
+      }catch(error){
+        setError(error)
+        toast.error(error)
+      }
+   
+      
   };
 
   const handleAddUser = async (e) => {

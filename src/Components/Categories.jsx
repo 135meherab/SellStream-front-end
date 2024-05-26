@@ -1,25 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useAddCategoryMutation, useDeleteCategoryMutation, useGetCategoriesQuery, useUpdateCategoryMutation } from '../features/products/productsApi';
+import { useAddCategoryMutation,
+         useDeleteCategoryMutation,
+         useGetCategoriesQuery,
+         useUpdateCategoryMutation } from '../features/products/productsApi';
 import CategoryModal from './modals/CategoryModal';
-import {categoriyyy} from './data'
+import { toast } from 'react-toastify';
 
 
 
 function Categories() {
+  //local state
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [error, setError] = useState('');
-  const[data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
+
+  //redux
   const { data: categories, isLoading, isError, error: responseError } = useGetCategoriesQuery();
   const[addCategory] = useAddCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
   const [deleteCategory] = useDeleteCategoryMutation()
 
+  //initial error
   useEffect(() => {
-    // setData(categoriyyy)
     if (responseError) {
       setError(responseError.error);
     }
@@ -30,15 +35,26 @@ function Categories() {
     setCategoryModalOpen(true);
   };
 
+  //handle close modal
   const handleCloseCategoryModal = () => {
     setCategoryModalOpen(false);
   };
 
-  const handleCategoryModalSubmit = (formData) => {
-      addCategory(formData)
+
+  // Add category function
+  const handleCategoryModalSubmit = async(formData) => {
+    try{
+     await addCategory(formData ).unwrap()
+     toast.success(`Category ${formData.name} added Successfully!`);
+     setError('')
+    }catch(error){
+      setError(error.data.detail)
+      toast.error(error.data.detail)
+      console.log('Error during adding category: ', error, error.status, error.data.detail)
+    }
   };
 
-  const handleAddShop = async (e) => {
+  const handleSearchCategory = async (e) => {
     e.preventDefault();
     // Logic to add a shop
   };
@@ -56,14 +72,30 @@ function Categories() {
     });
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async() => {
    
-    setEditRowId(null);
-    updateCategory({id:currentEditValues.id, ...currentEditValues})
+   try{
+    setEditRowId(null); 
+      await updateCategory({id:currentEditValues.id, ...currentEditValues}).unwrap()
+      toast.success(`Category updated Successfully!`)
+     }catch(error){
+       setError(error.data.detail)
+       toast.error(error.data.detail)
+       console.log('Error during updating category: ', error.status, error.data.detail)
+     }
+    
   };
 
-  const handleDelete = (id) => {
-    deleteCategory(id)
+  const handleDelete = async(id) => {
+    try{
+      await deleteCategory(id).unwrap();
+      toast.success("Category deleted successfully!")
+      setError('')
+    }catch(error){
+      setError(error.data.detail);
+      toast.error(error.data.detail)
+      console.log('Error During Deleting Category: ',error, error.status, error.data.detail)
+    }
   };
   const handleCancel = () => {
     setEditRowId(null);
@@ -86,15 +118,15 @@ function Categories() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && categories?.length === 0) {
+  } else if (!isLoading && !isError && categories?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && categories?.length > 0) {
-    content = categories?.map((category, index) => (
+  else if (!isLoading && !isError && categories?.results.length > 0) {
+    content = categories?.results.map((category, index) => (
       <tr key={category.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === category.id ? (
@@ -186,7 +218,7 @@ function Categories() {
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddShop}
+              onClick={handleSearchCategory}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search
