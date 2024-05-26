@@ -38,6 +38,8 @@ const DashboardPage = () => {
   const handleLogout = () => {
     logout()
     dispatch(userLoggedOut())
+    localStorage.removeItem("auth")
+
 
   };
 

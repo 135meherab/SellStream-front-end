@@ -187,7 +187,7 @@ function Shop() {
     <div>
       <h2 className="text-2xl font-bold mb-4">Shops</h2>
 
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">
             <input

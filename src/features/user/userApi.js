@@ -4,11 +4,11 @@ import { userLoggedIn } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAllUser: builder.query({
-            query: ()=>('/shop/user/list'),
+            query: ()=>('/shop/user/list/'),
 
         }),
         getUser: builder.query({
-            query: (id)=>(`/shop/user/${id}`),
+            query: (id)=>(`/shop/user/${id}/`),
 
         }),
         addUser: builder.mutation({
@@ -40,7 +40,7 @@ export const userApi = apiSlice.injectEndpoints({
 
         updateUser : builder.mutation({
             query : ({id,data}) =>({
-                url : `/shop/user_details/${id}`,
+                url : `/shop/user_details/${id}/`,
                 method: "PATCH",
                 body: data
             })

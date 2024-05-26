@@ -33,7 +33,7 @@ const handleSubmit = async(e) => {
   return (
     <div className={`modal ${isOpen ? 'modal-open' : ''}`}>
       <div className="modal-overlay" onClick={onClose}></div>
-      <div className="modal-content">
+      <div className="modal-content text-sm">
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <h3 className="text-lg font-medium font-bold leading-6 text-gray-900 mb-4">Add Customer</h3>
