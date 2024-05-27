@@ -5,152 +5,137 @@ import { useSelector } from 'react-redux';
 import { useGetProductsQuery } from '../features/products/productsApi';
 
 const Purchase = () => {
-
-  const productsData  = [
+  const productsData = [
     {
-        id: 1,
-        product_code: "4001",
-        name: "Dell Laptop",
-        description:'Electronics Items',
-        price: 40000.00,
-        quantity: 12,
-        category: "Electronics",
-        uom_name: 'piece'
+      id: 1,
+      product_code: "4001",
+      name: "Dell Laptop",
+      description: 'Electronics Items',
+      price: 40000.00,
+      quantity: 12,
+      category: "Electronics",
+      uom_name: 'piece'
     },
     {
       id: 2,
       product_code: "4002",
       name: "Dell Mouse",
-      description:'Electronics Items',
+      description: 'Electronics Items',
       price: 120.00,
       quantity: 120,
       category: "Electronics",
       uom_name: 'piece'
-  },
-  {
-    id: 3,
-    product_code: "4003",
-    name: "Dell Keyboard",
-    description:'Electronics Items',
-    price: 500.00,
-    quantity: 100,
-    category: "Electronics",
-    uom_name: 'piece'
-},
-   ]
+    },
+    {
+      id: 3,
+      product_code: "4003",
+      name: "Dell Keyboard",
+      description: 'Electronics Items',
+      price: 500.00,
+      quantity: 100,
+      category: "Electronics",
+      uom_name: 'piece'
+    },
+  ];
 
   // State variables
-  const [productCode, setProductCode] = useState('')
-
+  const [productCode, setProductCode] = useState('');
   const [orderItem, setOrderItem] = useState([]);
   const [total, setTotal] = useState(0);
-
   const [searchResult, setSearchResult] = useState([]);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-const {data: products} = useGetProductsQuery()
 
+  const { data: products } = useGetProductsQuery();
 
- // Function to handle search
+  // Function to handle search
   const handleSearch = () => {
-    const result = products.filter((product) => {
-      product.product_code == productCode
-    })
-    console.log(result)
-
-    if(!result){
-      setError('Invalid Product Code!')
-    }else{
-      setSearchResult(result)
+    const result = productsData.filter((product) => product.product_code === productCode);
+    if (result.length === 0) {
+      setError('Invalid Product Code!');
+      setSearchResult([]);
+    } else {
+      setSearchResult(result);
       setProductCode('');
+      setError('');
     }
-    
   };
-  console.log(searchResult)
-console.log(productCode)
-
 
   const handleAddProduct = (product) => {
     const productWithQuantity = { ...product, quantity: 0 };
     setOrderItem(prevItems => [...prevItems, productWithQuantity]);
     setSearchResult([]);
     setProductCode('');
-};
+  };
 
-const handleQuantityChange = (value, index) => {
+  const handleQuantityChange = (value, index) => {
     setOrderItem(prevItems => {
-        const updatedItems = [...prevItems];
-        updatedItems[index].quantity = value;
-        updatedItems[index].subtotal = updatedItems[index].price * value;
-        return updatedItems;
+      const updatedItems = [...prevItems];
+      updatedItems[index].quantity = Number(value);
+      updatedItems[index].subtotal = updatedItems[index].price * Number(value);
+      return updatedItems;
     });
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     const totalPrice = orderItem.reduce((acc, curr) => acc + (curr.subtotal || 0), 0);
     setTotal(totalPrice);
-}, [orderItem]);
-
-
+  }, [orderItem]);
 
   // Function to handle removing product from order
   const handleRemoveProduct = (productId) => {
-  
+    setOrderItem(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
-   // Function to handle opening the modal
-   const handleOpenModal = () => {
+  // Function to handle opening the modal
+  const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-    // Function to handle closing the modal
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-      };
-    
-      // Function to handle form submission from the modal
-      const handleModalSubmit = async(formData) => {
-       
-         
-      };
-    const orderId = generateOrderId()
- 
-    return (
+
+  // Function to handle closing the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Function to handle form submission from the modal
+  const handleModalSubmit = async (formData) => {
+    // Handle modal form submission
+  };
+
+  const orderId = generateOrderId();
+
+  return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 ">Purchase</h2>
-     
+      <h2 className="text-2xl font-bold mb-4">Purchase</h2>
+
       <div className="flex items-center justify-start mb-4">
-        <div className='flex justify-center items-center'> 
-            <label htmlFor="productCode">Product:</label>
-        <input
-          type="text"
-          id='productCode'
-          placeholder="Product Code" 
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-          className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
-        />
-        <button onClick={handleSearch} className='bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-08'>Search</button>
+        <div className='flex justify-center items-center'>
+          <label htmlFor="productCode">Product:</label>
+          <input
+            type="text"
+            id="productCode"
+            placeholder="Product Code"
+            value={productCode}
+            onChange={(e) => setProductCode(e.target.value)}
+            className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
+          />
+          <button onClick={handleSearch} className='bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-08'>Search</button>
         </div>
-      
-      
       </div>
 
-
-      {/* search result */}
+      {/* Search result */}
       <div>
-                <h3>Search Results:</h3>
-                <ul>
-                    {searchResult.map(product => (
-                        <li key={product.id}>
-                            {product.name} - {product.product_code} -
-                             <button onClick={() => handleAddProduct(product)} className="bg-primary text-white py-2 px-2 mx-2 rounded-md hover:bg-opacity-08">Add to Order</button>
-                        </li>
-                    ))}
-
-                    {error && <p className='text-red-600 text-center'>{error}</p>}
-                </ul>
-            </div>
+        <h3>Search Results:</h3>
+        <ul>
+          {searchResult.map(product => (
+            <li key={product.id}>
+              {product.name} - {product.product_code}
+              <button onClick={() => handleAddProduct(product)} className="bg-primary text-white py-2 px-2 mx-2 rounded-md hover:bg-opacity-08">Add to Order</button>
+            </li>
+          ))}
+          {error && <p className='text-red-600 text-center'>{error}</p>}
+        </ul>
+      </div>
 
       {/* Table */}
       <table className="w-full border-collapse mb-4">
@@ -166,55 +151,57 @@ useEffect(() => {
           </tr>
         </thead>
         <tbody>
-         
           {orderItem.map((product, index) => (
             <tr key={product.id} className='text-center'>
               <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">{product.product_code}</td>
               <td className="border px-4 py-2">{product.name}</td>
-              <td className="border px-4 py-2">{product.price }</td>
+              <td className="border px-4 py-2">{product.price}</td>
               <td className="border px-4 py-2">
                 <input
                   type="number"
-                  id={`quantity-${index}`} 
+                  id={`quantity-${index}`}
                   placeholder="quantity"
                   value={product.quantity}
-                  onChange={(e) => handleQuantityChange(e.target.value, index)} 
+                  onChange={(e) => handleQuantityChange(e.target.value, index)}
                   className="w-[35%] border rounded-md py-2 px-4 mr-2 focus:outline-none justify-center text-center"
                 />
               </td>
-             
               <td className="border px-4 py-2">{product.price * product.quantity}</td>
               <td className="border px-4 py-2">
-                <button className='bg-red-400 py-2 p text-white px-2 mr-2 rounded-md border'>Delete</button>
+                <button onClick={() => handleRemoveProduct(product.id)} className='bg-red-400 py-2 text-white px-2 mr-2 rounded-md border'>Delete</button>
               </td>
             </tr>
           ))}
-         
         </tbody>
       </table>
 
       <div className='flex justify-end'>
-        {/* <button className='bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-08'>$</button> */}
-         <div className="div">
-         <div className='flex justify-center items-center'>
-                <label htmlFor="total">Total</label>
-                <input type="text"
-                 value={total}
-                 id='total'
-                 onChange={(e)=>{setTotal(e.target.value)}} 
-                 className='w-full border rounded-md py-2 px-2 mr-2 focus:outline-none'
-                 />
-              
+        <div>
+          <div className='flex justify-center items-center'>
+            <label htmlFor="total">Total</label>
+            <input
+              type="text"
+              value={total}
+              id='total'
+              onChange={(e) => { setTotal(e.target.value) }}
+              className='w-full border rounded-md py-2 px-2 mr-2 focus:outline-none'
+            />
           </div>
           <button onClick={handleOpenModal} className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-08">Save Transaction</button>
-         </div>
+        </div>
       </div>
-   
-            {
 
-                  isModalOpen && <OrderModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleModalSubmit} orderId={orderId} total={total} orderItem={orderItem}/>
-            }
+      {isModalOpen && (
+        <OrderModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onSubmit={handleModalSubmit}
+          orderId={orderId}
+          total={total}
+          orderItem={orderItem}
+        />
+      )}
     </div>
   );
 };
@@ -232,24 +219,3 @@ const generateOrderId = () => {
   const seconds = now.getSeconds().toString().padStart(2, '0');
   return `TransactionId# : ${year}${month}${date}Tx${hours}${minutes}${seconds}`;
 };
-
- {/* <div className='flex justify-center items-center'>
-                <label htmlFor="discount">Discount</label>
-                <input type="text"
-                id='discount'
-                 value={discount}
-                 onChange={(e)=>{setDiscount(e.target.value)}} 
-                 className='w-full border rounded-md py-2 px-2 mr-2 focus:outline-none'
-                 />
-              
-          </div>
-         <div className='flex justify-center items-center'>
-                <label htmlFor="pay">Pay</label>
-                <input type="text"
-                id='pay'
-                 value={pay}
-                 onChange={(e)=>{setPay(e.target.value)}} 
-                 className='w-full border rounded-md py-2 px-2 mr-2 focus:outline-none'
-                 />
-              
-          </div> */}
