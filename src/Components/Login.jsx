@@ -9,11 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
+  //local state
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch()
+
+  //redux
 const [login, {data, isLoading, error: responseError}] = useLoginMutation()
   
 
@@ -32,13 +35,14 @@ const handleLogin = async(e) => {
  
 };
 
+// initial error and login function
 useEffect(() => {
   if (responseError?.data) {
     setError(responseError.error); 
     
   }
   if (data?.token){
-    // console.log(data.token)
+    console.log(data.token)
     dispatch(userLoggedIn({token: data.token}))
     navigate('/dashboard/main')
     // navigate('/home')

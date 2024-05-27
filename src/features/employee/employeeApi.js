@@ -18,7 +18,8 @@ export const employeeApi = apiSlice.injectEndpoints({
         url:`employee/employee/`,
         method: "POST",
         body: data,
-        invalidatesTags: ["Employee"]  
+        invalidatesTags: ["Employee"]  ,
+        
       }),
     }),
     updateEmployee:builder.mutation({

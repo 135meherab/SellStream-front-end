@@ -14,9 +14,19 @@ export const apiSlice = createApi({
 
 
       if (!token) {
-        const authData = JSON.parse(localStorage.getItem('auth'));
-        token = authData;
+        let authData;
+        try {
+          authData = JSON.parse(localStorage.getItem('auth'));
+        } catch (e) {
+          console.error('Error parsing auth data from localStorage:', e);
+        }
+    
+        // Ensure authData is valid before assigning to token
+        if (authData) {
+          token = authData;
+        }
       }
+    
       // console.log(token)
       if(token){
         headers.set('Authorization', `Token ${token}`),
