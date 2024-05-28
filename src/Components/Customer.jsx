@@ -20,6 +20,9 @@ function Customer() {
   const[addCustomer] = useAddCustomerMutation()
   const [updateCustomer] = useUpdateCustomerMutation()
   const [deleteCustomer] = useDeleteCustomerMutation()
+
+  // console.log(customers)
+
   //initial error
   useEffect(() => {
     if (responseError) {
@@ -68,6 +71,7 @@ function Customer() {
     });
   };
 
+  // update customer
   const handleUpdate = async() => {
     
     setEditRowId(null);
@@ -115,15 +119,15 @@ function Customer() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && customers?.results.length === 0) {
+  } else if (!isLoading && !isError && customers?.length === 0) {
     content = (
       <tr >
         <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && customers?.results.length > 0) {
-    content = customers?.results.map((customer, index) => (
+  else if (!isLoading && customers?.length > 0) {
+    content = customers?.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === customer.id ? (
