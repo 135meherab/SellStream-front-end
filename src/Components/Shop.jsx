@@ -8,7 +8,7 @@ function Shop() {
   const [isShopModalOpen, setShopModalOpen] = useState(false);
   const [shopName, setShopName] = useState('');
   const [error, setError] = useState('');
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
@@ -75,19 +75,15 @@ const [deleteShop] = useDeleteShopMutation()
 
   // update shop
   const handleUpdate = async() => {
-    const updatedShop = data.map((shop) =>
-      shop.id === editRowId ? currentEditValues : shop
-    );
-    
+   
     try{
     setEditRowId(null);
-    setData(updatedShop)
     await updateShop({id: currentEditValues.id, ...currentEditValues}).unwrap()
     toast.success('Shop has been updated successfully')
     setError('')
     }catch(error){
-      setError(error)
-      toast.error(error)
+      setError(error.error)
+      toast.error(error.status)
       console.log(error)
     }
   };

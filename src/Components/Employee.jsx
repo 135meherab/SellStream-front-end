@@ -130,7 +130,7 @@ const handleDelete= async (id)=>{
   else if (!isLoading && employees?.length >0) {
     content = employees?.map((employee, index) => (
       <tr key={index} className="text-center">
-        <td className="border px-4 py-2">{index + 1}</td>
+        {/* <td className="border px-4 py-2">{index + 1}</td> */}
         {editRowId === employee.id ? (
           <>
             <td className="border px-4 py-2">
@@ -254,7 +254,7 @@ const handleDelete= async (id)=>{
       <table className="w-full border-collapse mb-4 text-sm">
         <thead>
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">No</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">No</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
             {/* <th className="border-b-2 border-gray-300 px-4 py-2">Address</th> */}
             {/* <th className="border-b-2 border-gray-300 px-4 py-2">Age</th> */}

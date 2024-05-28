@@ -215,7 +215,7 @@ function Customer() {
   }
 
   return (
-    <div>
+    <div className='h-screen'>
       <h2 className="text-2xl font-bold mb-4">Customer</h2>
 
       <div className="flex justify-between items-center text-sm">
@@ -256,7 +256,7 @@ function Customer() {
             <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>
         </thead>
-        <tbody>{content}</tbody>
+        <tbody className='overflow-y-scroll'>{content}</tbody>
       </table>
 
       {isCustomerModalOpen && (

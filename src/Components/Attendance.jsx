@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAddAttendanceMutation,
          useDeleteAttendanceMutation,
-         useGetAttendanceQuery,
+         useGetAttendancesQuery,
          useUpdateAttendanceMutation } from '../features/employee/employeeApi';
 import AttendanceModal from './modals/AttendanceModal';
 import { toast } from 'react-toastify';
@@ -18,12 +18,12 @@ function Attendance() {
 
 
   //redux
-  const { data: attendances, isLoading, isError, error: responseError } = useGetAttendanceQuery();
+  const { data: attendances, isLoading, isError, error: responseError } = useGetAttendancesQuery();
   const[addAttendance] = useAddAttendanceMutation()
   const [updateAttendance] = useUpdateAttendanceMutation()
   const [deleteAttendance] = useDeleteAttendanceMutation()
 
-  console.log(attendances)
+  // console.log(attendances)
 
   //initial error
   useEffect(() => {
@@ -47,12 +47,12 @@ function Attendance() {
   const handleAttendanceModalSubmit = async(formData) => {
     try{
      await addAttendance(formData ).unwrap()
-     toast.success(`Attendance ${formData.name} added Successfully!`);
+     toast.success(`Attendance ${formData.fullname} added Successfully!`);
      setError('')
     }catch(error){
       setError(error.data.detail)
       toast.error(error.data.detail)
-      console.log('Error during adding Attendance: ', error.status, error.data.detail)
+      console.log('Error during adding Attendance: ',error, error.status, error.data.detail)
     }
   };
 
@@ -179,17 +179,20 @@ function Attendance() {
           </>
         ) : (
           <>
-            <td className="border px-4 py-2">{attendance.name}</td>
-            <td className="border px-4 py-2">{attendance.uom}</td>
-            <td className="border px-4 py-2">{attendance.shop}</td>
+            <td className="border px-4 py-2">{attendance.employee}</td>
+            <td className="border px-4 py-2">{attendance.shift}</td>
+            <td className="border px-4 py-2">{attendance.date}</td>
+            <td className="border px-4 py-2">{
+            attendance.is_attend ? <p className='text-green-600 font-bold'>Present</p> : <p className='text-red-600 font-bold'>Absent</p>
+            }</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
-                <button
+                {/* <button
                   onClick={() => handleEdit(attendance)}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Edit
-                </button>
+                </button> */}
                 <button
                   onClick={() => handleDelete(attendance.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
@@ -239,9 +242,10 @@ function Attendance() {
         <thead>
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Attendance Name</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">UOM</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Shop</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Employee Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Shift</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Date</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Attendance</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>
         </thead>
