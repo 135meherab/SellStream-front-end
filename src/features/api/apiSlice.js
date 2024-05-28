@@ -14,8 +14,8 @@ export const apiSlice = createApi({
 
 
       if (!token) {
-        const authData = JSON.parse(localStorage.getItem('auth'));
-        token = authData;
+        // const authData = JSON.parse(localStorage.getItem('auth'));
+        token  = localStorage.getItem('auth');
       }
       // console.log(token)
       if(token){
