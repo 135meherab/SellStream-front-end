@@ -2,8 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  token: null,
-  // other state properties if any
+  token: localStorage.getItem('auth') || null,
 };
 
 const authSlice = createSlice({
@@ -12,11 +11,9 @@ const authSlice = createSlice({
   reducers: {
     userLoggedIn(state, action) {
       state.token = action.payload.token;
-      // update other state properties if needed
     },
     userLoggedOut(state) {
       state.token = null;
-      // reset other state properties if needed
     }
   }
 });
