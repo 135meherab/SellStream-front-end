@@ -29,7 +29,7 @@ export const apiSlice = createApi({
    
   }),
   keepUnusedDataFor: 30,
-  tagTypes: ["Products", "Categories", "Order", "Customer", "Branch", "Shop", "Customers", "Employee", "Designation", "Attendance", "Leave", "Occasion"],
+  tagTypes: ["Products", "Categories", "Customers", "Order", "Customer",  "Shop","Branch",  "Employee", "Attendance", "Designation", "Leave", "Occasion"],
   endpoints: () => ({}),
   
 });

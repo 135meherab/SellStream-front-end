@@ -13,7 +13,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
   const productId =[] 
   useEffect(()=>{
     orderItem.map(item => productId.push(item.id))
-  },[orderItem, productId])
+  },[orderItem])
   
 
   const handleSubmit = async (e) => {
@@ -49,17 +49,20 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
       <div className="modal-content text-sm">
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">{orderId}</h3>
-            <div className="flex justify-center">
+            <h3 className="text-lg text-center text-green-600 font-medium leading-6 text-gray-900 mb-4">{orderId}</h3>
+            <div className="flex justify-center items-center">
               <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Customer Name</label>
                 <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
               </div>
+              
               <div className="mb-4">
                 <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Contact No</label>
                 <input type="text" id="mobileNumber" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
               </div>
-              <div className="mb-4">
+              
+            </div>
+            <div className="mb-4">
                 <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                   id="branch" 
@@ -74,7 +77,6 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
                   ))}
                 </select>
               </div>
-            </div>
             <div>
               <p className="text-center font-bold">Products Details</p>
               <div className="flex justify-between items-center">
@@ -91,7 +93,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
             <div className="flex justify-end items-center mt-3">
               <div className="mb-4">
                 <label htmlFor="" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
-                <p>{total}</p>
+                <p className='text-red-600 font-bold text-xl'>{total}</p>
               </div>
             </div>
           </div>

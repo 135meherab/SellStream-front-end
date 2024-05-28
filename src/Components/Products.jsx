@@ -133,7 +133,7 @@ const AllProducts = () => {
   else if (!isLoading && !isError && products?.length > 0) {
     content = products?.map((product, index) => (
       <tr key={product.id} className="text-center">
-        <td className="border  px-4 py-2">{index + 1}</td>
+        {/* <td className="border  px-4 py-2">{index + 1}</td> */}
         {editRowId === product.id ? (
           <>
             <td className="border px-4 py-2">
@@ -263,7 +263,7 @@ const AllProducts = () => {
         <thead>
           {error && <tr ><td className='text-center text-red-700 bg-red-300'>{error}</td></tr>}
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Code</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>
