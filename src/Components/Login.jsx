@@ -38,8 +38,8 @@ useEffect(() => {
     
   }
   if (data?.token){
-    // console.log(data.token)
-    dispatch(userLoggedIn({token: data.token}))
+    let token = localStorage.getItem('auth')
+    dispatch(userLoggedIn({token: token}))
     navigate('/dashboard/main')
     // navigate('/home')
   toast.success('Login successful!');

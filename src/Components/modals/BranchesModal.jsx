@@ -57,7 +57,7 @@ const handleSubmit = async(e) => {
            <div className="flex justify-between items-center">
            
              <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
+                <label htmlFor="shop" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
                 <select 
                     id="shop" 
                     value={shop} 

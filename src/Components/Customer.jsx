@@ -126,7 +126,7 @@ function Customer() {
       </tr>
     );
   } 
-  else if (!isLoading && customers?.length > 0) {
+  else if (!isLoading && !isError &&  customers?.length > 0) {
     content = customers?.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>

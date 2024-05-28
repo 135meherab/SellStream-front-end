@@ -36,9 +36,7 @@ export const authApi = apiSlice.injectEndpoints({
             query:()=>({
                 url: '/shop/logout/',
                 method: "GET",
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('auth')}`,
-                },
+               
             }),
 
             async onQueryStarted(arg, {queryFulfilled}){
