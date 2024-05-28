@@ -60,43 +60,70 @@ const DashboardPage = () => {
             <FaTimes />
           </button>
         </div>
-        <ul className="py-4">
+        <ul className="py-5 space-y-2">
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaHome className="mr-2" />
             <Link to='/dashboard/main'>Dashboard</Link>
           </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+          <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaBox className="mr-2" />
-            <Link to='/dashboard/products'>Products</Link>
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaStore className="mr-2" />
-            <Link to='/dashboard/shop'>Shop</Link>
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaSitemap className="mr-2" />
-            <Link to='/dashboard/branches'>Branches</Link>
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaTags className="mr-2" />
-            <Link to='/dashboard/category'>Categories</Link>
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaShoppingBag className="mr-2" />
-            <Link to='/dashboard/purchase'>Purchase</Link>
+            <Link to=''>Product</Link>
+            <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
+           <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+              <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                    <FaBox className="mr-2" />
+                    <Link to='/dashboard/products'>Products</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                    <FaTags className="mr-2" />
+                    <Link to='/dashboard/category'>Categories</Link>
+                </li>
+           </ul>
           </li>
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaChartBar className="mr-2" />
             <Link to='/dashboard/sales'>Sales</Link>
           </li>
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaClipboardList className="mr-2" />
-            <Link to='/dashboard/order'>Order</Link>
+          <li className=" group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaStore className="mr-2" />
+            <Link to=''>Shop</Link>
+            <FaChevronRight className='ml-auto transform transition duration-300 group-hover:rotate-90'/>
+            <ul className='absolute right-0 top-0 mt-0 mr-2 text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'>
+                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaStore className="mr-2" />
+                  <Link to='/dashboard/shop'>Shops</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaSitemap className="mr-2" />
+                  <Link to='/dashboard/branches'>Branches</Link>
+                </li>
+            </ul>
+          
           </li>
+          
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaUserFriends className="mr-2" />
             <Link to='/dashboard/customer'>Customer</Link>
           </li>
+
+          <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaShoppingBag className="mr-2" />
+            <Link to=''>Order</Link>
+            <FaChevronRight className='ml-auto transform transition duration-300 group-hover:rotate-90'/>
+            <ul className='absolute right-0 top-0 mt-0 mr-2 text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'>
+                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaShoppingBag className="mr-2" />
+                  <Link to='/dashboard/purchase'>Purchase</Link>
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaClipboardList className="mr-2" />
+                  <Link to='/dashboard/order'>Orders List</Link>
+                </li>
+            </ul>
+          </li>
+          
+          
+          
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaUserFriends className="mr-2" />
             <Link to='/dashboard/user'>Users</Link>
