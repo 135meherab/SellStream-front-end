@@ -118,15 +118,15 @@ function Designation() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && designation?.results.length === 0) {
+  } else if (!isLoading && !isError && designation?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && Designation?.results.length > 0) {
-    content = designation?.results.map((designation, index) => (
+  else if (!isLoading && !isError && Designation?.length > 0) {
+    content = designation?.map((designation, index) => (
       <tr key={designation.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Designation.id ? (

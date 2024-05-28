@@ -124,7 +124,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Branch</option>
                   {
-                    branches?.results.map((branch) =>(
+                    branches?.map((branch) =>(
 
                       <option key={branch.id} value={branch.name}>{branch.name}</option>
                     ))
