@@ -40,8 +40,8 @@ const handleSubmit = async(e) => {
           
            <div className="flex justify-between items-center gap-2">
            <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Shop Name</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <label htmlFor="shopName" className="block text-gray-700 text-sm font-bold mb-2">Shop Name</label>
+              <input type="text" id="shopName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
            <div className="mb-4">
               <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>

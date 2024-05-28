@@ -114,7 +114,7 @@ const handleSubmit = async(e) => {
               </div>
                     
              <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
+                <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                     id="branch" 
                     value={branch} 

@@ -57,7 +57,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
 
             <div className="flex justify-end items-center mt-3">
             <div className="mb-4">
-                <label htmlFor="givenAmount" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
+                <label htmlFor="" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
                 <p>{total}</p>
               </div>
               
