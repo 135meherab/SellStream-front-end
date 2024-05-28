@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAddDesignationMutation,
          useDeleteDesignationMutation,
-         useGetDesignationQuery,
+         useGetDesignationsQuery,
          useUpdateDesignationMutation } from '../features/employee/employeeApi';
 import DesignationModal from './modals/DesignationModal';
 import { toast } from 'react-toastify';
@@ -18,11 +18,12 @@ function Designation() {
 
 
   //redux
-  const { data: designation, isLoading, isError, error: responseError } = useGetDesignationQuery();
+  const { data: designations, isLoading, isError, error: responseError } = useGetDesignationsQuery();
   const[addDesignation] = useAddDesignationMutation()
   const [updateDesignation] = useUpdateDesignationMutation()
   const [deleteDesignation] = useDeleteDesignationMutation()
 
+  // console.log(designations)
   //initial error
   useEffect(() => {
     if (responseError) {
@@ -118,15 +119,15 @@ function Designation() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && designation?.length === 0) {
+  } else if (!isLoading && !isError && designations?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && Designation?.length > 0) {
-    content = designation?.map((designation, index) => (
+  else if (!isLoading && !isError && designations?.length > 0) {
+    content = designations?.map((designation, index) => (
       <tr key={designation.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Designation.id ? (
@@ -177,9 +178,9 @@ function Designation() {
           </>
         ) : (
           <>
+            <td className="border px-4 py-2">{designation.owner}</td>
             <td className="border px-4 py-2">{designation.name}</td>
-            <td className="border px-4 py-2">{designation.uom}</td>
-            <td className="border px-4 py-2">{designation.shop}</td>
+            <td className="border px-4 py-2">{designation.salary}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
@@ -237,9 +238,9 @@ function Designation() {
         <thead>
           <tr>
             <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Designation Name</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">UOM</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Shop</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Shop Name</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Designation</th>
+            <th className="border-b-2 border-gray-300 px-4 py-2">Salary</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>
         </thead>

@@ -99,9 +99,7 @@ export const productsApi = apiSlice.injectEndpoints({
     // Add Order
     addOrder: builder.mutation({
       query: (data) => ({
-
-        url: "/product/order/",
-
+        url: "/product/order_create/",
         method: "POST",
         body: data,
       }),
