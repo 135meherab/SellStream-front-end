@@ -14,6 +14,8 @@ import Shop from './Shop';
 import Branches from './Branches';
 import Customer from './Customer';
 import Users from './Users';
+import Designation from './Designation';
+import Attendance from './Attendance';
 import userAvatar from '../assets/avater.png'
 import Profile from './Profile';
 import { useLogoutMutation } from '../features/auth/authApi';
@@ -116,9 +118,9 @@ const toggleEmployee = ()=>{
                   <FaChevronRight />
                 </div>
                 <ul className="absolute left-full top-0 mt-2 ml-2 bg-gray-800 text-white rounded shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-opacity duration-300">
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
+                  {/* <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
                     <Link to='/dashboard/employee/designation'>Designation</Link>
-                  </li>
+                  </li> */}
                   <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
                     <Link to='/dashboard/employee/attendance'>Attendance</Link>
                   </li>
@@ -128,7 +130,14 @@ const toggleEmployee = ()=>{
                 </ul>
             </li>
             
-            
+            <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                   <FaFileAlt className="mr-2" />
+                    <Link to='/dashboard/designation'>Designation</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                   <FaFileAlt className="mr-2" />
+                    <Link to='/dashboard/attendance'>Attendance</Link>
+            </li>
             <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
               <FaFileAlt className="mr-2" />
               <Link to='/dashboard/report'>Reports</Link>
@@ -180,7 +189,8 @@ const toggleEmployee = ()=>{
               <Route path="user" element={<Users />} />
               <Route path="report" element={<Reports />} />
               <Route path="profile" element={<Profile />} />
-
+              <Route path="designation" element={<Designation/>}/>
+              <Route path="attendance" element={<Attendance/>}/>
             </Routes>
           </div>
         </div>

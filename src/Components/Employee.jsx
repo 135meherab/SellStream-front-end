@@ -20,6 +20,8 @@ const Employee =() => {
   const [ updateEmployee] = useUpdateEmployeeMutation()
   const [deleteEmployee] = useDeleteEmployeeMutation()
 
+
+  // console.log(employees)
 // initial error
   useEffect(() => {
     if (responseError) {
@@ -194,8 +196,8 @@ const handleDelete= async (id)=>{
             <td className="border px-4 py-2">{employee.phone}</td>
             {/* <td className="border px-4 py-2">{employee.bank_account}</td> */}
             <td className="border px-4 py-2">{employee.gender}</td>
-            <td className="border px-4 py-2">{employee.designation}</td>
-            <td className="border px-4 py-2">{employee.branch}</td>
+            <td className="border px-4 py-2">{employee.designation_name}</td>
+            <td className="border px-4 py-2">{employee.branch_name}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button

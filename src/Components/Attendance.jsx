@@ -18,10 +18,12 @@ function Attendance() {
 
 
   //redux
-  const { data: attendance, isLoading, isError, error: responseError } = useGetAttendanceQuery();
+  const { data: attendances, isLoading, isError, error: responseError } = useGetAttendanceQuery();
   const[addAttendance] = useAddAttendanceMutation()
   const [updateAttendance] = useUpdateAttendanceMutation()
   const [deleteAttendance] = useDeleteAttendanceMutation()
+
+  console.log(attendances)
 
   //initial error
   useEffect(() => {
@@ -118,15 +120,15 @@ function Attendance() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && attendance?.length === 0) {
+  } else if (!isLoading && !isError && attendances?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && attendance?.length > 0) {
-    content = attendance?.map((attendance, index) => (
+  else if (!isLoading && !isError && attendances?.length > 0) {
+    content = attendances?.map((attendance, index) => (
       <tr key={attendance.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Attendance.id ? (

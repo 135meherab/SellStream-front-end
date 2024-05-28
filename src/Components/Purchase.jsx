@@ -1,47 +1,46 @@
 import { useEffect, useState } from 'react';
 import OrderModal from './modals/OrderModal';
 import './css/modal.css';
-import { useSelector } from 'react-redux';
-import { useGetProductsQuery } from '../features/products/productsApi';
-
+import { useAddOrderMutation, useGetProductsQuery } from '../features/products/productsApi';
+import { toast } from 'react-toastify';
 const Purchase = () => {
 
-  const productsData  = [
-    {
-        id: 1,
-        product_code: "4001",
-        name: "Dell Laptop",
-        description:'Electronics Items',
-        price: 40000.00,
-        quantity: 12,
-        category: "Electronics",
-        uom_name: 'piece'
-    },
-    {
-      id: 2,
-      product_code: "4002",
-      name: "Dell Mouse",
-      description:'Electronics Items',
-      price: 120.00,
-      quantity: 120,
-      category: "Electronics",
-      uom_name: 'piece'
-  },
-  {
-    id: 3,
-    product_code: "4003",
-    name: "Dell Keyboard",
-    description:'Electronics Items',
-    price: 500.00,
-    quantity: 100,
-    category: "Electronics",
-    uom_name: 'piece'
-},
-   ]
+//   const productsData  = [
+//     {
+//         id: 1,
+//         product_code: "4001",
+//         name: "Dell Laptop",
+//         description:'Electronics Items',
+//         price: 40000.00,
+//         quantity: 12,
+//         category: "Electronics",
+//         uom_name: 'piece'
+//     },
+//     {
+//       id: 2,
+//       product_code: "4002",
+//       name: "Dell Mouse",
+//       description:'Electronics Items',
+//       price: 120.00,
+//       quantity: 120,
+//       category: "Electronics",
+//       uom_name: 'piece'
+//   },
+//   {
+//     id: 3,
+//     product_code: "4003",
+//     name: "Dell Keyboard",
+//     description:'Electronics Items',
+//     price: 500.00,
+//     quantity: 100,
+//     category: "Electronics",
+//     uom_name: 'piece'
+// },
+//    ]
 
   // State variables
   const [productCode, setProductCode] = useState('')
-
+  const [products, setProducts] = useState([])
   const [orderItem, setOrderItem] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -49,15 +48,22 @@ const Purchase = () => {
   const [error, setError] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-const {data: products} = useGetProductsQuery()
+  // redux
+  const {data} = useGetProductsQuery()
+  const [addOrder] = useAddOrderMutation()
+  // set data to products
+  useEffect(()=>{
+    setProducts(data)
+  },[data])
 
-
+  // console.log(products)
+  // console.log(productCode)
+// console.log(orderItem)
  // Function to handle search
   const handleSearch = () => {
-    const result = products.filter((product) => {
-      product.product_code == productCode
-    })
-    console.log(result)
+    // console.log(products)
+    const result = products.filter((product) => product.product_code == productCode)
+    // console.log(result)
 
     if(!result){
       setError('Invalid Product Code!')
@@ -67,8 +73,8 @@ const {data: products} = useGetProductsQuery()
     }
     
   };
-  console.log(searchResult)
-console.log(productCode)
+//   console.log(searchResult)
+// console.log(productCode)
 
 
   const handleAddProduct = (product) => {
@@ -82,7 +88,7 @@ const handleQuantityChange = (value, index) => {
     setOrderItem(prevItems => {
         const updatedItems = [...prevItems];
         updatedItems[index].quantity = value;
-        updatedItems[index].subtotal = updatedItems[index].price * value;
+        updatedItems[index].subtotal = updatedItems[index].selling_price * value;
         return updatedItems;
     });
 };
@@ -111,10 +117,19 @@ useEffect(() => {
       // Function to handle form submission from the modal
       const handleModalSubmit = async(formData) => {
        
-         
+         try{
+          await addOrder(formData).unwrap()
+          toast.success('Order Added Successful!')
+          setError('')
+         }catch(error){
+          setError(error)
+          toast.error(error)
+          console.log(error)
+         }
       };
     const orderId = generateOrderId()
  
+
     return (
     <div>
       <h2 className="text-2xl font-bold mb-4 ">Purchase</h2>
@@ -172,7 +187,7 @@ useEffect(() => {
               <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">{product.product_code}</td>
               <td className="border px-4 py-2">{product.name}</td>
-              <td className="border px-4 py-2">{product.price }</td>
+              <td className="border px-4 py-2">{product.selling_price }</td>
               <td className="border px-4 py-2">
                 <input
                   type="number"
@@ -184,7 +199,7 @@ useEffect(() => {
                 />
               </td>
              
-              <td className="border px-4 py-2">{product.price * product.quantity}</td>
+              <td className="border px-4 py-2">{product.selling_price * product.quantity}</td>
               <td className="border px-4 py-2">
                 <button className='bg-red-400 py-2 p text-white px-2 mr-2 rounded-md border'>Delete</button>
               </td>
@@ -230,7 +245,7 @@ const generateOrderId = () => {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const seconds = now.getSeconds().toString().padStart(2, '0');
-  return `TransactionId# : ${year}${month}${date}Tx${hours}${minutes}${seconds}`;
+  return `ORD${year}${month}${date}${hours}${minutes}${seconds}`;
 };
 
  {/* <div className='flex justify-center items-center'>

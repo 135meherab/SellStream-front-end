@@ -85,6 +85,21 @@ export const employeeApi = apiSlice.injectEndpoints({
           invalidatesTags: ["Attendance"]  
         }),
       }),
+      updateAttendance:builder.mutation({
+        query: ({id, data}) => ({
+          url:`employee/attendance/${id}`,
+          method: "PATCH",
+          body: data,
+          invalidatesTags: ["Attendance"]  
+        }),
+      }),
+      deleteAttendance:builder.mutation({
+        query: (id) => ({
+          url:`employee/attendance/${id}`,
+          method: "DELETE",
+          invalidatesTags: ["Attendance"]  
+        }),
+      }),
 
       // Leave Endpoints
       getLeave: builder.query({
@@ -138,8 +153,8 @@ export const {
   useGetAttendanceQuery,
   useGetAttendancesQuery,
   useAddAttendanceMutation,
-  // useUpdateAttendanceMutation,
-  // useDeleteAttendanceMutation,
+  useUpdateAttendanceMutation,
+  useDeleteAttendanceMutation,
 
   //leave
   useGetLeaveQuery,
