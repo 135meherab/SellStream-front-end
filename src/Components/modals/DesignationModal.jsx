@@ -7,23 +7,19 @@ const DesignationModal = ({ isOpen, onClose, onSubmit }) => {
  
   //local state
   const [name, setName] = useState('');
-  const [uom, setUom] = useState('');
-  const [shop, setShop] = useState('');
+  const [salary, setSalary] = useState('');
 
-// redux
-const {data: shops} = useGetShopsQuery()
 
 
 const handleSubmit = async(e) => {
 
     e.preventDefault();
     // number into string
-    const shopId = Number(shop)
+    let salaryInt = Number(salary)
 
     const newDesignation = {
       name: name,
-      uom: uom,
-      shop: shopId,
+      salary: salaryInt,
     };
     
     onSubmit(newDesignation)
@@ -48,37 +44,13 @@ const handleSubmit = async(e) => {
             </div>
           
             <div className="mb-4">
-                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">UOM</label>
-                <input type="text" id="uom" value={uom} onChange={(e) => setUom(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+                <label htmlFor="salary" className="block text-gray-700 text-sm font-bold mb-2">Salary</label>
+                <input type="text" id="salary" value={salary} onChange={(e) => setSalary(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
             
            </div>
            
-           <div className="flex justify-between items-center">
            
-            
-           
-             <div className="mb-4">
-                <label htmlFor="shop" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
-                <select 
-                    id="shop" 
-                    value={shop} 
-                    onChange={(e) => setShop(e.target.value)} 
-                    className="border rounded-md py-2 px-4 w-full focus:outline-none"
-                    required
-                >
-                  <option value="" disabled selected>Select a Shop</option>
-                  {
-                    shops?.map((shop) =>(
-
-                      <option key={shop.id} value={shop.id}>{shop.name}</option>
-                    ))
-                  }
-                  
-                </select>
-            </div>
-            
-            </div>
           
                   
           </div>
