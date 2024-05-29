@@ -89,9 +89,9 @@ const handleSubmit = async(e) => {
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
-                  <option value="designation" disabled selected>Select a Designation</option>
+                  <option value="designation"  selected>Select a Designation</option>
                   {
-                    designations?.map((designation) =>(
+                    designations?.results.map((designation) =>(
 
                       <option key={designation.id} value={designation.id}>{designation.name}</option>
                     ))
