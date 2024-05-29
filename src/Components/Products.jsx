@@ -126,15 +126,15 @@ const AllProducts = () => {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && products?.length === 0) {
+  } else if (!isLoading && !isError && products?.results.length === 0) {
     content = (
       <tr>
         <td className='mb-5 pb-5 text-center text-red-600 bg-red-300 py-5 font-bold' colSpan="9">No Products Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && products?.length > 0) {
-    content = products?.map((product, index) => (
+  else if (!isLoading && !isError && products?.results.length > 0) {
+    content = products?.results.map((product, index) => (
       <tr key={product.id} className="text-center">
         {/* <td className="border  px-4 py-2">{index + 1}</td> */}
         {editRowId === product.id ? (

@@ -24,6 +24,7 @@ import Profile from './Profile';
 import { useLogoutMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedOut } from '../features/auth/authSlice';
+import Leave from './leave';
 
 const DashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -147,7 +148,7 @@ const DashboardPage = () => {
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                     <FaPlaneDeparture className="mr-2" />
-                    <Link to='/dashboard/employee/leave'>Leave</Link>
+                    <Link to='/dashboard/leave'>Leave</Link>
                 </li>
               </ul>
           </li>
@@ -203,6 +204,7 @@ const DashboardPage = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="designation" element={<Designation />} />
             <Route path="attendance" element={<Attendance />} />
+            <Route path="leave" element={<Leave />} />
           </Routes>
         </div>
       </div>
