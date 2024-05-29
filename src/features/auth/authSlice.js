@@ -19,4 +19,14 @@ const authSlice = createSlice({
 });
 
 export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+
+export const loginWithGoogle = async(dispatch) =>{
+  try{
+    const {auth, googleProvider} = await import('../../firebase.config.js');
+    const result = await auth.signInWithPopup(googleProvider);
+    const token = await result.user.getIdToken();
+  }catch(error){
+
+  }
+}
 export default authSlice.reducer;

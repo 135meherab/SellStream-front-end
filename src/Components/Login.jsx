@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation } from '../features/auth/authApi';
+import { useLoginMutation, useLoginWithGoogleMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedIn } from '../features/auth/authSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import google from '../assets/google.png'
+import fb from '../assets/fb.jpg'
 
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 const [login, {data, isLoading, error: responseError}] = useLoginMutation()
-  
+const [loginWithGoogle] = useLoginWithGoogleMutation()
 
 const handleLogin = async(e) => {
   e.preventDefault();
@@ -78,7 +79,14 @@ useEffect(() => {
             />
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
-        
+          <div className="login flex space-x-3 justify-center items-center my-5">
+            <div className="google cursor-pointer  " onClick={()=>loginWithGoogle()}>
+              <img src={google} alt="google icon" width='40px'/>
+            </div>
+            <div className="google cursor-pointer ">
+              <img src={fb} alt="fb icon" width='40px'/>
+            </div>
+          </div>
           {
             error !== '' && <p className='text-red-500 text-center'>{error}</p> 
           }
