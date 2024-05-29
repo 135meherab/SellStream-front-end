@@ -53,7 +53,7 @@ const Purchase = () => {
   const [addOrder] = useAddOrderMutation()
   // set data to products
   useEffect(()=>{
-    setProducts(data)
+    setProducts(data.results)
   },[data])
 
   // console.log(products)
