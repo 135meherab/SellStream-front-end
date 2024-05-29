@@ -79,10 +79,10 @@ function Customer() {
       await updateCustomer({id: currentEditValues.id, ...currentEditValues}).unwrap();
       toast.success(`Customer Updated Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("Error During update Customer: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -92,10 +92,10 @@ function Customer() {
       await deleteCustomer(id).unwrap();
       toast.success(`Customer Deleted Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("Error During delete Customer: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {
@@ -119,15 +119,15 @@ function Customer() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && customers?.length === 0) {
+  } else if (!isLoading && !isError && customers?.results.length === 0) {
     content = (
       <tr >
         <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError &&  customers?.length > 0) {
-    content = customers?.map((customer, index) => (
+  else if (!isLoading && !isError &&  customers?.results.length > 0) {
+    content = customers?.results.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === customer.id ? (

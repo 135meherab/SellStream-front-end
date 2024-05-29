@@ -22,7 +22,9 @@ function Categories() {
   const[addCategory] = useAddCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
   const [deleteCategory] = useDeleteCategoryMutation()
-
+  
+  // console.log(categories)
+  
   //initial error
   useEffect(() => {
     if (responseError) {
@@ -47,10 +49,10 @@ function Categories() {
      await addCategory(formData ).unwrap()
      toast.success(`Category ${formData.name} added Successfully!`);
      setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during adding category: ', error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -72,29 +74,31 @@ function Categories() {
     });
   };
 
+  //update category
   const handleUpdate = async() => {
    
    try{
     setEditRowId(null); 
       await updateCategory({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Category updated Successfully!`)
-     }catch(error){
-       setError(error.data.detail)
-       toast.error(error.data.detail)
-       console.log('Error during updating category: ', error.status, error.data.detail)
+     }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
      }
     
   };
 
+  //delete category
   const handleDelete = async(id) => {
     try{
       await deleteCategory(id).unwrap();
       toast.success("Category deleted successfully!")
       setError('')
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail)
-      console.log('Error During Deleting Category: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {
@@ -103,6 +107,9 @@ function Categories() {
 
   let content = null;
 
+
+  // how to render
+  
   if (isLoading) {
     content = (
       <tr >
@@ -118,15 +125,15 @@ function Categories() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && categories?.length === 0) {
+  } else if (!isLoading && !isError && categories?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && categories?.length > 0) {
-    content = categories?.map((category, index) => (
+  else if (!isLoading && !isError && categories?.results.length > 0) {
+    content = categories?.results.map((category, index) => (
       <tr key={category.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === category.id ? (

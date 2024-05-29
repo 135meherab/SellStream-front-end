@@ -49,10 +49,10 @@ function Attendance() {
      await addAttendance(formData ).unwrap()
      toast.success(`Attendance ${formData.fullname} added Successfully!`);
      setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during adding Attendance: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -80,23 +80,24 @@ function Attendance() {
     setEditRowId(null); 
       await updateAttendance({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Attendance updated Successfully!`)
-     }catch(error){
-       setError(error.data.detail)
-       toast.error(error.data.detail)
-       console.log('Error during updating Attendance: ', error.status, error.data.detail)
+     }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
      }
     
   };
 
+  // delete attendance
   const handleDelete = async(id) => {
     try{
       await deleteAttendance(id).unwrap();
       toast.success("Attendance deleted successfully!")
       setError('')
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail)
-      console.log('Error During Deleting Attendance: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {
@@ -120,15 +121,15 @@ function Attendance() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && attendances?.length === 0) {
+  } else if (!isLoading && !isError && attendances?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && attendances?.length > 0) {
-    content = attendances?.map((attendance, index) => (
+  else if (!isLoading && !isError && attendances?.results.length > 0) {
+    content = attendances?.results.map((attendance, index) => (
       <tr key={attendance.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Attendance.id ? (

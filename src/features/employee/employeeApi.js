@@ -115,6 +115,21 @@ export const employeeApi = apiSlice.injectEndpoints({
           invalidatesTags: ["Leave"]  
         }),
       }),
+      updateLeave:builder.mutation({
+        query: ({id, data}) => ({
+          url:`/employee/leave/${id}`,
+          method: "PATCH",
+          body: data,
+          invalidatesTags: ["Leave"]  
+        }),
+      }),
+      deleteLeave:builder.mutation({
+        query: (id) => ({
+          url:`/employee/leave/${id}`,
+          method: "DELETE",
+          invalidatesTags: ["Leave"]  
+        }),
+      }),
 
       // Occasion
 
@@ -159,6 +174,8 @@ export const {
   //leave
   useGetLeaveQuery,
   useAddLeaveMutation,
+  useUpdateLeaveMutation,
+  useDeleteLeaveMutation,
 
   // occasion
 

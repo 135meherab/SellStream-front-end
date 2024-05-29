@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAddUserMutation, useGetAllUserQuery } from '../features/user/userApi.js';
+import { useAddUserMutation, useGetAllUserQuery, useUpdateUserMutation } from '../features/user/userApi.js';
 import UserModal from './modals/UserModal.jsx';
 import { toast } from 'react-toastify';
 
@@ -8,19 +8,20 @@ function User() {
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [error, setError] = useState('');
-  const[data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
   const { data: users, isLoading, isError, error: responseError } = useGetAllUserQuery();
   const[addUser] = useAddUserMutation()
+  const[updateUser] = useUpdateUserMutation()
  
-  console.log(users)
+  // console.log(users)
 
   useEffect(() => {
     // setData(usersss)
     if (responseError) {
       setError(responseError.error);
+      console.log(error)
     }
   }, [responseError, error]);
 
@@ -33,20 +34,22 @@ function User() {
     setUserModalOpen(false);
   };
 
+  // add user function
   const handleUserModalSubmit = async(formData) => {
       try{
         await addUser(formData).unwrap()
         toast.info("Please Check your Email To Confirm")
         setError('')
-      }catch(error){
-        setError(error)
+      }catch(err){
+        setError(err.data.detail)
         toast.error(error)
+        console.log(err.data.detail)
       }
    
       
   };
 
-  const handleAddUser = async (e) => {
+  const handleSearchUser = async (e) => {
     e.preventDefault();
     // Logic to add a shop
   };
@@ -64,14 +67,18 @@ function User() {
     });
   };
 
-  const handleUpdate = () => {
-    const updatedUser = data.map((user) =>
-      user.id === editRowId ? currentEditValues : user
-    );
-    setData(updatedUser)
-    setCurrentEditValues(updatedUser)
-    setEditRowId(null);
-    // updateUser(updatedUser.id, updatedUser)
+  // update user function
+  const handleUpdate = async() => {
+    try{
+      setEditRowId(null);
+      await  updateUser(currentEditValues).unwrap()
+      toast.success(`Successfully Updated the User`)
+      setError('')
+    }catch(err){
+      setError(err.data.detail)
+        toast.error(error)
+        console.log(err.data.detail)
+    }
   };
 
   const handleDelete = (id) => {
@@ -98,15 +105,15 @@ function User() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && users?.length === 0) {
+  } else if (!isLoading && !isError && users?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading  && !isError && users?.length > 0) {
-    content = users?.map((user, index) => (
+  else if (!isLoading  && !isError && users?.results.length > 0) {
+    content = users?.results.map((user, index) => (
       <tr key={user.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === user.id ? (
@@ -209,7 +216,7 @@ function User() {
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddUser}
+              onClick={handleSearchUser}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search

@@ -1,10 +1,9 @@
 import { apiSlice } from "../api/apiSlice";
-import { userLoggedIn } from "../auth/authSlice";
 
 export const userApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAllUser: builder.query({
-            query: ()=>('/shop/users/list/'),
+            query: ()=>('/shop/user_details/'),
 
         }),
         getUser: builder.query({
@@ -18,30 +17,14 @@ export const userApi = apiSlice.injectEndpoints({
                 body: data,
             }),
 
-            async onQueryStarted(arg, {queryFulfilled, dispatch}){
-                try{
-                    const result = await queryFulfilled;
-
-                    localStorage.setItem("auth", JSON.stringify({
-                        token: result.data.token,
-                        
-                    }))
-
-                    dispatch(userLoggedIn({
-                        token: result.data.token,
-                        
-                    }))
-                }catch(err) {
-                    // error part
-                    }
-            }
+            
 
         }),
 
         updateUser : builder.mutation({
-            query : ({id,data}) =>({
-                url : `/shop/user_details/${id}/`,
-                method: "PATCH",
+            query : ({data}) =>({
+                url : `/shop/update/`,
+                method: "PUT",
                 body: data
             })
         })

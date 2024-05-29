@@ -39,10 +39,10 @@ function Branches() {
       await addBranch(formData)
       toast.success(`The Branch ${formData.name} has been added Successfully!`)
       setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log("Error During add Branch: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -75,10 +75,10 @@ function Branches() {
       await updateBranch({id:currentEditValues.id, ...currentEditValues}).unwrap();
       toast.success(`Branch Updated Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during update Branch: ', error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
     
   };
@@ -89,10 +89,10 @@ function Branches() {
       await deleteBranch(id).unwrap();
       toast.success(`Branch Deleted Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("error during delete branch: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   }
 
@@ -115,15 +115,15 @@ function Branches() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && branches?.length === 0) {
+  } else if (!isLoading && !isError && branches?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && branches?.length >0 ) {
-    content = branches?.map((branch, index) => (
+  else if (!isLoading && !isError && branches?.results.length >0 ) {
+    content = branches?.results.map((branch, index) => (
       <tr key={branch.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === branch.id ? (
