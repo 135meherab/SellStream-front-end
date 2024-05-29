@@ -93,10 +93,10 @@ const handleDelete= async (id)=>{
     await deleteEmployee(id).unwrap()
     toast.success('Employee has been deleted successfully')
     setError('')
-  }catch(error){
-    setError(error)
+  }catch(err){
+    setError(err.data.detail)
     toast.error(error)
-    console.log(error)
+    console.log(err.data.detail)
   }
 }
   const handleCancel = () => {

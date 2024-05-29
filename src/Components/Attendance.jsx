@@ -49,10 +49,10 @@ function Attendance() {
      await addAttendance(formData ).unwrap()
      toast.success(`Attendance ${formData.fullname} added Successfully!`);
      setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during adding Attendance: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -80,23 +80,24 @@ function Attendance() {
     setEditRowId(null); 
       await updateAttendance({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Attendance updated Successfully!`)
-     }catch(error){
-       setError(error.data.detail)
-       toast.error(error.data.detail)
-       console.log('Error during updating Attendance: ', error.status, error.data.detail)
+     }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
      }
     
   };
 
+  // delete attendance
   const handleDelete = async(id) => {
     try{
       await deleteAttendance(id).unwrap();
       toast.success("Attendance deleted successfully!")
       setError('')
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail)
-      console.log('Error During Deleting Attendance: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {

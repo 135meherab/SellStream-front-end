@@ -22,7 +22,9 @@ function Categories() {
   const[addCategory] = useAddCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
   const [deleteCategory] = useDeleteCategoryMutation()
-
+  
+  // console.log(categories)
+  
   //initial error
   useEffect(() => {
     if (responseError) {
@@ -47,10 +49,10 @@ function Categories() {
      await addCategory(formData ).unwrap()
      toast.success(`Category ${formData.name} added Successfully!`);
      setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during adding category: ', error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -72,29 +74,31 @@ function Categories() {
     });
   };
 
+  //update category
   const handleUpdate = async() => {
    
    try{
     setEditRowId(null); 
       await updateCategory({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Category updated Successfully!`)
-     }catch(error){
-       setError(error.data.detail)
-       toast.error(error.data.detail)
-       console.log('Error during updating category: ', error.status, error.data.detail)
+     }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
      }
     
   };
 
+  //delete category
   const handleDelete = async(id) => {
     try{
       await deleteCategory(id).unwrap();
       toast.success("Category deleted successfully!")
       setError('')
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail)
-      console.log('Error During Deleting Category: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {
@@ -103,6 +107,9 @@ function Categories() {
 
   let content = null;
 
+
+  // how to render
+  
   if (isLoading) {
     content = (
       <tr >

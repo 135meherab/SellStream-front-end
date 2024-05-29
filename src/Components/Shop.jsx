@@ -45,10 +45,10 @@ const [deleteShop] = useDeleteShopMutation()
       await addShop(formData).unwrap()
       toast.success(`${formData.name} Shop has been added Successfully!`)
       setError('')
-    }catch(error){
-      setError(error)
+    }catch(err){
+      setError(err.data.detail)
       toast.error(error)
-      console.log(error)
+      console.log(err.data.detail)
     }
   };
   const handleAddShop = async(e)=>{
