@@ -79,10 +79,10 @@ function Customer() {
       await updateCustomer({id: currentEditValues.id, ...currentEditValues}).unwrap();
       toast.success(`Customer Updated Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("Error During update Customer: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -92,10 +92,10 @@ function Customer() {
       await deleteCustomer(id).unwrap();
       toast.success(`Customer Deleted Successfully!`)
       setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("Error During delete Customer: ", error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {

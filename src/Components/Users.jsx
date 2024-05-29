@@ -21,6 +21,7 @@ function User() {
     // setData(usersss)
     if (responseError) {
       setError(responseError.error);
+      console.log(error)
     }
   }, [responseError, error]);
 
@@ -38,15 +39,16 @@ function User() {
         await addUser(formData).unwrap()
         toast.info("Please Check your Email To Confirm")
         setError('')
-      }catch(error){
-        setError(error)
+      }catch(err){
+        setError(err.data.detail)
         toast.error(error)
+        console.log(err.data.detail)
       }
    
       
   };
 
-  const handleAddUser = async (e) => {
+  const handleSearchUser = async (e) => {
     e.preventDefault();
     // Logic to add a shop
   };
@@ -209,7 +211,7 @@ function User() {
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
-              onClick={handleAddUser}
+              onClick={handleSearchUser}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
             >
               Search

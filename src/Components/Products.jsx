@@ -47,9 +47,10 @@ const AllProducts = () => {
       toast.success(`Successfully added the product ${formData.name}`)
       setError('')
       setProductsList([...productsList, formData]);
-    } catch (error) {
-      setError(error)
-      console.error('Failed to add product: ', error);
+    } catch (err) {
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -82,9 +83,10 @@ const AllProducts = () => {
     await  updateProduct({id: id, ...currentEditValues}).unwrap()
     toast.success(`Successfully Updated the product`)
     setError('')
-   }catch(error){
-    setError(updateError)
-    toast.error(error)
+   }catch(err){
+    setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
    }
   };
   
@@ -94,9 +96,10 @@ const AllProducts = () => {
      await deleteProduct(product.id).unwrap();
       toast.success(`Successfully Deleted the product ${product.name}`)
       setError('')
-    }catch(error){
-      setError(error.data.detail)
-      console.log('Error during Deleting product: ', error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 

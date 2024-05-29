@@ -48,10 +48,10 @@ function Designation() {
      await addDesignation(formData ).unwrap()
      toast.success(`Designation ${formData.name} added Successfully!`);
      setError('')
-    }catch(error){
-      setError(error.data.detail)
-      toast.error(error.data.detail)
-      console.log('Error during adding Designation: ', error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -73,29 +73,33 @@ function Designation() {
     });
   };
 
+
+  // update function
   const handleUpdate = async() => {
    
    try{
     setEditRowId(null); 
       await updateDesignation({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Designation updated Successfully!`)
-     }catch(error){
-       setError(error.data.detail)
-       toast.error(error.data.detail)
-       console.log('Error during updating Designation: ', error.status, error.data.detail)
+     }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
      }
     
   };
 
+
+  //delete function
   const handleDelete = async(id) => {
     try{
       await deleteDesignation(id).unwrap();
       toast.success("Designation deleted successfully!")
       setError('')
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail)
-      console.log('Error During Deleting Designation: ',error, error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
   const handleCancel = () => {
