@@ -121,15 +121,15 @@ function Attendance() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && attendances?.length === 0) {
+  } else if (!isLoading && !isError && attendances?.results.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && attendances?.length > 0) {
-    content = attendances?.map((attendance, index) => (
+  else if (!isLoading && !isError && attendances?.results.length > 0) {
+    content = attendances?.results.map((attendance, index) => (
       <tr key={attendance.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Attendance.id ? (
