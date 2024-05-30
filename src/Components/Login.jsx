@@ -95,7 +95,7 @@ useEffect(() => {
           <div className="login flex space-x-3 justify-center items-center my-5">
             <div className="google cursor-pointer  " >
             <GoogleLogin
-              clientId="YOUR_GOOGLE_CLIENT_ID"
+              clientId="AIzaSyCVoRi6LYNzjE64_8uN_4jpcnEYWRZht6A"
               buttonText="Login with Google"
               onSuccess={handleGoogleLoginSuccess}
               onFailure={handleGoogleLoginFailure}
