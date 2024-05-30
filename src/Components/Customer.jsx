@@ -129,7 +129,6 @@ function Customer() {
   else if (!isLoading && !isError &&  customers?.results.length > 0) {
     content = customers?.results.map((customer, index) => (
       <tr key={customer.id} className="text-center">
-        <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === customer.id ? (
           <>
             <td className="border px-4 py-2">
@@ -192,22 +191,7 @@ function Customer() {
             <td className="border px-4 py-2">{customer.phone}</td>
             <td className="border px-4 py-2">{customer.total_purchase}</td>
             <td className="border px-4 py-2">{customer.shop}</td>
-            <td className="border px-4 py-2">
-              <div className="flex justify-center items-center mx-2">
-                <button
-                  onClick={() => handleEdit(customer)}
-                  className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(customer.id)}
-                  className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Delete
-                </button>
-              </div>
-            </td>
+            
           </>
         )}
       </tr>
@@ -248,12 +232,10 @@ function Customer() {
       <table className="w-full border-collapse mb-4 text-sm">
         <thead>
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">customer Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Contact No</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Total Purchase</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Shop</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
           </tr>
         </thead>
         <tbody className='overflow-y-scroll'>{content}</tbody>

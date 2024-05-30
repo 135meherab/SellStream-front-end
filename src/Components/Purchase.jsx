@@ -5,65 +5,31 @@ import { useAddOrderMutation, useGetProductsQuery } from '../features/products/p
 import { toast } from 'react-toastify';
 const Purchase = () => {
 
-//   const productsData  = [
-//     {
-//         id: 1,
-//         product_code: "4001",
-//         name: "Dell Laptop",
-//         description:'Electronics Items',
-//         price: 40000.00,
-//         quantity: 12,
-//         category: "Electronics",
-//         uom_name: 'piece'
-//     },
-//     {
-//       id: 2,
-//       product_code: "4002",
-//       name: "Dell Mouse",
-//       description:'Electronics Items',
-//       price: 120.00,
-//       quantity: 120,
-//       category: "Electronics",
-//       uom_name: 'piece'
-//   },
-//   {
-//     id: 3,
-//     product_code: "4003",
-//     name: "Dell Keyboard",
-//     description:'Electronics Items',
-//     price: 500.00,
-//     quantity: 100,
-//     category: "Electronics",
-//     uom_name: 'piece'
-// },
-//    ]
 
   // State variables
   const [productCode, setProductCode] = useState('')
   const [products, setProducts] = useState([])
   const [orderItem, setOrderItem] = useState([]);
   const [total, setTotal] = useState(0);
-
   const [searchResult, setSearchResult] = useState([]);
   const [error, setError] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   // redux
-  const {data} = useGetProductsQuery()
+  const { data: product, isLoading, isError, error: responseError} = useGetProductsQuery();
   const [addOrder] = useAddOrderMutation()
+
+
   // set data to products
   useEffect(()=>{
-    setProducts(data.results)
-  },[data])
+    setProducts(product)
+  },[product])
 
-  // console.log(products)
-  // console.log(productCode)
-// console.log(orderItem)
+  // console.log(products.results)
+  
  // Function to handle search
   const handleSearch = () => {
-    // console.log(products)
-    const result = products.filter((product) => product.product_code == productCode)
-    // console.log(result)
+    const result = products.results.filter((product) => product.product_code == productCode)
 
     if(!result){
       setError('Invalid Product Code!')
@@ -73,8 +39,6 @@ const Purchase = () => {
     }
     
   };
-//   console.log(searchResult)
-// console.log(productCode)
 
 
   const handleAddProduct = (product) => {

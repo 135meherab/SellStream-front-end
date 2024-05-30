@@ -89,17 +89,17 @@ export const productsApi = apiSlice.injectEndpoints({
     // start Order endpoints
     //  Get Order
     getOrder: builder.query({
-      query: () => '/product/order/',
+      query: () => '/product/orders/',
       providesTags:["Order"]
     }),
     getOrders: builder.query({
-      query: () => `/product/order_list/`,
+      query: () => `/product/orders/`,
       provideTags:["order"]
     }),
     // Add Order
     addOrder: builder.mutation({
       query: (data) => ({
-        url: "/product/order_create/",
+        url: "/product/orders/",
         method: "POST",
         body: data,
       }),
