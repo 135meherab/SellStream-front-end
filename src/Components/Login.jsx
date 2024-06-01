@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import google from '../assets/google.png'
 import fb from '../assets/fb.jpg'
-
+import GoogleLogin from 'react-google-login';
 
 const Login = () => {
   const [username, setUserName] = useState('');
@@ -30,7 +30,20 @@ const handleLogin = async(e) => {
   toast.error(error);
  }
 
- 
+ };
+ const handleGoogleLoginSuccess = async (response) => {
+  const { tokenId } = response;
+  try {
+    await loginWithGoogle({ tokenId });
+  } catch (error) {
+    setError(error.message || 'Google Login Problem');
+    toast.error(error.message);
+  }
+};
+
+const handleGoogleLoginFailure = (error) => {
+  setError('Google Login Failed');
+  toast.error('Google Login Failed');
 };
 
 useEffect(() => {
@@ -80,8 +93,19 @@ useEffect(() => {
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
           <div className="login flex space-x-3 justify-center items-center my-5">
-            <div className="google cursor-pointer  " onClick={()=>loginWithGoogle()}>
-              <img src={google} alt="google icon" width='40px'/>
+            <div className="google cursor-pointer  " >
+            <GoogleLogin
+              clientId="YOUR_GOOGLE_CLIENT_ID"
+              buttonText="Login with Google"
+              onSuccess={handleGoogleLoginSuccess}
+              onFailure={handleGoogleLoginFailure}
+              cookiePolicy={'single_host_origin'}
+              render={renderProps => (
+                <div className="google cursor-pointer" onClick={renderProps.onClick}>
+                  <img src={google} alt="google icon" width='40px'/>
+                </div>
+              )}
+            />
             </div>
             <div className="google cursor-pointer ">
               <img src={fb} alt="fb icon" width='40px'/>
