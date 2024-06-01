@@ -121,7 +121,7 @@ function Attendance() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && attendances?.results.length === 0) {
+  } else if (!isLoading && !isError ) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>

@@ -123,14 +123,14 @@ function Leave() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && leaves?.results.length === 0) {
+  } else if (!isLoading && !isError ) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && leaves?.results.length > 0) {
+  else if (!isLoading && !isError && leaves?.results?.length > 0) {
     content = leaves?.results.map((leave, index) => (
       <tr key={leave.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>

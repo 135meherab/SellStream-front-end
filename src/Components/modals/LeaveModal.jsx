@@ -95,7 +95,7 @@ const LeaveModal = ({ isOpen, onClose, onSubmit}) => {
                         required
                     >
                         <option value="" disabled>Select employee</option>
-                        {employees?.results.map((employee) => (
+                        {employees?.results?.map((employee) => (
                         <option key={employee.id} value={employee.id}>
                             {employee.fullname}
                         </option>

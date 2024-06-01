@@ -120,14 +120,14 @@ const handleDelete= async (id)=>{
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && employees?.results.length === 0) {
+  } else if (!isLoading && !isError ) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && employees?.results.length >0) {
+  else if (!isLoading && employees?.results?.length >0) {
     content = employees?.results.map((employee, index) => (
       <tr key={index} className="text-center">
         {/* <td className="border px-4 py-2">{index + 1}</td> */}

@@ -125,14 +125,14 @@ function Order() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && orders?.results.length === 0) {
+  } else if (!isLoading && !isError ) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && orders?.results.length > 0) {
+  else if (!isLoading && !isError && orders?.results?.length > 0) {
     content = orders?.results.map((order, index) => (
       <tr key={order.id} className="text-center">
         {editRowId === order.id ? (

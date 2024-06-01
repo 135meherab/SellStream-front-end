@@ -93,7 +93,7 @@ useEffect(() => {
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
           <div className="login flex space-x-3 justify-center items-center my-5">
-            <div className="google cursor-pointer  " >
+            {/* <div className="google cursor-pointer  " >
             <GoogleLogin
               clientId="AIzaSyCVoRi6LYNzjE64_8uN_4jpcnEYWRZht6A"
               buttonText="Login with Google"
@@ -106,7 +106,7 @@ useEffect(() => {
                 </div>
               )}
             />
-            </div>
+            </div> */}
             <div className="google cursor-pointer ">
               <img src={fb} alt="fb icon" width='40px'/>
             </div>

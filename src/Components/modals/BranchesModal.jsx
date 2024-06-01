@@ -46,10 +46,10 @@ const handleSubmit = async(e) => {
               <label htmlFor="shopName" className="block text-gray-700 text-sm font-bold mb-2">Branch Name</label>
               <input type="text" id="shopName" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
-           <div className="mb-4">
+           {/* <div className="mb-4">
               <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">Location</label>
               <input type="text" id="location" value={location} onChange={(e) => setLocation(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
+            </div> */}
           
             
            </div>
@@ -67,7 +67,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Shop</option>
                   {
-                    shops?.results.map((shop) =>(
+                    shops?.results?.map((shop) =>(
 
                       <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))
