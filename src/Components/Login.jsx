@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation, useLoginWithGoogleMutation } from '../features/auth/authApi';
+import { useLoginMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedIn } from '../features/auth/authSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import google from '../assets/google.png'
-import fb from '../assets/fb.jpg'
-import GoogleLogin from 'react-google-login';
+
 
 const Login = () => {
   const [username, setUserName] = useState('');
@@ -16,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 const [login, {data, isLoading, error: responseError}] = useLoginMutation()
-const [loginWithGoogle] = useLoginWithGoogleMutation()
+
 
 const handleLogin = async(e) => {
   e.preventDefault();
@@ -31,20 +29,7 @@ const handleLogin = async(e) => {
  }
 
  };
- const handleGoogleLoginSuccess = async (response) => {
-  const { tokenId } = response;
-  try {
-    await loginWithGoogle({ tokenId });
-  } catch (error) {
-    setError(error.message || 'Google Login Problem');
-    toast.error(error.message);
-  }
-};
 
-const handleGoogleLoginFailure = (error) => {
-  setError('Google Login Failed');
-  toast.error('Google Login Failed');
-};
 
 useEffect(() => {
   if (responseError?.data) {
@@ -92,25 +77,7 @@ useEffect(() => {
             />
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
-          <div className="login flex space-x-3 justify-center items-center my-5">
-            {/* <div className="google cursor-pointer  " >
-            <GoogleLogin
-              clientId="AIzaSyCVoRi6LYNzjE64_8uN_4jpcnEYWRZht6A"
-              buttonText="Login with Google"
-              onSuccess={handleGoogleLoginSuccess}
-              onFailure={handleGoogleLoginFailure}
-              cookiePolicy={'single_host_origin'}
-              render={renderProps => (
-                <div className="google cursor-pointer" onClick={renderProps.onClick}>
-                  <img src={google} alt="google icon" width='40px'/>
-                </div>
-              )}
-            />
-            </div> */}
-            <div className="google cursor-pointer ">
-              <img src={fb} alt="fb icon" width='40px'/>
-            </div>
-          </div>
+         
           {
             error !== '' && <p className='text-red-500 text-center'>{error}</p> 
           }
