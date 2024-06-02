@@ -91,7 +91,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="designation"  selected>Select a Designation</option>
                   {
-                    designations?.results.map((designation) =>(
+                    designations?.map((designation) =>(
 
                       <option key={designation.id} value={designation.id}>{designation.name}</option>
                     ))
@@ -102,8 +102,6 @@ const handleSubmit = async(e) => {
           
         
           </div>
-          
-         
            
            <div className="flex justify-between items-center">
            <div className="mb-4">
@@ -142,7 +140,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Branch</option>
                   {
-                    branches?.results.map((branch) =>(
+                    branches?.map((branch) =>(
 
                       <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))

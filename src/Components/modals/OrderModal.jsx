@@ -6,14 +6,15 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [branch, setBranch] = useState(''); 
-
+  const [products, setProducts] = useState([])
   // Redux
   const { data:branches, error, isLoading } = useGetBranchesQuery();
 
-  const productId =[] 
-  useEffect(()=>{
-    orderItem.map(item => productId.push(item.id))
-  },[orderItem])
+
+  useEffect(() => {
+    const newProducts = orderItem?.map(item => ({ id: item.id, quantity: Number(item.quantity) }));
+    setProducts(newProducts);
+  }, [orderItem]);
   
 
   const handleSubmit = async (e) => {
@@ -24,15 +25,13 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
     const newOrder = {
       customer: {
         name: name,
-        phone: mobileNumber,
+        phone: mobileNumber
       },
-      order: {
-        products: productId,
-        branch: branchInt,
-        order_unique_id: orderId,
-        total_price: total,
-      },
-    };
+      order_unique_id: orderId,
+      total_price: total,
+      branch: branchInt,
+      products: products
+    }
    
     onSubmit(newOrder);
 
@@ -72,7 +71,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
                   required
                 >
                   <option value="" disabled>Select a branch</option>
-                  {branches?.results.map((branch) => (
+                  {branches?.map((branch) => (
                     <option key={branch.id} value={branch.id}>{branch.name}</option>
                   ))}
                 </select>
