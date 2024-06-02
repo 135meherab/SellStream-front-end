@@ -29,7 +29,7 @@ const Purchase = () => {
   
  // Function to handle search
   const handleSearch = () => {
-    const result = products.results.filter((product) => product.product_code == productCode)
+    const result = products?.filter((product) => product.product_code == productCode)
 
     if(!result){
       setError('Invalid Product Code!')

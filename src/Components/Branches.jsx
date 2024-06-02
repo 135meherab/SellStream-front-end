@@ -17,6 +17,7 @@ function Branches() {
   const[updateBranch] = useUpdateBranchMutation()
   const [deleteBranch] = useDeleteBranchMutation()
 
+
   useEffect(() => {
     if (responseError) {
       setError(responseError.error);
@@ -115,15 +116,15 @@ function Branches() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && branches?.results.length === 0) {
+  } else if (!isLoading && !isError && branches?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && branches?.results.length >0 ) {
-    content = branches?.results.map((branch, index) => (
+  else if (!isLoading && !isError && branches?.length >0 ) {
+    content = branches?.map((branch, index) => (
       <tr key={branch.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === branch.id ? (
