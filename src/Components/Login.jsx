@@ -77,7 +77,7 @@ useEffect(() => {
             />
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
-         
+
           {
             error !== '' && <p className='text-red-500 text-center'>{error}</p> 
           }
