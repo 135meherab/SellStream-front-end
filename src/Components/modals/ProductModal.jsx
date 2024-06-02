@@ -88,7 +88,7 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a Category</option>
                   {
-                    categories?.results?.map((category) =>(
+                    categories?.map((category) =>(
 
                       <option key={category.id} value={category.id}>{category.name}</option>
                     ))
@@ -107,7 +107,7 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a branch</option>
                   {
-                    branches?.results?.map((branch) =>(
+                    branches?.map((branch) =>(
 
                       <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))

@@ -17,7 +17,7 @@ function Shop() {
  const [addShop] = useAddShopMutation();
  const [updateShop] = useUpdateShopMutation();
 const [deleteShop] = useDeleteShopMutation()
-
+// console.log("Shop Data:", shops);
  //initial error
   useEffect(() => {
     // setData(shops)
@@ -122,15 +122,15 @@ const [deleteShop] = useDeleteShopMutation()
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError ) {
+  } else if (!isLoading && !isError && shops?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && shops?.results?.length > 0) {
-    content = shops?.results.map((shop, index) => (
+  else if (!isLoading && !isError && shops?.length > 0) {
+    content = shops?.map((shop, index) => (
       <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === shop.id ? (
@@ -219,7 +219,6 @@ const [deleteShop] = useDeleteShopMutation()
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Shops</h2>
-
       <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">

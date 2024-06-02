@@ -71,7 +71,7 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
                   required
                 >
                   <option value="" disabled>Select a branch</option>
-                  {branches?.results?.map((branch) => (
+                  {branches?.map((branch) => (
                     <option key={branch.id} value={branch.id}>{branch.name}</option>
                   ))}
                 </select>

@@ -105,15 +105,15 @@ function User() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError ) {
+  } else if (!isLoading && !isError && users?.length > 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading  && !isError && users?.results?.length > 0) {
-    content = users?.results.map((user, index) => (
+  else if (!isLoading  && !isError && users?.length > 0) {
+    content = users?.map((user, index) => (
       <tr key={user.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === user.id ? (

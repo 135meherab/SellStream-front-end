@@ -72,7 +72,7 @@ const handleSubmit = async(e) => {
            
             
            
-             <div className="mb-4">
+             {/* <div className="mb-4">
                 <label htmlFor="shop" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
                 <select 
                     id="shop" 
@@ -90,7 +90,7 @@ const handleSubmit = async(e) => {
                   }
                   
                 </select>
-            </div>
+            </div> */}
             
             </div>
           
