@@ -1,6 +1,6 @@
 
 import { apiSlice } from "../api/apiSlice";
-import {auth, googleProvider} from '../../firebase.config';
+
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -30,18 +30,7 @@ export const authApi = apiSlice.injectEndpoints({
                 }
 
         }),
-        loginWithGoogle: builder.mutation({
-            async queryFn() {
-                try {
-                  const result = await auth.signInWithPopup(googleProvider);
-                  const token = await result.user.getIdToken();
-                  localStorage.setItem('auth', token);
-                  return { data: { token } };
-                } catch (error) {
-                  return { error: { message: error.message } };
-                }
-              },
-        }),
+        
 
         // try logout
         logout: builder.mutation({
@@ -69,4 +58,4 @@ export const authApi = apiSlice.injectEndpoints({
 
 
 
-export const {useLoginMutation,  useLogoutMutation, useLoginWithGoogleMutation} = authApi;
+export const {useLoginMutation,  useLogoutMutation} = authApi;
