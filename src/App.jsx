@@ -13,7 +13,7 @@ function App() {
       <ToastContainer/>
       <Routes>
         <Route path="/" element={<Login />}/>
-      {/* <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute> }/> */}
+      <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute> }/>
       <Route path="/dashboard/*" element={ <PrivateRoute><DashboardPage /></PrivateRoute> }/>
       </Routes>
       </>
