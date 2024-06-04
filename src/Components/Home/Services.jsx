@@ -1,25 +1,59 @@
 // src/components/Services.jsx
 import React from 'react';
-
-const services = [
-  { title: "Service One", description: "Description of service one." },
-  { title: "Service Two", description: "Description of service two." },
-  { title: "Service Three", description: "Description of service three." }
-];
+// import three from '../../assets/three.png'
+import credit from '../../assets/creadit.png'
+import arrow from '../../assets/arrow (1).png'
 
 const Services = () => {
   return (
-    <section id="services" className="py-20">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8">Our Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-              <p>{service.description}</p>
-            </div>
-          ))}
+    <section className="sellstream-section">
+      <div className="credit-container">
+        <div className="sellstream-text">
+          <p>Who Can Use Our Sellstream</p>
+          <h1>Our Software is Capable for a Wide Range</h1>
+          <h1>of Businesses and Industries</h1>
+          <div className="divider">
+            <ul className="arrow-list">
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">Retail Stores</span>
+              </li>
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">Restaurants and Cafes</span>
+              </li>
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">eCommerce Businesses</span>
+              </li>
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">Grocery Stores</span>
+              </li>
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">Hospitality and Hotels</span>
+              </li>
+              <li>
+                <span className="arrow-icon">
+                  <img src={arrow} alt="" />
+                </span>
+                <span className="arrow-text">And Many More..</span>
+              </li>
+            </ul>
+          </div>
         </div>
+        <img className="credit-img" src={credit} alt="Credit Image" />
       </div>
     </section>
   );
