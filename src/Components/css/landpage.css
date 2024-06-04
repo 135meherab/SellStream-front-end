@@ -1,0 +1,658 @@
+/* nav start */
+
+
+
+
+.colour {
+  position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #F6F6F2 !important;
+  }
+  
+  .nav-logo {
+    width: 50px;
+  }
+  
+  .left-side {
+    margin-left: 373px;
+  }
+  .right-side{
+    margin-right: 373px;
+  }
+  
+  nav a {
+    font-weight: 700;
+}
+  
+  .signup {
+    background-color: #3AAFA9;
+    border-radius: 10px;
+    padding: 6px;
+  }
+  
+  @media only screen and (max-width: 1100px) {
+    .left-side {
+      margin-left: 10px; /* Adjust for smaller screens */
+    }
+    .right-side {
+      margin-right: 10px; /* Adjust for smaller screens */
+    }
+    .nav-logo {
+      width: 40px; /* Adjust logo size */
+    }
+  }
+
+  /* nav end */
+
+  /* Carousel start */
+
+/* Carousel Start */
+.pading {
+  padding-top: 58px;
+}
+
+.carousel .carousel-item img {
+  width: 100%;
+  height: auto;
+  max-height: 850px;
+}
+
+@media (max-width: 1200px) {
+  .carousel .carousel-item img {
+      max-height: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel .carousel-item img {
+      max-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel .carousel-item img {
+      max-height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel .carousel-item img {
+      max-height: 280px;
+  }
+}
+@media only screen and (min-width: 1250px) and (max-width: 1685px) {
+  .carousel .carousel-item img {
+      max-height: 538px; /* Adjust the height as needed */
+  }
+}
+/* Carousel End */
+
+.pading {
+  padding-top: 70px;
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: auto;
+  max-height: 850px;
+}
+
+@media (max-width: 1200px) {
+  .carousel-inner img {
+      max-height: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel-inner img {
+      max-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-inner img {
+      max-height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-inner img {
+      max-height: 280px;
+  }
+}
+
+
+/* Grow Your Bussiness with Sellstream Start */
+.grow{
+    padding: 100px;
+    }
+    .grow h5{
+    color: rgb(8, 197, 8);
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    }
+    .grow h1{
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 40px;
+    }
+    .type{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+    
+    .type .card{
+    height: 300px;
+    width: 250px;
+    border: none; /* Optional: adds a border to the cards for better visibility */
+    padding: 10px; /* Optional: adds padding inside each card */
+    margin: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow for a 3D effect */
+    border-radius: 15px; /* Optional: rounds the corners of the cards */
+    flex-direction: column;
+    align-items: flex-start; 
+    overflow: hidden; 
+    box-sizing: border-box;
+    }
+    .type .card:hover {
+    transform: scale(1.05);
+    transition: transform 0.4s ease;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .type .card:hover img {
+    filter: brightness(80%);
+    }
+    .type .card img{
+    width: 40px;
+    align-self: center; /* Centers the image within the card */
+    padding-bottom: 20px;
+    padding-top: 25px;
+    }
+    .type .card h5{
+    font-weight: bold;
+    position: relative;
+    left: 8px;
+    }
+    .type .card p{
+    margin: 10px 6px 20px 5px;
+    flex-grow: 1; /* Allow the paragraph to take up available space */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    white-space: normal;
+    
+    }
+    /* Styles for devices up to 425px */
+    
+    @media only screen and (min-width: 425px) and (max-width: 650px) {
+    .type .card {
+      width: calc(50% - 25px); /* Adjust width to show two cards in one row */
+      height: 320px;
+      margin: 10px 5px 10px 4px; /* Add margin to separate cards */
+    }
+    .type .card img {
+      width: 30px;
+      align-self: center; /* Centers the image within the card */
+      padding-bottom: 15px;
+      padding-top: 20px;
+    }
+    .type .card p {
+      position: relative;
+      left: 6px;
+    }
+    .grow {
+      padding: 40px;
+    }
+    .grow h5 {
+      font-size: small;
+    }
+    .grow h1 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    }
+    
+    /* Styles for devices up to 768px */
+    @media only screen and (min-width: 651px) and (max-width: 850px) {
+    .type .card {
+      width: calc(33.33% - 20px); /* Adjust width to show three cards in one row */
+      height: 350px;
+      margin: 10px; /* Add margin to separate cards */
+    }
+    }
+    
+    /* Styles for devices up to 1024px */
+    @media only screen and (min-width: 851px) and (max-width: 1024px) {
+    .type .card {
+      width: calc(25% - 20px); /* Adjust width to show four cards in one row */
+      height: 340px;
+      margin: 10px; /* Add margin to separate cards */
+    }
+    }
+
+    /* Grow Your Bussiness with Sellstream End */
+
+
+    /* Who Can Use Our Sellstream Start */
+.sellstream-section{
+    display: flex;
+    justify-content: center;
+    
+    
+    }
+    
+    .sellstream-text p{
+    color: rgb(8, 197, 8);
+    font-weight: bold;
+    }
+    .sellstream-text h1{
+    font-weight: bold;
+    font-size: xx-large;
+    
+    }
+    
+    .credit-img{
+    width: 580px;
+    height: 750px;
+    }
+    
+    
+    .credit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 110px;
+    
+    }
+    
+    .arrow-list{
+    display: grid;
+    /* grid-gap: 25px 20px I !important; */
+    grid-template-columns: repeat(2,1fr);
+    }
+  
+    .divider{
+    padding-top: 30px;
+    
+    }
+    ul.arrow-list {
+    list-style: none;
+    padding: 0;
+    /* max-width: 600px; */
+    margin: 0 auto;
+    }
+    
+    ul.arrow-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-right: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.3s ease;
+    }
+    
+    ul.arrow-list li:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+    }
+    
+    .arrow-icon {
+    margin-right: 15px;
+    flex-shrink: 0;
+    width: 35px;
+    }
+    
+    .arrow-text {
+    font-size: 18px;
+    font-weight: 500;
+    }
+    
+    @media only screen and (min-width: 425px) and (max-width: 768px)
+     {
+    .credit-container {
+      flex-direction: column;
+      margin-left: 0;
+      margin: 20px;
+    }
+    
+    .credit-img {
+      width: 400px;
+      height: auto;
+      order: -1;
+    }
+    
+    .arrow-list {
+      grid-template-columns: 1fr;
+    }
+    .sellstream-text p{
+      display: flex;
+      justify-content: center;
+    }
+    .sellstream-text h1{
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem; 
+    }
+    
+    }
+    @media only screen and (min-width: 769px) and (max-width: 950px){
+      .credit-img {
+        width: 300px;
+        height: 600px;
+      }
+    }
+    @media only screen and (min-width: 951px) and (max-width: 1024px){
+      .credit-img {
+        width: 400px;
+        height: 600px;
+      }
+    }
+    /* Who Can Use Our Sellstream End */
+    
+
+/* Pricing start */
+.pricing-section{
+  margin-top: 50px;
+  }
+  .pricing-section p{
+  display: flex;
+  justify-content: center;
+  color: rgb(8, 197, 8);
+  font-weight: bold;
+  margin-bottom: 10px;
+  }
+  .pricing-section h1{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 40px;
+
+  }
+  
+  
+  .pricing-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .pricing-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+    width: 320px;
+    margin: 30px;
+  }
+  .pricing-card:hover {
+    transform: scale(1.05);
+  }
+  .card-header {
+    background-color: #3AAFA9;
+    color: white;
+    padding: 10px 0;
+    border-radius: 8px 8px 0 0;
+  }
+  .card-body {
+    padding: 20px;
+  }
+  .price {
+    font-size: 24px;
+    margin: 20px 0;
+  }
+  .features {
+    list-style: none;
+    padding: 0;
+  }
+  .features li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .features li:last-child {
+    border-bottom: none;
+  }
+  .card-footer {
+    margin-top: 20px;
+  }
+  .btn {
+    background-color: #3AAFA9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background-color: #F6F6F2;
+  }
+  
+  @media only screen and (min-width: 425px) and (max-width: 620px)
+   {
+  .pricing-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .pricing-card {
+    width: 80%;
+    margin-bottom: 0;
+  }
+  
+  .pricing-section{
+    margin: 20px;
+  }
+  .pricing-section h1{
+    font-size: 18px;
+    
+  }
+  }
+  @media only screen and (min-width: 620px) and (max-width: 820px) {
+    .pricing-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .pricing-card {
+      width: calc(50% - 20px); /* Subtracting margin */
+      margin: 10px; /* Adjust margin to create space between cards */
+    }
+  
+    .pricing-section {
+      margin: 20px;
+    }
+  
+    .pricing-section h1 {
+      font-size: 18px;
+    }
+  }
+  /* Pricing end */
+
+
+  /* Asked Question Start */
+.faq-container {
+  max-width: 100%;
+  }
+  .faq-container p{
+    display: flex;
+    color: rgb(8, 197, 8);
+    justify-content: center;
+    font-weight: bold;
+    padding-bottom: 5px;
+  }
+  .faq-container h1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    font-weight: bold;
+    font-size: 40px;
+  }
+  
+  .asked {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+  }
+  
+  .question-box {
+  width: 570px;
+  padding: 10px;
+  border: 1px solid rgb(131, 126, 126);
+  border-radius: 10px;
+  margin: 20px;
+  }
+  
+  .question-box .question {
+  font-weight: bold;
+  cursor: pointer;
+  }
+  
+  .question-box .question:hover {
+  color: #3AAFA9;
+  font-weight: bolder;
+  }
+  
+  .answer {
+  padding-top: 15px;
+  display: none;
+  color: black;
+  }
+  
+  .question.active {
+  color: #3AAFA9;
+  }
+  
+  .answer.active {
+  display: block;
+  opacity: 1;
+  }
+  
+  .fade-in {
+  animation: fadeIn 0.3s forwards;
+  }
+  
+  .fade-out {
+  animation: fadeOut 0.3s forwards;
+  }
+  
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+  }
+  
+  @keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  }
+  
+  @media only screen and (min-width: 425px) and (max-width: 820px){
+    .question-box{
+      width: 90%;
+    }
+  }
+  /* Asked Question End */
+
+/* Start footer */
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color:  #3AAFA9;
+    color: #ecf0f1;
+    padding: 20px;
+    margin-top: 100px;
+  }
+  
+  .footer-section {
+    flex: 1;
+    margin: 10px;
+    min-width: 250px;
+  }
+  
+  .logo-section img {
+    max-width: 150px;
+  }
+  
+  .footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  
+  .footer-section p, .footer-section ul, .footer-section a {
+    margin-bottom: 10px;
+    color: #ecf0f1;
+    text-decoration: none;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+  }
+  
+  .footer-section ul li a {
+    transition: color 0.3s;
+  }
+  
+  .footer-section ul li a:hover {
+    color: #000000;
+    font-weight: bold;
+  }
+  
+  .social-media {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-media a {
+    display: inline-block;
+  }
+  
+  .social-media img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
+  }
+  
+  .social-media img:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .footer-section {
+      margin: 20px 0;
+    }
+  
+    .social-media {
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
