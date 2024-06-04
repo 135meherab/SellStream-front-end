@@ -1,16 +1,41 @@
 // src/components/Banner.jsx
 import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+
+import one from '../../assets/one.png'
+import two from '../../assets/two.png'
+import three from '../../assets/three.png'
+import '../css/landpage.css'; // Assuming your CSS is in Navbar.css
 
 const Banner = () => {
-  return (
-    <section id="banner" className="bg-blue-500 text-white py-20">
-      <div className="container mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Our SaaS Product</h1>
-        <p className="text-xl mb-6">The best solution for your business needs</p>
-        <button className="bg-white text-blue-500 py-2 px-4 rounded">Get Started</button>
-      </div>
-    </section>
-  );
+  // return (
+  //   <Carousel className='pading'>
+  //     <Carousel.Item>
+  //       <img
+  //         className="d-block w-100"
+  //         src={one}
+  //         alt="First slide"
+  //         style={{ backgroundColor: '#3AAFA9' }}
+  //       />
+  //     </Carousel.Item>
+  //     <Carousel.Item>
+  //       <img
+  //         className="d-block w-100"
+  //         src={two}
+  //         alt="Second slide"
+  //         style={{ backgroundColor: '#3AAFA9' }}
+  //       />
+  //     </Carousel.Item>
+  //     <Carousel.Item>
+  //       <img
+  //         className="d-block w-100"
+  //         src={three}
+  //         alt="Third slide"
+  //         style={{ backgroundColor: '#3AAFA9' }}
+  //       />
+  //     </Carousel.Item>
+  //   </Carousel>
+  // );
 };
 
 export default Banner;
