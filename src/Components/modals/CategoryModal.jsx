@@ -23,7 +23,7 @@ const handleSubmit = async(e) => {
     const newCategory = {
       name: name,
       uom: uom,
-      shop: shopId,
+      //
     };
     
     onSubmit(newCategory)

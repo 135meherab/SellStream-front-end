@@ -37,15 +37,27 @@ useEffect(() => {
     
   }
   if (data?.token){
-    let token = localStorage.getItem('auth')
-    dispatch(userLoggedIn({token: token}))
-    navigate('/dashboard/main')
-    // navigate('/home')
-  toast.success('Login successful!');
+    const { token, user_info } = data;
+    localStorage.setItem('auth', token);
+    localStorage.setItem('user_info', JSON.stringify(user_info));
 
+
+    dispatch(userLoggedIn({token, user_info}));
+    if (user_info?.role === 'isadmin') {
+      navigate('/admin-dashboard/main');
+    } else if (user_info?.role === 'isbranch') {
+      navigate('/branch-dashboard/main');
+    } else if (user_info?.role === 'isowner') {
+      navigate('/shop-dashboard/main');
+    } else {
+      navigate('/login');
+    }
+
+    toast.success('Login successful!');
   }
 }, [data, navigate, responseError, dispatch]);
     
+  
   
 
 
