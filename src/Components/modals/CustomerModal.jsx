@@ -58,7 +58,7 @@ const handleSubmit = async(e) => {
               <input type="text" id="purchase" value={totalPurchase} onChange={(e) => setTotalPurchase(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>  
              <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
+                <label htmlFor="shop" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
                 <select 
                     id="shop" 
                     value={shop} 
@@ -68,7 +68,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Shop</option>
                   {
-                    shops?.results.map((shop) =>(
+                    shops?.map((shop) =>(
 
                       <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))

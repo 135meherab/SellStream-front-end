@@ -7,18 +7,14 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 const Login = () => {
-  //local state
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch()
-
-  //redux
 const [login, {data, isLoading, error: responseError}] = useLoginMutation()
-  
+
 
 const handleLogin = async(e) => {
   e.preventDefault();
@@ -32,18 +28,17 @@ const handleLogin = async(e) => {
   toast.error(error);
  }
 
- 
-};
+ };
 
-// initial error and login function
+
 useEffect(() => {
   if (responseError?.data) {
     setError(responseError.error); 
     
   }
   if (data?.token){
-    console.log(data.token)
-    dispatch(userLoggedIn({token: data.token}))
+    let token = localStorage.getItem('auth')
+    dispatch(userLoggedIn({token: token}))
     navigate('/dashboard/main')
     // navigate('/home')
   toast.success('Login successful!');
@@ -82,7 +77,7 @@ useEffect(() => {
             />
           </div>
           <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">Login</button>
-        
+
           {
             error !== '' && <p className='text-red-500 text-center'>{error}</p> 
           }

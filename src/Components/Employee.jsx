@@ -3,7 +3,9 @@ import { useAddEmployeeMutation, useDeleteEmployeeMutation, useGetEmployeesQuery
 import EmployeeModal from './modals/EmployeeModal.jsx';
 import { toast } from 'react-toastify';
 
-const Employee = () => {
+
+
+const Employee =() => {
   // local state
   const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
   const [employeeName, setEmployeeName] = useState('');
@@ -11,45 +13,50 @@ const Employee = () => {
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
+
   // redux
   const { data: employees, isLoading, isError, error: responseError } = useGetEmployeesQuery();
-  const [addEmployee] = useAddEmployeeMutation();
-  const [updateEmployee] = useUpdateEmployeeMutation();
-  const [deleteEmployee] = useDeleteEmployeeMutation();
+  const[addEmployee] = useAddEmployeeMutation()
+  const [ updateEmployee] = useUpdateEmployeeMutation()
+  const [deleteEmployee] = useDeleteEmployeeMutation()
 
-  // initial error
+
+  // console.log(employees)
+// initial error
   useEffect(() => {
     if (responseError) {
       setError(responseError.error);
     }
-  }, [responseError]);
+  }, [responseError, error]);
 
   // Handle modal open/close
   const handleOpenEmployeeModal = () => {
     setEmployeeModalOpen(true);
   };
-
+// Handle modal open/close
   const handleCloseEmployeeModal = () => {
     setEmployeeModalOpen(false);
   };
 
+
   // Add Employee
-  const handleEmployeeModalSubmit = async (formData) => {
-    try {
-      await addEmployee(formData).unwrap();
-      toast.success(`${formData.fullname} Employee has been added successfully!`);
-      setError('');
-    } catch (error) {
-      setError(error.data.message);
-      toast.error(error.data.message);
-      console.log(error);
+  const handleEmployeeModalSubmit = async(formData) => {
+    try{
+      await addEmployee(formData).unwrap()
+      toast.success(`${formData.fullname} Employee has been added Successfully!`)
+      setError('')
+    }catch(error){
+      setError(error)
+      toast.error(error)
+      console.log(error)
     }
+      
   };
+
 
   // handle search employee
   const handleSearchEmployee = async (e) => {
     e.preventDefault();
-    // Implement search logic here
   };
 
   const handleEdit = (employee) => {
@@ -65,33 +72,33 @@ const Employee = () => {
     });
   };
 
-  // update employee
-  const handleUpdate = async () => {
-    try {
-      setEditRowId(null);
-      await updateEmployee({ id: currentEditValues.id, ...currentEditValues }).unwrap();
-      toast.success('Employee has been updated successfully');
-      setError('');
-    } catch (error) {
-      setError(error.data.message);
-      toast.error(error.data.message);
-      console.log(error);
-    }
-  };
+ // update employee
+ const handleUpdate = async() => {
+    
+  try{
+  setEditRowId(null);
+  await updateEmployee({id: currentEditValues.id, ...currentEditValues}).unwrap()
+  toast.success('Employee has been updated successfully')
+  setError('')
+  }catch(error){
+    setError(error)
+    toast.error(error)
+    console.log(error)
+  }
+};
 
-  // Delete employee
-  const handleDelete = async (id) => {
-    try {
-      await deleteEmployee(id).unwrap();
-      toast.success('Employee has been deleted successfully');
-      setError('');
-    } catch (error) {
-      setError(error.data.message);
-      toast.error(error.data.message);
-      console.log(error);
-    }
-  };
-
+// Delete employee
+const handleDelete= async (id)=>{
+  try{
+    await deleteEmployee(id).unwrap()
+    toast.success('Employee has been deleted successfully')
+    setError('')
+  }catch(err){
+    setError(err.data.detail)
+    toast.error(error)
+    console.log(err.data.detail)
+  }
+}
   const handleCancel = () => {
     setEditRowId(null);
   };
@@ -100,11 +107,12 @@ const Employee = () => {
 
   if (isLoading) {
     content = (
-      <tr>
+      <tr >
         <td className="text-green-500 bg-green-200 text-center my-5" colSpan="9">Loading....</td>
       </tr>
     );
-  } else if (!isLoading && isError) {
+  } 
+  else if (!isLoading && isError) {
     content = (
       <tr>
         <td className="bg-red-200 mb-5 pb-5 text-center text-red-600 py-5 font-bold" colSpan="9">
@@ -112,24 +120,23 @@ const Employee = () => {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && employees?.results.length === 0) {
+  } else if (!isLoading && !isError && employees?.length === 0) {
     content = (
-      <tr>
-        <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
-          No data Found!
-        </td>
+      <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
+        <td>No data Found!</td>
       </tr>
     );
-  } else if (!isLoading && !isError && employees?.results.length > 0) {
-    content = employees?.results.map((employee, index) => (
+  } 
+  else if (!isLoading  && !isError && employees?.length >0) {
+    content = employees?.map((employee, index) => (
       <tr key={index} className="text-center">
-        <td className="border px-4 py-2">{index + 1}</td>
+        {/* <td className="border px-4 py-2">{index + 1}</td> */}
         {editRowId === employee.id ? (
           <>
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="fullname"
+                name="employeename"
                 value={currentEditValues.fullname}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
@@ -138,16 +145,17 @@ const Employee = () => {
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="address"
+                name="first_name"
                 value={currentEditValues.address}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
             </td>
+            
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="age"
+                name="last_name"
                 value={currentEditValues.age}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
@@ -182,11 +190,14 @@ const Employee = () => {
         ) : (
           <>
             <td className="border px-4 py-2">{employee.fullname}</td>
+            {/* <td className="border px-4 py-2">{employee.address}</td> */}
+            {/* <td className="border px-4 py-2">{employee.age}</td> */}
             <td className="border px-4 py-2">{employee.email}</td>
             <td className="border px-4 py-2">{employee.phone}</td>
+            {/* <td className="border px-4 py-2">{employee.bank_account}</td> */}
             <td className="border px-4 py-2">{employee.gender}</td>
-            <td className="border px-4 py-2">{employee.designation}</td>
-            <td className="border px-4 py-2">{employee.branch}</td>
+            <td className="border px-4 py-2">{employee.designation_name}</td>
+            <td className="border px-4 py-2">{employee.branch_name}</td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
@@ -221,7 +232,7 @@ const Employee = () => {
               id="employeeName"
               value={employeeName}
               onChange={(e) => setEmployeeName(e.target.value)}
-              placeholder="Employee Name"
+              placeholder="employee Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
@@ -236,17 +247,20 @@ const Employee = () => {
           onClick={handleOpenEmployeeModal}
           className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
         >
-          Add Employee
+          Add employee
         </button>
       </div>
 
       <table className="w-full border-collapse mb-4 text-sm">
         <thead>
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">No</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">No</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Address</th> */}
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Age</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Email</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Phone</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Bank Account</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Gender</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Designation</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Branch</th>
@@ -265,6 +279,6 @@ const Employee = () => {
       )}
     </div>
   );
-};
 
+}
 export default Employee;

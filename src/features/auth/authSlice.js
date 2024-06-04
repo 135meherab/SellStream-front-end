@@ -2,8 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  token: null,
-  // other state properties if any
+  token: localStorage.getItem('auth') || null,
 };
 
 const authSlice = createSlice({
@@ -12,14 +11,22 @@ const authSlice = createSlice({
   reducers: {
     userLoggedIn(state, action) {
       state.token = action.payload.token;
-      // update other state properties if needed
     },
     userLoggedOut(state) {
       state.token = null;
-      // reset other state properties if needed
     }
   }
 });
 
 export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+
+export const loginWithGoogle = async(dispatch) =>{
+  try{
+    const {auth, googleProvider} = await import('../../firebase.config.js');
+    const result = await auth.signInWithPopup(googleProvider);
+    const token = await result.user.getIdToken();
+  }catch(error){
+
+  }
+}
 export default authSlice.reducer;

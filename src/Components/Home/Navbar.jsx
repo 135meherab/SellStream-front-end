@@ -1,7 +1,8 @@
 // src/components/Navbar.jsx
 // import { Menu } from '@headlessui/react';
 // import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { useState } from 'react';
+import React from 'react';
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,5 +43,7 @@ const Navbar = () => {
     </nav>
   );
 };
+
+
 
 export default Navbar;

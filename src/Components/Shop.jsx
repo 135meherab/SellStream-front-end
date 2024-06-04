@@ -8,7 +8,7 @@ function Shop() {
   const [isShopModalOpen, setShopModalOpen] = useState(false);
   const [shopName, setShopName] = useState('');
   const [error, setError] = useState('');
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
 
@@ -17,7 +17,7 @@ function Shop() {
  const [addShop] = useAddShopMutation();
  const [updateShop] = useUpdateShopMutation();
 const [deleteShop] = useDeleteShopMutation()
-
+// console.log("Shop Data:", shops);
  //initial error
   useEffect(() => {
     // setData(shops)
@@ -45,10 +45,10 @@ const [deleteShop] = useDeleteShopMutation()
       await addShop(formData).unwrap()
       toast.success(`${formData.name} Shop has been added Successfully!`)
       setError('')
-    }catch(error){
-      setError(error)
+    }catch(err){
+      setError(err.data.detail)
       toast.error(error)
-      console.log(error)
+      console.log(err.data.detail)
     }
   };
   const handleAddShop = async(e)=>{
@@ -75,19 +75,15 @@ const [deleteShop] = useDeleteShopMutation()
 
   // update shop
   const handleUpdate = async() => {
-    const updatedShop = data.map((shop) =>
-      shop.id === editRowId ? currentEditValues : shop
-    );
-    
+   
     try{
     setEditRowId(null);
-    setData(updatedShop)
     await updateShop({id: currentEditValues.id, ...currentEditValues}).unwrap()
     toast.success('Shop has been updated successfully')
     setError('')
     }catch(error){
-      setError(error)
-      toast.error(error)
+      setError(error.error)
+      toast.error(error.status)
       console.log(error)
     }
   };
@@ -126,15 +122,15 @@ const [deleteShop] = useDeleteShopMutation()
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && shops?.results.length === 0) {
+  } else if (!isLoading && !isError && shops?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && shops?.results.length > 0) {
-    content = shops?.results.map((shop, index) => (
+  else if (!isLoading && !isError && shops?.length > 0) {
+    content = shops?.map((shop, index) => (
       <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === shop.id ? (
@@ -223,7 +219,6 @@ const [deleteShop] = useDeleteShopMutation()
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Shops</h2>
-
       <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center">

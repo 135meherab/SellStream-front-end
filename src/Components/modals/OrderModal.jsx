@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useGetBranchesQuery } from '../../features/shop/shopApi';
 
 const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) => {
+
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [givenAmount, setGivenAmount] = useState('');
-  const [paybackAmount, setPaybackAmount] = useState('');
+  const [branch, setBranch] = useState(''); 
+  const [products, setProducts] = useState([])
+  // Redux
+  const { data:branches, error, isLoading } = useGetBranchesQuery();
 
-  const handleSubmit = async(e) => {
+
+  useEffect(() => {
+    const newProducts = orderItem?.map(item => ({ id: item.id, quantity: Number(item.quantity) }));
+    setProducts(newProducts);
+  }, [orderItem]);
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const newOrder = {name, mobileNumber, paymentMethod, givenAmount, paybackAmount};
+    
+    let branchInt = Number(branch);
+    
+    const newOrder = {
+      customer: {
+        name: name,
+        phone: mobileNumber
+      },
+      order_unique_id: orderId,
+      total_price: total,
+      branch: branchInt,
+      products: products
+    }
    
     onSubmit(newOrder);
 
-    console.log(newOrder)
-        setName('');
-        setMobileNumber('');
-        setPaymentMethod('');
-        setGivenAmount('');
-        setPaybackAmount('');
-        
-        onClose();
-};
+    console.log(newOrder);
+    setName('');
+    setMobileNumber('');
+    setBranch('');     
+    onClose();
+  };
 
   return (
     <div className={`modal ${isOpen ? 'modal-open' : ''}`}>
@@ -30,37 +48,52 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
       <div className="modal-content text-sm">
         <form onSubmit={handleSubmit}>
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">{orderId}</h3>
-          <div className="flex justify-center">
-          <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Customer Name</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Contact No</label>
-              <input type="text" id="mobileNumber" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
-          </div>
-            <div className="">
-              <p className='text-center font-bold'>Products Details</p>
-              <div className="flex justify-between items-center">
-                <h1 className='font-bold'>Items</h1>
-                <h1 className='font-bold'>Quantity</h1>
-              </div>
-                {orderItem?.map((item) =>{
-                <div  className="flex justify-between items-center">
-                    <h1>item.name</h1>
-                    <h1>item.quantity</h1>
-                </div>
-                })}
-            </div>
-
-            <div className="flex justify-end items-center mt-3">
-            <div className="mb-4">
-                <label htmlFor="givenAmount" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
-                <p>{total}</p>
+            <h3 className="text-lg text-center text-green-600 font-medium leading-6 text-gray-900 mb-4">{orderId}</h3>
+            <div className="flex justify-center items-center">
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Customer Name</label>
+                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
               </div>
               
+              <div className="mb-4">
+                <label htmlFor="mobileNumber" className="block text-gray-700 text-sm font-bold mb-2">Contact No</label>
+                <input type="text" id="mobileNumber" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              </div>
+              
+            </div>
+            <div className="mb-4">
+                <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
+                <select 
+                  id="branch" 
+                  value={branch} 
+                  onChange={(e) => setBranch(e.target.value)}  
+                  className="border rounded-md py-2 px-4 w-full focus:outline-none"
+                  required
+                >
+                  <option value="" disabled>Select a branch</option>
+                  {branches?.map((branch) => (
+                    <option key={branch.id} value={branch.id}>{branch.name}</option>
+                  ))}
+                </select>
+              </div>
+            <div>
+              <p className="text-center font-bold">Products Details</p>
+              <div className="flex justify-between items-center">
+                <h1 className="font-bold">Items</h1>
+                <h1 className="font-bold">Quantity</h1>
+              </div>
+              {orderItem?.map((item) => (
+                <div key={item.id} className="flex justify-between items-center">
+                  <h1>{item.name}</h1>
+                  <h1>{item.quantity}</h1>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-end items-center mt-3">
+              <div className="mb-4">
+                <label htmlFor="" className="block text-gray-700 text-sm font-bold mb-2">Total Amount</label>
+                <p className='text-red-600 font-bold text-xl'>{total}</p>
+              </div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse justify-around items-center"> 
@@ -69,28 +102,8 @@ const OrderModal = ({ isOpen, onClose, onSubmit, orderId, total, orderItem }) =>
           </div>
         </form>
       </div>
-  </div>
+    </div>
   );
 };
 
 export default OrderModal;
-
-
-// payment method
- {/* <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Payment Method</label>
-                    <div className="flex">
-                      <label className="inline-flex items-center mr-4">
-                        <input type="radio" value="cash" checked={paymentMethod === 'cash'} onChange={() => setPaymentMethod('cash')} className="form-radio h-4 w-4 text-primary" />
-                        <span className="ml-2 text-gray-700">Cash</span>
-                      </label>
-                      <label className="inline-flex items-center mr-4">
-                        <input type="radio" value="card" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} className="form-radio h-4 w-4 text-primary" />
-                        <span className="ml-2 text-gray-700">Card</span>
-                      </label>
-                      <label className="inline-flex items-center">
-                        <input type="radio" value="other" checked={paymentMethod === 'other'} onChange={() => setPaymentMethod('other')} className="form-radio h-4 w-4 text-primary" />
-                        <span className="ml-2 text-gray-700">Other</span>
-                      </label>
-                    </div>
-                  </div> */}

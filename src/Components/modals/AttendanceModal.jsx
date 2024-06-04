@@ -1,29 +1,29 @@
 import  {  useState } from 'react';
-import { useGetShopsQuery } from '../../features/shop/shopApi';
+import { useGetEmployeesQuery } from '../../features/employee/employeeApi';
 
 
 
 const AttendanceModal = ({ isOpen, onClose, onSubmit }) => {
  
   //local state
-  const [name, setName] = useState('');
-  const [uom, setUom] = useState('');
-  const [shop, setShop] = useState('');
+  const [isAttend, setIsAttend] = useState(false);
+  const [shift, setShift] = useState('');
+  const [employee, setEmployee] = useState('');
 
 // redux
-const {data: shops} = useGetShopsQuery()
-
+const {data: employees} = useGetEmployeesQuery()
+console.log(employees)
 
 const handleSubmit = async(e) => {
 
     e.preventDefault();
     // number into string
-    const shopId = Number(shop)
+    const employeeInt = Number(employee)
 
     const newAttendance = {
-      name: name,
-      uom: uom,
-      shop: shopId,
+      is_attend :isAttend,
+      shift,
+      employee: employeeInt,
     };
     
     onSubmit(newAttendance)
@@ -42,14 +42,26 @@ const handleSubmit = async(e) => {
             <h3 className="text-lg font-medium font-bold leading-6 text-gray-900 mb-4">Add Attendance</h3>
           
            <div className="flex justify-between items-center gap-2">
-           <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Attendance Name</label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
-            </div>
+           <div className="mb-4 w-[100px]">
+                <label htmlFor="isAttend" className="block text-gray-700 text-sm font-bold mb-2">Is Attend</label>
+                <input type="checkbox" id="isAttend" checked={isAttend} onChange={(e) => setIsAttend(e.target.checked)} className="border rounded-md py-2 px-4 w-full focus:outline-none" />
+              </div>
           
-            <div className="mb-4">
-                <label htmlFor="uom" className="block text-gray-700 text-sm font-bold mb-2">UOM</label>
-                <input type="text" id="uom" value={uom} onChange={(e) => setUom(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+              <div className="mb-4">
+              <label htmlFor="shift" className="block text-gray-700 text-sm font-bold mb-2">Shift</label>
+              <select 
+                    id="shift" 
+                    value={shift} 
+                    onChange={(e) => setShift(e.target.value)} 
+                    className="border rounded-md py-2 px-4 w-full focus:outline-none"
+                    required
+                >
+                 <option value="" disabled selected>Select a Shift</option>
+                 <option  value='Morning'>Morning</option>
+                 {/* <option  value='day'>Day</option> */}
+                 <option  value='Evening'>Evening</option>
+                 {/* <option  value='night'>Night</option> */}
+                </select>
             </div>
             
            </div>
@@ -59,19 +71,19 @@ const handleSubmit = async(e) => {
             
            
              <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
+                <label htmlFor="employee" className="block text-gray-700 text-sm font-bold mb-2">Employee</label>
                 <select 
-                    id="shop" 
-                    value={shop} 
-                    onChange={(e) => setShop(e.target.value)} 
+                    id="employee" 
+                    value={employee} 
+                    onChange={(e) => setEmployee(e.target.value)} 
                     className="border rounded-md py-2 px-4 w-full focus:outline-none"
                     required
                 >
-                  <option value="" disabled selected>Select a Shop</option>
+                  <option value="" disabled selected>Select a employee</option>
                   {
-                    shops?.results.map((shop) =>(
+                    employees?.map((employee) =>(
 
-                      <option key={shop.id} value={shop.id}>{shop.name}</option>
+                      <option key={employee.id} value={employee.id}>{employee.fullname}</option>
                     ))
                   }
                   

@@ -19,7 +19,7 @@ const AllProducts = () => {
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
- console.log(products)
+//  console.log(products)
  //set error
  useEffect(() => {
   if (responseError) {
@@ -47,9 +47,10 @@ const AllProducts = () => {
       toast.success(`Successfully added the product ${formData.name}`)
       setError('')
       setProductsList([...productsList, formData]);
-    } catch (error) {
-      setError(error)
-      console.error('Failed to add product: ', error);
+    } catch (err) {
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -82,9 +83,10 @@ const AllProducts = () => {
     await  updateProduct({id: id, ...currentEditValues}).unwrap()
     toast.success(`Successfully Updated the product`)
     setError('')
-   }catch(error){
-    setError(updateError)
-    toast.error(error)
+   }catch(err){
+    setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
    }
   };
   
@@ -94,9 +96,10 @@ const AllProducts = () => {
      await deleteProduct(product.id).unwrap();
       toast.success(`Successfully Deleted the product ${product.name}`)
       setError('')
-    }catch(error){
-      setError(error.data.detail)
-      console.log('Error during Deleting product: ', error.status, error.data.detail)
+    }catch(err){
+      setError(err.data.detail)
+      toast.error(error)
+      console.log(err.data.detail)
     }
   };
 
@@ -123,17 +126,17 @@ const AllProducts = () => {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && products?.results.length === 0) {
+  } else if (!isLoading && !isError && products?.length === 0 ) {
     content = (
       <tr>
         <td className='mb-5 pb-5 text-center text-red-600 bg-red-300 py-5 font-bold' colSpan="9">No Products Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && products?.results.length > 0) {
-    content = products?.results.map((product, index) => (
+  else if (!isLoading && !isError && products?.length > 0) {
+    content = products?.map((product, index) => (
       <tr key={product.id} className="text-center">
-        <td className="border  px-4 py-2">{index + 1}</td>
+        {/* <td className="border  px-4 py-2">{index + 1}</td> */}
         {editRowId === product.id ? (
           <>
             <td className="border px-4 py-2">
@@ -263,7 +266,7 @@ const AllProducts = () => {
         <thead>
           {error && <tr ><td className='text-center text-red-700 bg-red-300'>{error}</td></tr>}
           <tr>
-            <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">SL No</th> */}
             <th className="border-b-2 border-gray-300 px-4 py-2">Code</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>

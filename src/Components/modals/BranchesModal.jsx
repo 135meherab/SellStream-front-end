@@ -56,8 +56,8 @@ const handleSubmit = async(e) => {
            
            <div className="flex justify-between items-center">
            
-             <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
+             {/* <div className="mb-4">
+                <label htmlFor="shop" className="block text-gray-700 text-sm font-bold mb-2">Shop</label>
                 <select 
                     id="shop" 
                     value={shop} 
@@ -67,14 +67,14 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Shop</option>
                   {
-                    shops?.results.map((shop) =>(
+                    shops?.results?.map((shop) =>(
 
                       <option key={shop.id} value={shop.id}>{shop.name}</option>
                     ))
                   }
                   
                 </select>
-            </div>
+            </div> */}
             
             </div>
           

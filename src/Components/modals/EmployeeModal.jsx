@@ -1,5 +1,6 @@
 import  {  useState } from 'react';
 import { useGetBranchesQuery } from '../../features/shop/shopApi';
+import { useGetDesignationsQuery } from '../../features/employee/employeeApi';
 
 
 
@@ -17,11 +18,13 @@ const EmployeeModal = ({ isOpen, onClose, onSubmit }) => {
   const [bankAccount, setBankAccount] = useState('');
 
   const {data:branches, isLoading, isError} = useGetBranchesQuery()
+  const {data: designations} = useGetDesignationsQuery()
 
 const handleSubmit = async(e) => {
 
     e.preventDefault();
-    
+    let designationInt = Number(designation)
+    let branchInt = Number(branch)
     const newEmployee = {
       fullname: name,
       address: address,
@@ -31,8 +34,8 @@ const handleSubmit = async(e) => {
       bank_account: bankAccount,
       gender: gender,
       is_manager:isManager,
-      designation: designation,
-      branch: branch
+      designation: designationInt,
+      branch: branchInt
     };
     onSubmit(newEmployee)
     console.log(newEmployee)
@@ -78,14 +81,27 @@ const handleSubmit = async(e) => {
               <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
             </div>
             <div className="mb-4">
-              <label htmlFor="designation" className="block text-gray-700 text-sm font-bold mb-2">Designation</label>
-              <input type="text" id="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} className="border rounded-md py-2 px-4 w-full focus:outline-none" required />
+                <label htmlFor="designation" className="block text-gray-700 text-sm font-bold mb-2">Designation</label>
+                <select 
+                    id="designation" 
+                    value={designation} 
+                    onChange={(e) => setDesignation(e.target.value)} 
+                    className="border rounded-md py-2 px-4 w-full focus:outline-none"
+                    required
+                >
+                  <option value="designation"  selected>Select a Designation</option>
+                  {
+                    designations?.map((designation) =>(
+
+                      <option key={designation.id} value={designation.id}>{designation.name}</option>
+                    ))
+                  }
+                  
+                </select>
             </div>
           
         
           </div>
-          
-         
            
            <div className="flex justify-between items-center">
            <div className="mb-4">
@@ -114,7 +130,7 @@ const handleSubmit = async(e) => {
               </div>
                     
              <div className="mb-4">
-                <label htmlFor="user" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
+                <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                     id="branch" 
                     value={branch} 
@@ -124,9 +140,9 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Branch</option>
                   {
-                    branches?.results.map((branch) =>(
+                    branches?.map((branch) =>(
 
-                      <option key={branch.id} value={branch.name}>{branch.name}</option>
+                      <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))
                   }
                   
