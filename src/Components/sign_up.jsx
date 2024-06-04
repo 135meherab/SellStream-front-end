@@ -41,7 +41,6 @@ const SignUp = () => {
       password: password,
       confirm_password: confirm_password
     };
-
     
     try {
       await addUser(newUser).unwrap();
@@ -54,7 +53,6 @@ const SignUp = () => {
         toast.error(err.data?.error || 'An error occurred');
     }
   };
-
   return (
     <div className="bg-gray-700 flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl">
