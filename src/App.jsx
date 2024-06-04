@@ -12,14 +12,17 @@ import SignUp from './Components/sign_up';
 
 
 
+      
+ 
 
 function App() {
   return (
       <>
       <ToastContainer/>
       <Routes>
-        <Route path="/" element={<Login />}/>
-      <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute> }/>
+      <Route path="/" element={<Home />}/>
+      <Route path="/login" element={<Login />}/>
+      <Route path="/sign_up/" element={<SignUp />}/>
       {/* <Route path="/dashboard/*" element={ <PrivateRoute><DashboardPage/></PrivateRoute> }/> */}
       <Route path="/admin-dashboard/*" element={ <PrivateRoute><AdminDashboardPage/></PrivateRoute> }/>
       <Route path="/shop-dashboard/*" element={ <PrivateRoute><ShopDashboardPage/></PrivateRoute> }/>
