@@ -12,24 +12,23 @@ import SignUp from './Components/sign_up';
 
 
 
-      
- 
 
 function App() {
   return (
-      <>
-      <ToastContainer/>
+    <>
+      <ToastContainer />
       <Routes>
-      <Route path="/" element={<Home />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/sign_up/" element={<SignUp />}/>
-      {/* <Route path="/dashboard/*" element={ <PrivateRoute><DashboardPage/></PrivateRoute> }/> */}
-      <Route path="/admin-dashboard/*" element={ <PrivateRoute><AdminDashboardPage/></PrivateRoute> }/>
-      <Route path="/shop-dashboard/*" element={ <PrivateRoute><ShopDashboardPage/></PrivateRoute> }/>
-      <Route path="/branch-dashboard/*" element={ <PrivateRoute><BranchDashboardPage/></PrivateRoute> }/>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign_up" element={<SignUp />} />
+        {/* Protected Routes with Role Checks */}
+        <Route path="/admin-dashboard/*" element={<PrivateRoute role= 'isadmin'><AdminDashboardPage/></PrivateRoute> }/>
+        <Route path="/shop-dashboard/*" element={<PrivateRoute role="isowner"><ShopDashboardPage/></PrivateRoute> }/> {/* Assuming Shop and Branch use same dashboard */}
+        <Route path="/branch-dashboard/*" element={<PrivateRoute role="isbranch"><BranchDashboardPage/></PrivateRoute> }/> {/* Optional: If Shop and Branch have separate dashboards */}
+    
       </Routes>
-      </>
-  )
+    </>
+  );
 }
 
 export default App

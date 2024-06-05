@@ -71,10 +71,6 @@ const BranchDashboardPage = () => {
                     <Link to='/branch-dashboard/products'>Products</Link>
           </li>
         
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaUserFriends className="mr-2" />
-            <Link to='/branch-dashboard/customer'>Customer</Link>
-          </li>
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaShoppingBag className="mr-2" />
@@ -92,9 +88,10 @@ const BranchDashboardPage = () => {
             </ul>
           </li>
           
-          
-          
-        
+          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaUserFriends className="mr-2" />
+            <Link to='/branch-dashboard/customer'>Customer</Link>
+          </li>
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
               <FaUsers className="mr-2" />
@@ -138,9 +135,9 @@ const BranchDashboardPage = () => {
             <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
             {isDropdownOpen && (
               <div className="absolute right-0 mt-[125px] mr-[15px] w-48 bg-white border rounded shadow-lg py-1 z-50">
-                <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link to="" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaUser className="mr-2" />
-                  <Link to='/dashboard/profile'>User Profile</Link>
+                  <Link to='/branch-dashboard/profile'>User Profile</Link>
                 </Link>
                 <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaSignOutAlt className="mr-2 text-red-600" /> <p className='text-red-600'>Logout</p>
