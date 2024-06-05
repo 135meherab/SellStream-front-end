@@ -9,28 +9,40 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background-color: #F6F6F2 !important;
+    background-color: #3AAFA9 !important;
   }
   
-  .nav-logo {
-    width: 50px;
-  }
+  
   
   .left-side {
-    margin-left: 373px;
+    margin-left: 370px;
   }
   .right-side{
-    margin-right: 373px;
+    margin-right: 355px;
   }
   
   nav a {
     font-weight: 700;
 }
-  
-  .signup {
-    background-color: #3AAFA9;
+.home:hover{
+  background-color: #F6F6F2;
+  border-radius: 10px;
+  padding: 7px 10px 7px 10px;
+}
+.pricing:hover{
+  background-color: #F6F6F2;
+  border-radius: 10px;
+  padding: 7px 10px 7px 10px;
+}
+  .login:hover{
+    background-color: #F6F6F2;
     border-radius: 10px;
-    padding: 6px;
+    padding: 7px 10px 7px 10px;
+  }
+  .signup:hover{
+    background-color: #F6F6F2;
+    border-radius: 10px;
+  
   }
   
   @media only screen and (max-width: 1100px) {
@@ -50,42 +62,120 @@
   /* Carousel start */
 
 /* Carousel Start */
-.pading {
-  padding-top: 58px;
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 847px; 
+  overflow: hidden;
+  background-color: #3AAFA9;
+  margin-top: 72px;
+  
+}
+.carousel img {
+  margin-top: 20px;
+  height: 800px !important;
+}
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
 
-.carousel .carousel-item img {
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide img {
   width: 100%;
   height: auto;
-  max-height: 850px;
 }
 
-@media (max-width: 1200px) {
-  .carousel .carousel-item img {
-      max-height: 600px;
+.carousel-slide p {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+
+.control-icon {
+  width: 20px; /* Adjust as needed */
+  height: 35px; /* Adjust as needed */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  color: white;
+  opacity: 0.5;
+}
+
+.control-icon:hover {
+  opacity: 0.7; /* Adjust hover opacity as needed */
+}
+
+@media only screen and (min-width: 425px) and (max-width: 649px){
+  .carousel {
+    height: 300px; 
+  }
+  .carousel img {
+    
+    height: 200px !important;
+  }
+  .carousel-controls {
+    top: 30%;
+    padding: 0 30px;
+    
+  }
+}
+@media only screen and (min-width: 650px) and (max-width: 750px){
+  .carousel {
+    height: 400px; 
+  }
+  .carousel img {
+    height: 300px !important;
+  }
+  .carousel-controls {
+    top: 35%;
+    padding: 0 30px;
+    
+  }
+}
+@media only screen and (min-width: 751px) and (max-width: 1024px){
+  .carousel {
+    height: 500px; 
+  }
+  .carousel img {
+    height: 400px !important;
+  }
+  .carousel-controls {
+    top: 40%;
+    padding: 0 30px;
+    
   }
 }
 
-@media (max-width: 992px) {
-  .carousel .carousel-item img {
-      max-height: 500px;
+@media only screen and (min-width: 1025px) and (max-width: 1685px){
+  .carousel {
+    height: 535px; 
   }
-}
-
-@media (max-width: 768px) {
-  .carousel .carousel-item img {
-      max-height: 400px;
+  .carousel img {
+    height: 480px !important;
   }
-}
-
-@media (max-width: 576px) {
-  .carousel .carousel-item img {
-      max-height: 280px;
-  }
-}
-@media only screen and (min-width: 1250px) and (max-width: 1685px) {
-  .carousel .carousel-item img {
-      max-height: 538px; /* Adjust the height as needed */
+  .carousel-controls {
+    top: 50%;
+    padding: 0 50px;
+    
   }
 }
 /* Carousel End */
@@ -224,6 +314,10 @@
       width: calc(33.33% - 20px); /* Adjust width to show three cards in one row */
       height: 350px;
       margin: 10px; /* Add margin to separate cards */
+    }
+    .grow h1 {
+      font-size: 1.24rem;
+      font-weight: bold;
     }
     }
     
@@ -632,7 +726,7 @@
   .social-media img {
     width: 24px;
     height: 24px;
-    transition: transform 0.3s;
+    transition: transform 1.3s;
   }
   
   .social-media img:hover {
@@ -656,3 +750,5 @@
       margin-top: 10px;
     }
   }
+
+
