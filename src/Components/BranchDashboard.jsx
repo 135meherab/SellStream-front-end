@@ -71,10 +71,6 @@ const BranchDashboardPage = () => {
                     <Link to='/branch-dashboard/products'>Products</Link>
           </li>
         
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaUserFriends className="mr-2" />
-            <Link to='/branch-dashboard/customer'>Customer</Link>
-          </li>
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaShoppingBag className="mr-2" />
@@ -92,9 +88,10 @@ const BranchDashboardPage = () => {
             </ul>
           </li>
           
-          
-          
-        
+          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaUserFriends className="mr-2" />
+            <Link to='/branch-dashboard/customer'>Customer</Link>
+          </li>
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
               <FaUsers className="mr-2" />
