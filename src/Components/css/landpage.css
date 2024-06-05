@@ -28,21 +28,24 @@
   background-color: #F6F6F2;
   border-radius: 10px;
   padding: 7px 10px 7px 10px;
+  color: #000000;
 }
 .pricing:hover{
   background-color: #F6F6F2;
   border-radius: 10px;
   padding: 7px 10px 7px 10px;
+  color: #000000;
 }
   .login:hover{
     background-color: #F6F6F2;
     border-radius: 10px;
     padding: 7px 10px 7px 10px;
+    color: #000000;
   }
   .signup:hover{
     background-color: #F6F6F2;
     border-radius: 10px;
-  
+    color: #000000;  
   }
   
   @media only screen and (max-width: 1100px) {
@@ -124,7 +127,7 @@
   opacity: 0.7; /* Adjust hover opacity as needed */
 }
 
-@media only screen and (min-width: 425px) and (max-width: 649px){
+@media only screen and (min-width: 300px) and (max-width: 649px){
   .carousel {
     height: 300px; 
   }
@@ -280,7 +283,7 @@
     }
     /* Styles for devices up to 425px */
     
-    @media only screen and (min-width: 425px) and (max-width: 650px) {
+    @media only screen and (min-width: 300px) and (max-width: 650px) {
     .type .card {
       width: calc(50% - 25px); /* Adjust width to show two cards in one row */
       height: 320px;
@@ -411,7 +414,7 @@
     font-weight: 500;
     }
     
-    @media only screen and (min-width: 425px) and (max-width: 768px)
+    @media only screen and (min-width: 300px) and (max-width: 768px)
      {
     .credit-container {
       flex-direction: column;
@@ -534,7 +537,7 @@
     background-color: #F6F6F2;
   }
   
-  @media only screen and (min-width: 425px) and (max-width: 620px)
+  @media only screen and (min-width: 300px) and (max-width: 620px)
    {
   .pricing-container {
     flex-direction: column;
@@ -661,10 +664,21 @@
     opacity: 0;
   }
   }
-  
-  @media only screen and (min-width: 425px) and (max-width: 820px){
+  @media only screen and (min-width: 200px) and (max-width: 424px){
     .question-box{
       width: 90%;
+    }
+    .faq-container h1{
+      font-size: 5px;
+    }
+  }
+ 
+  @media only screen and (min-width: 300px) and (max-width: 820px){
+    .question-box{
+      width: 90%;
+    }
+    .faq-container h1{
+      font-size: 30px;
     }
   }
   /* Asked Question End */
@@ -752,3 +766,5 @@
   }
 
 
+ 
+  
