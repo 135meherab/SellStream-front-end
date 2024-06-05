@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbars from './Navbar'
-import Banner from './Banner'
+import Carousel from './Banner'
 import Services from './Services'
 import Pricing from './Pricing'
 // import Review from './Review'
@@ -14,7 +14,7 @@ function Home() {
   return (
     <div>
         <Navbars/>
-        <Banner/>
+        <Carousel/>
         <About/>
         <Services/>
         <Pricing/>

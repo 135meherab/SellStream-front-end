@@ -11,15 +11,15 @@ const Navbars = () => {
     <nav className="colour  p-4 flex justify-between items-center">
       {/* Left Side */}
       <div className="flex left-side items-center">
-        <img src={logo} alt="Logo" className="nav-logo h-8 w-8 mr-2" />
-        <a href="#" className="text-black mr-4 ">Home</a>
-        <a href="#" className="text-black mr-4 ">Pricing</a>
+        <a className="nav-logo h-8 w-12 mr-5" href=""><img src={logo} alt="Logo"  /></a>
+        <a href="#" className="home text-black mr-6 ">Home</a>
+        <a href="#" className="pricing text-black mr-6 ">Pricing</a>
       </div>
 
       {/* Right Side */}
       <div className="flex right-side items-center">
-        <a href="/login" className="text-black mr-4 ">Login</a>
-        <a href="#" className="signup text-black px-4 py-2  ">Sign in</a>
+        <a href="/login" className="login text-black  mr-4 ">Login</a>
+        <a href="/sign_up" className="signup text-black px-4 py-2  ">Sign Up</a>
       </div>
     </nav>
 
