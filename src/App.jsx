@@ -12,20 +12,41 @@ import Home from './Components/Home/Home';
 
 
 
+// function App() {
+//   return (
+//       <>
+//       <ToastContainer/>
+//       <Routes>
+//         <Route path="/" element={<Login />}/>
+//       <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute> }/>
+//       {/* <Route path="/dashboard/*" element={ <PrivateRoute><DashboardPage/></PrivateRoute> }/> */}
+//       <Route path="/admin-dashboard/*" element={ <PrivateRoute><AdminDashboardPage/></PrivateRoute> }/>
+//       <Route path="/shop-dashboard/*" element={ <PrivateRoute><ShopDashboardPage/></PrivateRoute> }/>
+//       <Route path="/branch-dashboard/*" element={ <PrivateRoute><BranchDashboardPage/></PrivateRoute> }/>
+//       </Routes>
+//       </>
+//   )
+// }
+
+// 
+
+
 function App() {
   return (
-      <>
-      <ToastContainer/>
+    <>
+      <ToastContainer />
       <Routes>
-        <Route path="/" element={<Login />}/>
-      <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute> }/>
-      {/* <Route path="/dashboard/*" element={ <PrivateRoute><DashboardPage/></PrivateRoute> }/> */}
-      <Route path="/admin-dashboard/*" element={ <PrivateRoute><AdminDashboardPage/></PrivateRoute> }/>
-      <Route path="/shop-dashboard/*" element={ <PrivateRoute><ShopDashboardPage/></PrivateRoute> }/>
-      <Route path="/branch-dashboard/*" element={ <PrivateRoute><BranchDashboardPage/></PrivateRoute> }/>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+
+        {/* Protected Routes with Role Checks */}
+        <Route path="/admin-dashboard/*" element={<PrivateRoute role= 'isadmin'><AdminDashboardPage/></PrivateRoute> }/>
+        <Route path="/shop-dashboard/*" element={<PrivateRoute role="isowner"><ShopDashboardPage/></PrivateRoute> }/> {/* Assuming Shop and Branch use same dashboard */}
+        <Route path="/branch-dashboard/*" element={<PrivateRoute role="isbranch"><BranchDashboardPage/></PrivateRoute> }/> {/* Optional: If Shop and Branch have separate dashboards */}
+    
       </Routes>
-      </>
-  )
+    </>
+  );
 }
 
 export default App
