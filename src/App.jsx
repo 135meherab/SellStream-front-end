@@ -18,9 +18,8 @@ function App() {
     <>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login />} />
         {/* Protected Routes with Role Checks */}
         <Route path="/admin-dashboard/*" element={<PrivateRoute role= 'isadmin'><AdminDashboardPage/></PrivateRoute> }/>
         <Route path="/shop-dashboard/*" element={<PrivateRoute role="isowner"><ShopDashboardPage/></PrivateRoute> }/> {/* Assuming Shop and Branch use same dashboard */}
