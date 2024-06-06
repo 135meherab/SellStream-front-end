@@ -43,6 +43,7 @@ const Employee =() => {
   const handleEmployeeModalSubmit = async(formData) => {
     try{
       await addEmployee(formData).unwrap()
+      location.reload();
       toast.success(`${formData.fullname} Employee has been added Successfully!`)
       setError('')
     }catch(error){
