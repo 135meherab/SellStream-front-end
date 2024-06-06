@@ -45,7 +45,9 @@ const ShopDashboardPage = () => {
   const handleLogout = () => {
     logout();
     dispatch(userLoggedOut());
+    localStorage.removeItem("user_info");
     localStorage.removeItem("auth");
+    location.reload();
   };
 
   return (
@@ -66,11 +68,15 @@ const ShopDashboardPage = () => {
             <FaHome className="mr-2" />
             <Link to='/shop-dashboard/main'>Dashboard</Link>
           </li>
+
+          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaSitemap className="mr-2" />
+                  <Link to='/shop-dashboard/shop'>Shop</Link>
+          </li>
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                   <FaSitemap className="mr-2" />
                   <Link to='/shop-dashboard/branches'>Branches</Link>
           </li>
-
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaBox className="mr-2" />
             <Link to=''>Product</Link>
