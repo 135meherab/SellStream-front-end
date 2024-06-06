@@ -25,8 +25,9 @@ function PrivateRoute({ children, role}) {
   const user = getUserInfo();
 
   if (!user || user.role !== role) {
-    
-    return <Navigate to="/" replace />;
+    localStorage.removeItem('auth');
+    localStorage.removeItem('user_info');
+    return <Navigate to="/login" replace />;
   }
   return children;
 }

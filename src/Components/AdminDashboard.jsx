@@ -45,7 +45,9 @@ const AdminDashboardPage = () => {
   const handleLogout = () => {
     logout();
     dispatch(userLoggedOut());
+    localStorage.removeItem("user_info");
     localStorage.removeItem("auth");
+    location.reload();
   };
 
   return (
@@ -114,9 +116,9 @@ const AdminDashboardPage = () => {
             <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
             {isDropdownOpen && (
               <div className="absolute right-0 mt-[125px] mr-[15px] w-48 bg-white border rounded shadow-lg py-1 z-50">
-                <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link to="" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaUser className="mr-2" />
-                  <Link to='/dashboard/profile'>User Profile</Link>
+                  <Link to='/admin-dashboard/profile'>User Profile</Link>
                 </Link>
                 <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaSignOutAlt className="mr-2 text-red-600" /> <p className='text-red-600'>Logout</p>
@@ -130,21 +132,12 @@ const AdminDashboardPage = () => {
         <div className="p-4 flex-1">
           <Routes>
             <Route path="main" element={<DashboardRoute />} />
-            {/* <Route path="products" element={<AllProducts />} /> */}
             <Route path="shop" element={<Shop />} />
             <Route path="branches" element={<Branches />} />
-            {/* <Route path="category" element={<Categories />} />
-            <Route path="purchase" element={<Purchase />} />
-            <Route path="sales" element={<Sales />} />
-            <Route path="order" element={<OrderComponent />} /> */}
-            {/* <Route path="employee" element={<Employee />} />
-            <Route path="customer" element={<Customer />} /> */}
-            <Route path="user" element={<Users />} />
+            <Route path="profil" element={<Users />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="report" element={<Reports />} />
-            {/* <Route path="profile" element={<Profile />} />
-            <Route path="designation" element={<Designation />} />
-            <Route path="attendance" element={<Attendance />} />
-            <Route path="leave" element={<Leave />} /> */}
+            
           </Routes>
         </div>
       </div>

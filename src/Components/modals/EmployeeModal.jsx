@@ -129,7 +129,7 @@ const handleSubmit = async(e) => {
                 <input type="checkbox" id="isManager" checked={isManager} onChange={(e) => setIsManager(e.target.checked)} className="border rounded-md py-2 px-4 w-full focus:outline-none" />
               </div>
                     
-             <div className="mb-4">
+             {/* <div className="mb-4">
                 <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                     id="branch" 
@@ -147,7 +147,7 @@ const handleSubmit = async(e) => {
                   }
                   
                 </select>
-            </div>
+            </div> */}
             
             </div>
           
