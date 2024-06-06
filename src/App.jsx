@@ -11,8 +11,6 @@ import Home from './Components/Home/Home';
 import SignUp from './Components/sign_up';
 
 
-
-
 function App() {
   return (
     <>
@@ -20,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/sign_up" element={<SignUp />} />
         {/* Protected Routes with Role Checks */}
         <Route path="/admin-dashboard/*" element={<PrivateRoute role= 'isadmin'><AdminDashboardPage/></PrivateRoute> }/>
         <Route path="/shop-dashboard/*" element={<PrivateRoute role="isowner"><ShopDashboardPage/></PrivateRoute> }/> {/* Assuming Shop and Branch use same dashboard */}
