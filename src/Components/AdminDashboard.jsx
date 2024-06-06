@@ -45,7 +45,9 @@ const AdminDashboardPage = () => {
   const handleLogout = () => {
     logout();
     dispatch(userLoggedOut());
+    localStorage.removeItem("user_info");
     localStorage.removeItem("auth");
+    location.reload();
   };
 
   return (
