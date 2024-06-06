@@ -46,9 +46,9 @@ function Categories() {
   // Add category function
   const handleCategoryModalSubmit = async(formData) => {
     try{
-     await addCategory(formData ).unwrap()
-     toast.success(`Category ${formData.name} added Successfully!`);
-     setError('')
+    await addCategory(formData).unwrap()
+    toast.success(`Category ${formData.name} added Successfully!`);
+    setError('')
     }catch(err){
       setError(err.data.detail)
       toast.error(error)
@@ -76,16 +76,16 @@ function Categories() {
 
   //update category
   const handleUpdate = async() => {
-   
-   try{
+  
+  try{
     setEditRowId(null); 
       await updateCategory({id:currentEditValues.id, ...currentEditValues}).unwrap()
       toast.success(`Category updated Successfully!`)
-     }catch(err){
+    }catch(err){
       setError(err.data.detail)
       toast.error(error)
       console.log(err.data.detail)
-     }
+    }
     
   };
 

@@ -26,7 +26,7 @@ import { useDispatch } from 'react-redux';
 import { userLoggedOut } from '../features/auth/authSlice';
 import Leave from './leave';
 
-const AdminDashboardPage = () => {
+const DashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -70,7 +70,7 @@ const AdminDashboardPage = () => {
             <FaBox className="mr-2" />
             <Link to=''>Product</Link>
             <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
-           <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+          <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
               <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                     <FaBox className="mr-2" />
                     <Link to='/dashboard/products'>Products</Link>
@@ -79,7 +79,7 @@ const AdminDashboardPage = () => {
                     <FaTags className="mr-2" />
                     <Link to='/dashboard/category'>Categories</Link>
                 </li>
-           </ul>
+          </ul>
           </li>
           <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaChartBar className="mr-2" />
@@ -190,7 +190,6 @@ const AdminDashboardPage = () => {
         <div className="p-4 flex-1">
           <Routes>
             <Route path="main" element={<DashboardRoute />} />
-            {/* <Route path="owner" element={<DashboardPage3 />} /> */}
             <Route path="products" element={<AllProducts />} />
             <Route path="shop" element={<Shop />} />
             <Route path="branches" element={<Branches />} />
@@ -213,4 +212,4 @@ const AdminDashboardPage = () => {
   );
 };
 
-export default AdminDashboardPage;
+export default DashboardPage;
