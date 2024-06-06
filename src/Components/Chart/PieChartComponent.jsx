@@ -23,6 +23,7 @@ const PieChartComponent = () => {
     ],
   };
 
+  
   return (
     <div className="chart">
       <Doughnut data={doughnutData} options={{ responsive: true }} />
