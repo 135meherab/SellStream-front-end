@@ -120,15 +120,15 @@ function Customer() {
       </tr>
     );
            
-  } else if (!isLoading && !isError && customers?.length === 0) {
+  } else if (!isLoading && !isError && customers?.results?.length === 0) {
     content = (
       <tr >
         <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
       </tr>
     );
   }       
-  else if (!isLoading && !isError && customers?.length > 0) {
-    content = customers?.map((customer, index) => (
+  else if (!isLoading && !isError && customers?.results?.length > 0) {
+    content = customers?.results?.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         {editRowId === customer.id ? (
           <>

@@ -17,14 +17,15 @@ const ProductModal = ({ isOpen, onClose, onSubmit }) => {
 
   const {data: categories} = useGetCategoriesQuery()
   const {data: branches} = useGetBranchesQuery()
-// console.log(branches)
+  // console.log("Category:", category);
+  // console.log(branch)
 const handleSubmit = async(e) => {
 
     e.preventDefault();
     
     // convert number into text
     const numberQnt = Number(quantity)
-    const numberCategory = Number(category)
+    const numberCategory = Number(category); 
     const numberBranch = Number(branch)
 
     const newProduct = {
@@ -88,9 +89,9 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a Category</option>
                   {
-                    categories?.map((category) =>(
+                    categories?.results?.map((cat) =>(
 
-                      <option key={category.id} value={category.id}>{category.name}</option>
+                      <option key={cat.id} value={cat.id}>{cat.name}</option>
                     ))
                   }
                   
@@ -107,7 +108,7 @@ const handleSubmit = async(e) => {
                 >
                     <option value="" disabled selected>Select a branch</option>
                   {
-                    branches?.map((branch) =>(
+                    branches?.results?.map((branch) =>(
 
                       <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))

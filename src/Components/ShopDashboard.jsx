@@ -51,9 +51,9 @@ const ShopDashboardPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className={`bg-gray-800 text-white fixed md:static md:w-64 h-full text-sm md:text-md ${isDrawerOpen ? 'w-64' : 'w-0'} transition-width duration-300 overflow-hidden`}>
+      <div className={`bg-gray-800 text-white  md:static md:w-64  text-sm md:text-md ${isDrawerOpen ? 'w-64' : 'w-0'} transition-width duration-300 overflow-hidden`}>
         <div className="p-4 text-xl font-bold flex justify-between items-center">
           <div className="flex items-center text-white">
             <img src={logo} alt="logo" width='50' className='bg-gray-400 w-12 h-12 rounded-full p-1 ' />
@@ -98,29 +98,28 @@ const ShopDashboardPage = () => {
           </li>
           
           
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaUserFriends className="mr-2" />
-            <Link to='/shop-dashboard/customer'>Customer</Link>
-          </li>
+          
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaShoppingBag className="mr-2" />
             <Link to=''>Order</Link>
             <FaChevronRight className='ml-auto transform transition duration-300 group-hover:rotate-90'/>
-            <ul className='absolute right-0 top-0 mt-0 mr-2 text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'>
+            <ul className='absolute right-0 top-0 mt-0 mb-2 text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'>
                 <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                  <FaShoppingBag className="mr-2" />
+                  <FaShoppingBag className="mb-2" />
                   <Link to='/shop-dashboard/purchase'>Purchase</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                  <FaClipboardList className="mr-2" />
+                  <FaClipboardList className="mb-2" />
                   <Link to='/shop-dashboard/order'>Orders List</Link>
                 </li>
             </ul>
           </li>
           
-          
-          
+          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaUserFriends className="mr-2" />
+            <Link to='/shop-dashboard/customer'>Customer</Link>
+          </li>
           
 
           <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
