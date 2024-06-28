@@ -134,7 +134,7 @@ const AdminDashboardPage = () => {
             <Route path="main" element={<DashboardRoute />} />
             <Route path="shop" element={<Shop />} />
             <Route path="branches" element={<Branches />} />
-            <Route path="profil" element={<Users />} />
+            <Route path="user" element={<Users />} />
             <Route path="profile" element={<Profile />} />
             <Route path="report" element={<Reports />} />
             

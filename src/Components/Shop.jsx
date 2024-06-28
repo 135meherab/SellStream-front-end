@@ -17,7 +17,10 @@ function Shop() {
  const [addShop] = useAddShopMutation();
  const [updateShop] = useUpdateShopMutation();
 const [deleteShop] = useDeleteShopMutation()
-// console.log("Shop Data:", shops);
+
+const [expandedShopId, setExpandedShopId] = useState(null);
+
+console.log("Shop Data:", shops);
  //initial error
   useEffect(() => {
     // setData(shops)
@@ -105,6 +108,14 @@ const [deleteShop] = useDeleteShopMutation()
     setEditRowId(null);
   };
 
+  const toggleBranches = (shopId) => {
+    if (expandedShopId === shopId) {
+      setExpandedShopId(null);
+    } else {
+      setExpandedShopId(shopId);
+    }
+  };
+
   let content = null;
 
   if (isLoading) {
@@ -122,15 +133,15 @@ const [deleteShop] = useDeleteShopMutation()
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && shops?.length === 0) {
+  } else if (!isLoading && !isError && shops?.results?.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && shops?.length > 0) {
-    content = shops?.map((shop, index) => (
+  else if (!isLoading && !isError && shops?.results?.length > 0) {
+    content = shops?.results?.map((shop, index) => (
       <tr key={shop.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === shop.id ? (

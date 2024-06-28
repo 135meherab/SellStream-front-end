@@ -51,9 +51,9 @@ const BranchDashboardPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className={`bg-gray-800 text-white fixed md:static md:w-64 h-full text-sm md:text-md ${isDrawerOpen ? 'w-64' : 'w-0'} transition-width duration-300 overflow-hidden`}>
+      <div className={`bg-gray-800 text-white  md:static md:w-64  text-sm md:text-md ${isDrawerOpen ? 'w-64' : 'w-0'} transition-width duration-300 overflow-hidden`}>
         <div className="p-4 text-xl font-bold flex justify-between items-center">
           <div className="flex items-center text-white">
             <img src={logo} alt="logo" width='50' className='bg-gray-400 w-12 h-12 rounded-full p-1 ' />

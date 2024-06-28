@@ -91,7 +91,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="designation"  selected>Select a Designation</option>
                   {
-                    designations?.map((designation) =>(
+                    designations?.results?.map((designation) =>(
 
                       <option key={designation.id} value={designation.id}>{designation.name}</option>
                     ))
@@ -129,7 +129,7 @@ const handleSubmit = async(e) => {
                 <input type="checkbox" id="isManager" checked={isManager} onChange={(e) => setIsManager(e.target.checked)} className="border rounded-md py-2 px-4 w-full focus:outline-none" />
               </div>
                     
-             {/* <div className="mb-4">
+             <div className="mb-4">
                 <label htmlFor="branch" className="block text-gray-700 text-sm font-bold mb-2">Branch</label>
                 <select 
                     id="branch" 
@@ -140,14 +140,14 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a Branch</option>
                   {
-                    branches?.map((branch) =>(
+                    branches?.results?.map((branch) =>(
 
                       <option key={branch.id} value={branch.id}>{branch.name}</option>
                     ))
                   }
                   
                 </select>
-            </div> */}
+            </div>
             
             </div>
           
