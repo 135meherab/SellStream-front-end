@@ -10,7 +10,7 @@ const DashboardRoute = () => {
     <div className="p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {/* Card for Total Products */}
-        <div className="bg-purple-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-purple-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faBox} className="text-purple-600 text-4xl mb-3" />
             <p className="text-purple-600 text-lg font-semibold mb-2">Total Products</p>
@@ -18,7 +18,7 @@ const DashboardRoute = () => {
           </div>
         </div>
         {/* Card for Total Categories */}
-        <div className="bg-yellow-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-yellow-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faListAlt} className="text-yellow-600 text-4xl mb-3" />
             <p className="text-yellow-600 text-lg font-semibold mb-2">Total Categories</p>
@@ -26,7 +26,7 @@ const DashboardRoute = () => {
           </div>
         </div>
         {/* Card for Total Orders */}
-        <div className="bg-green-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-green-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-4xl mb-3" />
             <p className="text-green-600 text-lg font-semibold mb-2">Total Orders</p>
@@ -34,7 +34,7 @@ const DashboardRoute = () => {
           </div>
         </div>
         {/* Card for Total Sales */}
-        <div className="bg-blue-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-blue-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faMoneyBillAlt} className="text-blue-600 text-4xl mb-3" />
             <p className="text-blue-600 text-lg font-semibold mb-2">Total Sales</p>
@@ -42,7 +42,7 @@ const DashboardRoute = () => {
           </div>
         </div>
         {/* Card for Total Customers */}
-        <div className="bg-red-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-red-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faUsers} className="text-red-600 text-4xl mb-3" />
             <p className="text-red-600 text-lg font-semibold mb-2">Total Customers</p>
@@ -50,7 +50,7 @@ const DashboardRoute = () => {
           </div>
         </div>
         {/* Card for Total Employees */}
-        <div className="bg-indigo-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 border border-gray-300">
+        <div className="bg-indigo-100 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-104 border border-gray-300">
           <div className="p-6 flex flex-col items-center justify-center">
             <FontAwesomeIcon icon={faUserTie} className="text-indigo-600 text-4xl mb-3 " />
             <p className="text-indigo-600 text-lg font-semibold mb-2">Total Employees</p>

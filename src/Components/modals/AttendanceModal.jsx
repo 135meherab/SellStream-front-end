@@ -81,7 +81,7 @@ const handleSubmit = async(e) => {
                 >
                   <option value="" disabled selected>Select a employee</option>
                   {
-                    employees?.map((employee) =>(
+                    employees?.results?.map((employee) =>(
 
                       <option key={employee.id} value={employee.id}>{employee.fullname}</option>
                     ))
