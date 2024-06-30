@@ -54,8 +54,8 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="bg-gray-700 flex items-center justify-center min-h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl">
+    <div className="bg-gray-700 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 pt-4 pb-4">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl relative">
         <h2 className="text-2xl font-bold mb-6 text-primary text-center">
           Create an Account
         </h2>
@@ -171,7 +171,17 @@ const SignUp = () => {
             >
               Sign Up
             </button>
+            
           </div>
+              {isLoading && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-75">
+                <svg className="animate-spin h-10 w-10 text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2zm2 5.291l-2.829 2.828A10 10 0 0012 22v-2a8 8 0 01-6-2.709z"></path>
+                </svg>
+                <p className='text-gray-700'>Please wait 1 second to 1 minute...</p>
+              </div>
+            )}
           <div className="mt-4 text-center">
             <p className="text-gray-600 text-sm">
               Already have an account?{' '}

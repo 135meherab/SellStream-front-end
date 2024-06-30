@@ -18,7 +18,7 @@ const Navbars = () => {
       {/* Right Side */}
       <div className="flex right-side items-center">
         <a href="/login" className="login text-white  mr-4 ">Login</a>
-        <a href="/sign_up" className="signup text-white px-4 py-2  ">Sign Up</a>
+        <a href="/sign_up" className="signup text-white mr-4 py-2  ">Sign Up</a>
       </div>
     </nav>
 

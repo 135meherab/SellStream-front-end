@@ -1,8 +1,6 @@
 /* nav start */
 
 
-
-
 .colour {
   position: fixed;
     top: 0;
@@ -47,7 +45,36 @@
     border-radius: 10px;
     color: #000000;  
   }
-  
+  @media only screen and (min-width: 341px) and (max-width: 370px){
+    nav a {
+      font-size: 13px;
+      margin: 10px !important;
+    }
+    nav{
+      height: 72px;
+    }
+    .left-side {
+      margin-left: 0px !important;
+    }
+    .right-side{
+      margin-right: 0px !important;
+    }
+  }
+  @media only screen and (min-width: 371px) and (max-width: 409px){
+    nav a {
+      font-size: 16px;
+      margin: 9px !important;
+    }
+    nav{
+      height: 72px;
+    }
+    .left-side {
+      margin-left: 5px !important;
+    }
+    .right-side{
+      margin-right: 4px !important;
+    }
+  }
   @media only screen and (max-width: 1100px) {
     .left-side {
       margin-left: 10px; /* Adjust for smaller screens */
@@ -234,6 +261,7 @@
     align-self: center; /* Centers the image within the card */
     padding-bottom: 20px;
     padding-top: 25px;
+    margin-left: 8px;
     }
     .type .card h5{
     font-weight: bold;
@@ -249,8 +277,61 @@
     
     }
     /* Styles for devices up to 425px */
-    
-    @media only screen and (min-width: 300px) and (max-width: 650px) {
+    @media only screen and (min-width: 300px) and (max-width: 359px) {
+      .type .card {
+        width: calc(50% - 25px); /* Adjust width to show two cards in one row */
+        height: 375px;
+        margin: 10px 5px 10px 4px; /* Add margin to separate cards */
+      }
+      .type .card img {
+        width: 30px;
+        align-self: center; /* Centers the image within the card */
+        padding-bottom: 15px;
+        padding-top: 20px;
+      }
+      .type .card p {
+        position: relative;
+        left: 6px;
+      }
+      .grow {
+        padding: 40px;
+      }
+      .grow h5 {
+        font-size: small;
+      }
+      .grow h1 {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      }
+      @media only screen and (min-width: 360px) and (max-width: 424px) {
+        .type .card {
+          width: calc(50% - 25px); /* Adjust width to show two cards in one row */
+          height: 330px;
+          margin: 10px 5px 10px 4px; /* Add margin to separate cards */
+        }
+        .type .card img {
+          width: 30px;
+          align-self: center; /* Centers the image within the card */
+          padding-bottom: 15px;
+          padding-top: 20px;
+        }
+        .type .card p {
+          position: relative;
+          left: 6px;
+        }
+        .grow {
+          padding: 40px;
+        }
+        .grow h5 {
+          font-size: small;
+        }
+        .grow h1 {
+          font-size: 1.02rem;
+          font-weight: bold;
+        }
+        }
+    @media only screen and (min-width: 425px) and (max-width: 650px) {
     .type .card {
       width: calc(50% - 25px); /* Adjust width to show two cards in one row */
       height: 320px;
@@ -381,7 +462,65 @@
     font-weight: 500;
     }
     
-    @media only screen and (min-width: 300px) and (max-width: 768px)
+    @media only screen and (min-width: 300px) and (max-width: 359px)
+     {
+    .credit-container {
+      flex-direction: column;
+      margin-left: 0;
+      margin: 20px;
+    }
+    
+    .credit-img {
+      width: 400px;
+      height: auto;
+      order: -1;
+    }
+    
+    .arrow-list {
+      grid-template-columns: 1fr;
+    }
+    .sellstream-text p{
+      display: flex;
+      justify-content: center;
+    }
+    .sellstream-text h1{
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px; 
+    }
+    
+    }
+    @media only screen and (min-width: 360px) and (max-width: 424px)
+     {
+    .credit-container {
+      flex-direction: column;
+      margin-left: 0;
+      margin: 20px;
+    }
+    
+    .credit-img {
+      width: 400px;
+      height: auto;
+      order: -1;
+    }
+    
+    .arrow-list {
+      grid-template-columns: 1fr;
+    }
+    .sellstream-text p{
+      display: flex;
+      justify-content: center;
+    }
+    .sellstream-text h1{
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.0rem; 
+    }
+    
+    }
+    @media only screen and (min-width: 425px) and (max-width: 768px)
      {
     .credit-container {
       flex-direction: column;
@@ -504,7 +643,49 @@
     background-color: #F6F6F2;
   }
   
-  @media only screen and (min-width: 300px) and (max-width: 620px)
+  @media only screen and (min-width: 300px) and (max-width: 369px)
+   {
+  .pricing-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .pricing-card {
+    width: 80%;
+    margin-bottom: 0;
+  }
+  
+  .pricing-section{
+    margin: 20px;
+  }
+  .pricing-section h1{
+    font-size: 15px;
+    
+  }
+  }
+  @media only screen and (min-width: 370px) and (max-width: 424px)
+   {
+  .pricing-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .pricing-card {
+    width: 80%;
+    margin-bottom: 0;
+  }
+  
+  .pricing-section{
+    margin: 20px;
+  }
+  .pricing-section h1{
+    font-size: 16px;
+    
+  }
+  }
+  @media only screen and (min-width: 425px) and (max-width: 619px)
    {
   .pricing-container {
     flex-direction: column;
@@ -631,7 +812,7 @@
     opacity: 0;
   }
   }
-  @media only screen and (min-width: 200px) and (max-width: 424px){
+  /* @media only screen and (min-width: 200px) and (max-width: 424px){
     .question-box{
       width: 90%;
     }
@@ -639,8 +820,24 @@
       font-size: 5px;
     }
   }
- 
-  @media only screen and (min-width: 300px) and (max-width: 820px){
+  */
+  @media only screen and (min-width: 300px) and (max-width: 359px){
+    .question-box{
+      width: 90%;
+    }
+    .faq-container h1{
+      font-size: 24px;
+    }
+  }
+  @media only screen and (min-width: 360px) and (max-width: 424px){
+    .question-box{
+      width: 90%;
+    }
+    .faq-container h1{
+      font-size: 25px;
+    }
+  }
+  @media only screen and (min-width: 425px) and (max-width: 820px){
     .question-box{
       width: 90%;
     }
