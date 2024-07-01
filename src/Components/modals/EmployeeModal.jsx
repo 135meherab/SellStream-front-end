@@ -38,7 +38,7 @@ const handleSubmit = async(e) => {
       branch: branchInt
     };
     onSubmit(newEmployee)
-    console.log(newEmployee)
+    // console.log(newEmployee)
     
    onClose()
    
