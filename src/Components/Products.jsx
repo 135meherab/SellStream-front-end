@@ -19,7 +19,7 @@ const AllProducts = () => {
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
-//  console.log(products)
+ console.log(products)
  //set error
  useEffect(() => {
   if (responseError) {

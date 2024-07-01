@@ -26,6 +26,7 @@ const Employee =() => {
   useEffect(() => {
     if (responseError) {
       setError(responseError.error);
+      toast.error(responseError.error);
     }
   }, [responseError, error]);
 
@@ -47,9 +48,24 @@ const Employee =() => {
       toast.success(`${formData.fullname} Employee has been added Successfully!`)
       setError('')
     }catch(error){
-      setError(error)
-      toast.error(error)
-      console.log(error)
+      if (error.data) {
+        // Assuming error.data contains the validation errors from your API
+        const { data } = error;
+        if (data.email) {
+          toast.error('Email already exists. Please use a different email.'); // Display email errors
+        }
+        if (data.phone) {
+          toast.error('Phone already exists. Please use a different Phone.'); // Display phone errors
+        }
+        if (data.bank_account) {
+          toast.error('Bank account already exists. Please use a different bank number.'); // Display bank account errors
+        }
+      } else {
+        // Handle other types of errors
+        setError(error.message); // Set general error message
+        toast.error(error.message); // Display general error
+      }
+      // console.log(error); // Log the error for debugging purposes
     }
       
   };

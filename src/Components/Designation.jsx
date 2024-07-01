@@ -45,7 +45,7 @@ function Designation() {
   // Add Designation function
   const handleDesignationModalSubmit = async(formData) => {
     try{
-     await addDesignation(formData ).unwrap()
+     await addDesignation(formData )
      location.reload();
      toast.success(`Designation ${formData.name} added Successfully!`);
      setError('')
