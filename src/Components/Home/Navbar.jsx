@@ -12,7 +12,7 @@ const Navbars = () => {
       <div className="flex left-side items-center">
         <a className="nav-logo h-8 w-12 mr-5" href=""><img src={logo} alt="Logo"  /></a>
         <a href="#" className="home text-white mr-6 ">Home</a>
-        <a href="#" className="pricing text-white mr-6 ">Pricing</a>
+        <a href="#price" className="pricing text-white mr-6 ">Pricing</a>
       </div>
 
       {/* Right Side */}

@@ -1,13 +1,3 @@
-// // src/components/Banner.jsx
-// import React from 'react';
-// import Carousel from 'react-bootstrap/Carousel';
-
-// import one from '../../assets/one.png'
-// import two from '../../assets/two.png'
-// import three from '../../assets/three.png'
-// import '../css/landpage.css'; // Assuming your CSS is in Navbar.css
-
-
 
 // Carousel.js
 import React, { useState, useEffect } from 'react';
@@ -53,10 +43,10 @@ const Carousel = () => {
           </div>
         ))}
       </div>
-      <div className="carousel-controls">
+      {/* <div className="carousel-controls">
         <img src={back} onClick={prevSlide} className="control-icon" alt="Previous Slide" />
         <img src={next} onClick={nextSlide} className="control-icon" alt="Next Slide" />
-      </div>
+      </div> */}
     </div>
   );
 };

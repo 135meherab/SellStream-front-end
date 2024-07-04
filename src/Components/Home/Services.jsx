@@ -52,8 +52,8 @@ const Services = () => {
               </li>
             </ul>
           </div>
-        </div>
-        <img className="credit-img" src={credit} alt="Credit Image" />
+        </div >
+        <img  className="credit-img" src={credit} alt="Credit Image" />
       </div>
     </section>
   );

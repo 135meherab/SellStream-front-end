@@ -87,7 +87,7 @@ export const authEnhancer = (fetchBaseQuery) => (args, api, extraOptions) => {
 
     // Include authentication token
     if (token) {
-        result.headers['Authorization'] = `Bearer ${token}`;
+        result.headers['Authorization'] = `Token ${token}`;
     }
 
     return result;
