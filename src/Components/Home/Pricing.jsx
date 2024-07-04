@@ -9,8 +9,8 @@ const pricingOptions = [
 
 const Pricing = () => {
   return (
-    <section className="pricing-section">
-        <p>Pricing</p>
+    <section id='price' className="pricing-section">
+        <p >Pricing</p>
         <h1>Discover Our Transparent Pricing Plans Find </h1>
         <h1>the Perfect Fit for Your Needs</h1>
         <div className="pricing-container">
@@ -26,7 +26,7 @@ const Pricing = () => {
                         <li>Sales Dashboard</li>
                     </ul>
                 </div>
-                <div className="card-footer">
+                <div  className="card-footer">
                     <a href="#" className="btn">Choose Plan</a>
                 </div>
             </div>
