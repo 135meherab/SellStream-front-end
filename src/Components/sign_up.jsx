@@ -5,18 +5,46 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'; // Import Link from React Router
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Example with FontAwesome icons
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError,setEmailError] = useState('')
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [usernameError, setUsernameError] = useState('')
+  const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   const [addUser, { isLoading, error: responseError }] = useAddUserMutation();
   const navigate = useNavigate(); // Include navigate for navigation
+
+  const handleUsernameChange = (e) =>{
+    const {value} = e.target;
+    if (value.includes(' ')){
+      setUsernameError('Username should not contain spaces.');
+    }
+    else{
+      setUsernameError(''); // Clear the error when there are no spaces
+    }
+    setUsername(value);
+  }
+  
+  
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    if (e.target.value !== password && password) {
+      setPasswordError('Passwords do not match');
+    } else {
+      setPasswordError('');
+    }
+  };
 
   useEffect(() => {
     if (responseError) {
@@ -27,6 +55,15 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (username.includes(' ')){
+      setError('Username should not contain spaces.')
+      toast.error('Username should not contain spaces.')
+      return
+    }
+    if (!email.endsWith(".com")) {
+      setEmailError("Email must end with .com");
+      return;
+    } 
     if (password !== confirm_password) {
       setError('Passwords do not match');
       toast.error('Passwords do not match');
@@ -53,6 +90,15 @@ const SignUp = () => {
         toast.error(err.data?.error || 'An error occurred');
     }
   };
+  const togglePasswordVisibility = (field) => {
+    if ( field === "password"){
+      setShowPassword(!showPassword);
+    }
+    else if(field === "confirm_password"){
+      setShowConfirmPassword(!showConfirmPassword)
+    }
+  };
+  
   return (
     <div className="bg-gray-700 flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 pt-4 pb-4">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl relative">
@@ -74,9 +120,10 @@ const SignUp = () => {
               type="text"
               placeholder="Username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleUsernameChange}
               required
             />
+            {usernameError && <p className="text-red-500 text-xs italic">{usernameError}</p>}
           </div>
           <div className="mb-4">
             <label
@@ -128,40 +175,62 @@ const SignUp = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {emailError && <p className="text-red-500 text-xs italic">{emailError}</p>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 relative ">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="password"
             >
               Password
             </label>
+            <div className='relative '>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              type="button"
+              className="absolute right-3 top-2"
+              onClick={() => togglePasswordVisibility('password')}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              <FontAwesomeIcon icon={showPassword ? faEye: faEyeSlash } />
+            </button>
+            </div>
           </div>
-          <div className="mb-4">
-            <label
+          <div className="mb-4 relative">
+          <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="confirm-password"
             >
               Confirm Password
             </label>
+            <div className='relative'>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="confirm-password"
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm Password"
               value={confirm_password}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={handleConfirmPasswordChange}
               required
             />
+            <button
+              type="button"
+              className="absolute right-3 top-2"
+              onClick={() => togglePasswordVisibility('confirm_password')}
+              aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+            >
+              <FontAwesomeIcon icon={showConfirmPassword ? faEye: faEyeSlash } />
+            </button>
+            </div>
+            {passwordError && <p className="text-red-500 text-xs italic">{passwordError}</p>}
           </div>
           <div className="flex items-center justify-between">
             <button

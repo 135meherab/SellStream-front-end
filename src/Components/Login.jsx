@@ -5,15 +5,18 @@ import { useDispatch } from 'react-redux';
 import { userLoggedIn } from '../features/auth/authSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Example with FontAwesome icons
 
 
 const Login = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch()
-const [login, {data, isLoading, error: responseError}] = useLoginMutation()
+  const [login, {data, isLoading, error: responseError}] = useLoginMutation()
 
 
 const handleLogin = async (e) => {
@@ -62,7 +65,10 @@ useEffect(() => {
   }
 }, [data, navigate, responseError, dispatch]);
     
+const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   
+};
   
 
 
@@ -82,16 +88,26 @@ useEffect(() => {
             required
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label htmlFor="password" className="block text-gray-700">Password</label>
+          <div className='relative'>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
             required
           />
+          <button
+              type="button"
+              className="absolute right-3 top-3"
+              onClick={() => togglePasswordVisibility('password')}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              <FontAwesomeIcon icon={showPassword ? faEye: faEyeSlash } />
+            </button>
+          </div>
         </div>
         <button disabled={isLoading} type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-opacity-80">
           Login
