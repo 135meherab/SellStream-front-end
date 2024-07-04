@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 const FAQ = () => {
   const [activeQuestion, setActiveQuestion] = useState(null);
 
@@ -19,7 +20,12 @@ const FAQ = () => {
               onClick={() => toggleAnswer(item.id)}
             >
               {item.question}
+              <FontAwesomeIcon
+                icon={activeQuestion === item.id ? faChevronUp : faChevronDown}
+                className="icon"
+              />
             </h5>
+            
             <div className={`answer ${activeQuestion === item.id ? 'active fade-in' : 'fade-out'}`}>
               {item.answer}
             </div>
