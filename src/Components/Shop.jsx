@@ -232,22 +232,7 @@ console.log("Shop Data:", shops);
       <h2 className="text-2xl font-bold mb-4">Shops</h2>
       <div className="flex justify-between items-center text-sm">
         <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center">
-            <input
-              type="text"
-              id="shopName"
-              value={shopName}
-              onChange={(e) => setShopName(e.target.value)}
-              placeholder="Shop Name"
-              className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
-            />
-            <button
-              onClick={handleAddShop}
-              className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
-            >
-              Search
-            </button>
-          </div>
+          
         </div>
         <button
           onClick={handleOpenShopModal}

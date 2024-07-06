@@ -11,10 +11,11 @@ import { toast } from 'react-toastify';
 function Categories() {
   //local state
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
-  const [categoryName, setCategoryName] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCategory, setFilteredCategory] = useState([]);
 
 
   //redux
@@ -31,6 +32,18 @@ function Categories() {
       setError(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const categoryfilter = () =>{
+      if(!searchTerm.trim()){
+      return categories?.results || [];
+      }
+      return categories?.results?.filter(category =>
+        category.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredCategory(categoryfilter());
+  }, [searchTerm, categories]);
 
   // Handle modal open/close
   const handleOpenCategoryModal = () => {
@@ -125,15 +138,15 @@ function Categories() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && categories?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredCategory.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && categories?.results?.length > 0) {
-    content = categories?.results?.map((category, index) => (
+  else if (!isLoading && !isError && filteredCategory.length > 0) {
+    content = filteredCategory.map((category, index) => (
       <tr key={category.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === category.id ? (
@@ -219,9 +232,9 @@ function Categories() {
             <input
               type="text"
               id="categoryName"
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
-              placeholder="Category Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search Category Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button

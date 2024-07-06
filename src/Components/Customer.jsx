@@ -8,16 +8,16 @@ import { toast } from 'react-toastify';
 function Customer() {
   //local State
   const [isCustomerModalOpen, setCustomerModalOpen] = useState(false);
-  const [customerName, setCustomerName] = useState('');
   const [error, setError] = useState('');
-  const[data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredcustomer, setFilteredCustomer] = useState([]);
 
 
   //redux
   const { data: customers, isLoading, isError, error: responseError } = useGetCustomersQuery();
-  const[addCustomer] = useAddCustomerMutation()
   const [updateCustomer] = useUpdateCustomerMutation()
   const [deleteCustomer] = useDeleteCustomerMutation()
 
@@ -30,28 +30,20 @@ function Customer() {
     }
   }, [responseError, error]);
 
-  // Handle modal open/close
-  const handleOpenCustomerModal = () => {
-    setCustomerModalOpen(true);
-  };
+  useEffect(() => {
+    const customerfilter = () =>{
+      if(!searchTerm.trim()){
+      return customers?.results || [];
+      }
+      return customers?.results?.filter( customer =>
+        customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.phone.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredCustomer(customerfilter());
+  }, [searchTerm, customers]);
 
-  // handle close modal
-  const handleCloseCustomerModal = () => {
-    setCustomerModalOpen(false);
-  };
-
-  // Add Customer 
-  const handleCustomerModalSubmit = async(formData) => {
-    try{
-      await addCustomer(formData).unwrap();
-      toast.success(`Customer ${formData.name} Added Successfully!`)
-      setError('');
-    }catch(error){
-      setError(error.data.detail);
-      toast.error(error.data.detail);
-      console.log("Error During Add Customer: ", error.status, error.data.detail)
-    }
-  };
+ 
 
   const handleSearchCustomer = async (e) => {
     e.preventDefault();
@@ -120,15 +112,15 @@ function Customer() {
       </tr>
     );
            
-  } else if (!isLoading && !isError && customers?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredcustomer.length === 0) {
     content = (
       <tr >
         <td className="text-red-500 bg-red-200 text-center my-5" colSpan="9">No data Found!</td>
       </tr>
     );
   }       
-  else if (!isLoading && !isError && customers?.results?.length > 0) {
-    content = customers?.results?.map((customer, index) => (
+  else if (!isLoading && !isError && filteredcustomer.length > 0) {
+    content = filteredcustomer.map((customer, index) => (
       <tr key={customer.id} className="text-center">
         {editRowId === customer.id ? (
           <>
@@ -191,7 +183,7 @@ function Customer() {
             <td className="border px-4 py-2">{customer.name}</td>
             <td className="border px-4 py-2">{customer.phone}</td>
             <td className="border px-4 py-2">{customer.total_purchase}</td>
-            <td className="border px-4 py-2">{customer.shop}</td>
+            <td className="border px-4 py-2">{customer.shop_name}</td>
             
           </>
         )}
@@ -209,9 +201,9 @@ function Customer() {
             <input
               type="text"
               id="customerName"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              placeholder="customer Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              placeholder="Customer Name,Contact"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button
@@ -222,12 +214,6 @@ function Customer() {
             </button>
           </div>
         </div>
-        <button
-          onClick={handleOpenCustomerModal}
-          className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
-        >
-          Add Customer
-        </button>
       </div>
 
       <table className="w-full border-collapse mb-4 text-sm">
