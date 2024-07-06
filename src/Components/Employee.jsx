@@ -12,6 +12,8 @@ const Employee =() => {
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredemployee, setFilteredEmployee] = useState([]);
 
 
   // redux
@@ -29,6 +31,19 @@ const Employee =() => {
       toast.error(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const employeefilter = () =>{
+      if(!searchTerm.trim()){
+      return employees?.results || [];
+      }
+      return employees?.results?.filter( employee =>
+        employee.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        employee.phone.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredEmployee(employeefilter());
+  }, [searchTerm, employees]);
 
   // Handle modal open/close
   const handleOpenEmployeeModal = () => {
@@ -137,15 +152,15 @@ const handleDelete= async (id)=>{
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && employees?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredemployee.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading  && !isError && employees?.results?.length >0) {
-    content = employees?.results?.map((employee, index) => (
+  else if (!isLoading  && !isError && filteredemployee.length >0) {
+    content = filteredemployee.map((employee, index) => (
       <tr key={index} className="text-center">
         {/* <td className="border px-4 py-2">{index + 1}</td> */}
         {editRowId === employee.id ? (
@@ -247,9 +262,9 @@ const handleDelete= async (id)=>{
             <input
               type="text"
               id="employeeName"
-              value={employeeName}
-              onChange={(e) => setEmployeeName(e.target.value)}
-              placeholder="employee Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              placeholder="Employee Name, Phone"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button

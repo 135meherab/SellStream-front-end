@@ -11,10 +11,11 @@ import { toast } from 'react-toastify';
 function Designation() {
   //local state
   const [isDesignationModalOpen, setDesignationModalOpen] = useState(false);
-  const [DesignationName, setDesignationName] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredDesignation, setFilteredDesignation] = useState([]);
 
 
   //redux
@@ -30,6 +31,18 @@ function Designation() {
       setError(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const Designationfilter = () =>{
+      if(!searchTerm.trim()){
+      return designations?.results || [];
+      }
+      return designations?.results?.filter(Designation =>
+        Designation.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredDesignation(Designationfilter());
+  }, [searchTerm, designations]);
 
   // Handle modal open/close
   const handleOpenDesignationModal = () => {
@@ -124,15 +137,15 @@ function Designation() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && designations?.results?.length === 0 ) {
+  } else if (!isLoading && !isError && filteredDesignation.length === 0 ) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && designations?.results?.length > 0) {
-    content = designations?.results?.map((designation, index) => (
+  else if (!isLoading && !isError && filteredDesignation.length > 0) {
+    content = filteredDesignation.map((designation, index) => (
       <tr key={designation.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Designation.id ? (
@@ -218,8 +231,8 @@ function Designation() {
             <input
               type="text"
               id="DesignationName"
-              value={DesignationName}
-              onChange={(e) => setDesignationName(e.target.value)}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
               placeholder="Designation Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
