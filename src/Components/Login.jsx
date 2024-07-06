@@ -13,7 +13,7 @@ const Login = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const [login, {data, isLoading, error: responseError}] = useLoginMutation()
@@ -67,7 +67,6 @@ useEffect(() => {
     
 const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  
 };
   
 
@@ -136,8 +135,6 @@ const togglePasswordVisibility = () => {
     </div>
   </div>
   
-
-
   );
   
 };

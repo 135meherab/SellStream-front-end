@@ -19,8 +19,8 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [usernameError, setUsernameError] = useState('')
-  const [showPassword, setShowPassword] = useState(true);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [addUser, { isLoading, error: responseError }] = useAddUserMutation();
   const navigate = useNavigate(); // Include navigate for navigation

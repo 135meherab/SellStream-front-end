@@ -11,10 +11,11 @@ import { toast } from 'react-toastify';
 function Attendance() {
   //local state
   const [isAttendanceModalOpen, setAttendanceModalOpen] = useState(false);
-  const [AttendanceName, setAttendanceName] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredAttendance, setFilteredAttendance] = useState([]);
 
 
   //redux
@@ -23,7 +24,7 @@ function Attendance() {
   const [updateAttendance] = useUpdateAttendanceMutation()
   const [deleteAttendance] = useDeleteAttendanceMutation()
 
-  // console.log(attendances)
+  console.log(attendances)
 
   //initial error
   useEffect(() => {
@@ -31,6 +32,18 @@ function Attendance() {
       setError(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const Attendancefilter = () =>{
+      if(!searchTerm.trim()){
+      return attendances?.results || [];
+      }
+      return attendances?.results?.filter(Attendance =>
+        Attendance.employee.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredAttendance(Attendancefilter());
+  }, [searchTerm,attendances]);
 
   // Handle modal open/close
   const handleOpenAttendanceModal = () => {
@@ -121,15 +134,15 @@ function Attendance() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && attendances?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredAttendance.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && attendances?.results?.length > 0) {
-    content = attendances?.results?.map((attendance, index) => (
+  else if (!isLoading && !isError && filteredAttendance.length > 0) {
+    content = filteredAttendance.map((attendance, index) => (
       <tr key={attendance.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === Attendance.id ? (
@@ -218,8 +231,8 @@ function Attendance() {
             <input
               type="text"
               id="AttendanceName"
-              value={AttendanceName}
-              onChange={(e) => setAttendanceName(e.target.value)}
+              // value={searchTerm}
+              // onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Attendance Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />

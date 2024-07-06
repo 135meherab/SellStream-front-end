@@ -11,10 +11,11 @@ import { toast } from 'react-toastify';
 function Order() {
   //local state
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
-  const [OrderName, setOrderName] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredOrder, setFilteredOrder] = useState([]);
 
 
   //redux
@@ -23,7 +24,7 @@ function Order() {
   const [updateOrder] = useUpdateOrderMutation()
   const [deleteOrder] = useDeleteOrderMutation()
   
-  console.log(orders)
+  // console.log(orders)
   
   //initial error
   useEffect(() => {
@@ -31,6 +32,19 @@ function Order() {
       setError(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const orderfilter = () =>{
+      if(!searchTerm.trim()){
+      return orders?.results || [];
+      }
+      return orders?.results?.filter( order =>
+        order.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.order_unique_id.toLowerCase().includes(searchTerm.toLowerCase()) 
+      ) || [];
+    };
+    setFilteredOrder(orderfilter());
+  }, [searchTerm, orders]);
 
   // Handle modal open/close
   const handleOpenOrderModal = () => {
@@ -125,15 +139,15 @@ function Order() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && orders?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredOrder.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && orders?.results?.length > 0) {
-    content = orders?.results?.map((order, index) => (
+  else if (!isLoading && !isError && filteredOrder.length > 0) {
+    content = filteredOrder.map((order, index) => (
       <tr key={order.id} className="text-center">
         {editRowId === order.id ? (
           <>
@@ -185,8 +199,8 @@ function Order() {
           <>
             <td className="border px-4 py-2">{order.order_date}</td>
             <td className="border px-4 py-2">{order.order_unique_id}</td>
-            <td className="border px-4 py-2">{order.customer}</td>
-            <td className="border px-4 py-2">{order.branch}</td>
+            <td className="border px-4 py-2">{order.customer_name}</td>
+            <td className="border px-4 py-2">{order.branch_name}</td>
             <td className="border px-4 py-2">{order.total_price}</td>
             
           </>
@@ -205,9 +219,9 @@ function Order() {
             <input
               type="text"
               id="OrderName"
-              value={OrderName}
-              onChange={(e) => setOrderName(e.target.value)}
-              placeholder="Order Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              placeholder="Order Name, Id"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
             <button

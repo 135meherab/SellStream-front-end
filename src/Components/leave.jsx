@@ -23,7 +23,7 @@ function Leave() {
   const [updateLeave] = useUpdateLeaveMutation()
   const [deleteLeave] = useDeleteLeaveMutation()
 
-  // console.log(Leaves)
+  // console.log(leaves)
 
   //initial error
   useEffect(() => {

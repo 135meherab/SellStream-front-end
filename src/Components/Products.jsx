@@ -11,6 +11,8 @@ const AllProducts = () => {
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProduct, setFilteredProduct] = useState([]);
 
 
   // Redux
@@ -29,6 +31,21 @@ const AllProducts = () => {
  
   
 }, [responseError,  error]);
+
+useEffect(() => {
+  const productfilter = () =>{
+    if(!searchTerm.trim()){
+    return products?.results || [];
+    }
+    return products?.results?.filter( product =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.category_name.toLowerCase().includes(searchTerm.toLowerCase())  ||
+      product.branch_name.toLowerCase().includes(searchTerm.toLowerCase()) 
+    ) || [];
+  };
+  setFilteredProduct(productfilter());
+}, [searchTerm, products]);
+
 
   // Handle modal open/close
   const handleOpenProductModal = () => {
@@ -106,9 +123,6 @@ const AllProducts = () => {
 
  
 
-
- 
-
   // Decide what to render
   let content = null;
 
@@ -127,15 +141,15 @@ const AllProducts = () => {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && products?.results?.length === 0 ) {
+  } else if (!isLoading && !isError && filteredProduct.length === 0 ) {
     content = (
       <tr>
         <td className='mb-5 pb-5 text-center text-red-600 bg-red-300 py-5 font-bold' colSpan="9">No Products Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && products?.results?.length > 0) {
-    content = products?.results?.map((product, index) => (
+  else if (!isLoading && !isError && filteredProduct.length > 0) {
+    content = filteredProduct.map((product, index) => (
       <tr key={product.id} className="text-center">
         {/* <td className="border  px-4 py-2">{index + 1}</td> */}
         {editRowId === product.id ? (
@@ -253,7 +267,9 @@ const AllProducts = () => {
           </svg>
           <input
             type="text"
-            placeholder="Search with code, name, brand"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search name, Category"
             className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
           />
           <button className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80">Search</button>

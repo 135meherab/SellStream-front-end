@@ -7,10 +7,11 @@ import { toast } from 'react-toastify';
 
 function Branches() {
   const [isBranchesModalOpen, setBranchesModalOpen] = useState(false);
-  const [branchName, setBranchName] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [filteredBranches, setFilteredBranches] = useState([]);
 
   const { data: branches, isLoading, isError, error: responseError } = useGetBranchesQuery()
   const [addBranch] = useAddBranchMutation()
@@ -23,6 +24,20 @@ function Branches() {
       setError(responseError.error);
     }
   }, [responseError, error]);
+
+  useEffect(() => {
+    const branchfilter = () =>{
+      if(!searchTerm.trim()){
+      return branches?.results || [];
+      }
+      return branches?.results?.filter(branch =>
+        branch.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        branch.location.toLowerCase().includes(searchTerm.toLowerCase())
+      ) || [];
+    };
+    setFilteredBranches(branchfilter());
+  }, [searchTerm, branches]);
+
 
   // Handle modal open/close
   const handleOpenBranchesModal = () => {
@@ -116,15 +131,15 @@ function Branches() {
         </td>
       </tr>
     );
-  } else if (!isLoading && !isError && branches?.results?.length === 0) {
+  } else if (!isLoading && !isError && filteredBranches.length === 0) {
     content = (
       <tr className="text-red-500 bg-red-200 text-center my-5" colSpan="9">
         <td>No data Found!</td>
       </tr>
     );
   } 
-  else if (!isLoading && !isError && branches?.results?.length >0 ) {
-    content = branches?.results?.map((branch, index) => (
+  else if (!isLoading && !isError && filteredBranches.length > 0 ) {
+    content = filteredBranches.map((branch, index) => (
       <tr key={branch.id} className="text-center text-sm">
         <td className="border px-4 py-2">{index + 1}</td>
         {editRowId === branch.id ? (
@@ -210,11 +225,12 @@ function Branches() {
             <input
               type="text"
               id="branchName"
-              value={branchName}
-              onChange={(e) => setBranchName(e.target.value)}
-              placeholder="Branch Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search Branch or Location"
               className="w-full border roundesd-md py-2 px-4 mr-2 focus:outline-none"
             />
+            
             <button
               onClick={handleSearchBranch}
               className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"

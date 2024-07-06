@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import AllProducts from './Products';
 import OrderComponent from './Order';
@@ -29,7 +29,18 @@ import Leave from './leave';
 const BranchDashboardPage = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userdata, setuserdata] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  
+  useEffect(() => {
+    // Get data from local storage
+    const data = localStorage.getItem('user_info');
+    console.log('data : ',  data)
+    if (data){
+      setuserdata(JSON.parse(data));
+    }
+  },[])
 
   const dispatch = useDispatch();
   const [logout] = useLogoutMutation();
@@ -146,7 +157,7 @@ const BranchDashboardPage = () => {
 
           <h1 className="text-lg font-semibold ">POS Dashboard</h1>
           <div className="relative flex justify-center items-center" onClick={toggleDropdown}>
-            <h1 className="text-lg font-semibold hidden md:block ">Welcome Mr. / Ms. User</h1>
+            <h1 className="text-lg font-semibold hidden md:block ">Welcome Mr. / Ms. User {userdata.username}</h1>
             <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
             {isDropdownOpen && (
               <div className="absolute right-0 mt-[125px] mr-[15px] w-48 bg-white border rounded shadow-lg py-1 z-50">
