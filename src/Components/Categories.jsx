@@ -59,12 +59,12 @@ function Categories() {
   // Add category function
   const handleCategoryModalSubmit = async(formData) => {
     try{
-     await addCategory(formData ).unwrap()
+     await addCategory(formData).unwrap()
      toast.success(`Category ${formData.name} added Successfully!`);
      setError('')
     }catch(err){
       setError(err.data.detail)
-      toast.error(error)
+      toast.error(err.data.detail)
       console.log(err.data.detail)
     }
   };

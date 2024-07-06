@@ -200,7 +200,7 @@ function Leave() {
           </>
         ) : (
           <>
-            <td className="border px-4 py-2">{leave.employee}</td>
+            <td className="border px-4 py-2">{leave.employee_name}</td>
             <td className="border px-4 py-2">{leave.start_leave}</td>
             <td className="border px-4 py-2">{leave.end_leave}</td>
             <td className="border px-4 py-2">{leave.total_day}</td>

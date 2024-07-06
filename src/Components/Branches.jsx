@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import BranchesModal from './modals/BranchesModal';
-import { useAddBranchMutation, useDeleteBranchMutation, useGetBranchesQuery, useUpdateBranchMutation } from '../features/shop/shopApi';
+import { useAddBranchMutation, useDeleteBranchMutation, useGetBranchesQuery, useUpdateBranchMutation,useGetShopsQuery } from '../features/shop/shopApi';
 import { toast } from 'react-toastify';
 
 
@@ -14,6 +14,7 @@ function Branches() {
   const [filteredBranches, setFilteredBranches] = useState([]);
 
   const { data: branches, isLoading, isError, error: responseError } = useGetBranchesQuery()
+  const { data: shops } = useGetShopsQuery()
   const [addBranch] = useAddBranchMutation()
   const[updateBranch] = useUpdateBranchMutation()
   const [deleteBranch] = useDeleteBranchMutation()
@@ -52,13 +53,17 @@ function Branches() {
   // Add Branch
   const handleBranchesModalSubmit = async(formData) => {
     try{
+      if (!shops || !shops.length) {
+        toast.error('You need to create a shop first!');
+        return;
+      }
       await addBranch(formData)
       toast.success(`The Branch ${formData.name} has been added Successfully!`)
       setError('')
     }catch(err){
       setError(err.data.detail)
-      toast.error(error)
-      console.log(err.data.detail)
+      toast.error(err.data.detail || 'Failed to add branch')
+      // console.log(err.data.detail)
     }
   };
 

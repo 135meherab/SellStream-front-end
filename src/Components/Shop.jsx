@@ -237,6 +237,7 @@ console.log("Shop Data:", shops);
         <button
           onClick={handleOpenShopModal}
           className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
+          style={{ display: shops?.results?.length === 0 ? 'block' : 'none' }}
         >
           Add Shop
         </button>
