@@ -38,8 +38,8 @@ function Attendance() {
       if(!searchTerm.trim()){
       return attendances?.results || [];
       }
-      return attendances?.results?.filter(Attendance =>
-        Attendance.employee.toLowerCase().includes(searchTerm.toLowerCase()) 
+      return attendances?.results?.filter(attendance =>
+        attendance.employee_name.toLowerCase().includes(searchTerm.toLowerCase()) 
       ) || [];
     };
     setFilteredAttendance(Attendancefilter());
@@ -193,7 +193,7 @@ function Attendance() {
           </>
         ) : (
           <>
-            <td className="border px-4 py-2">{attendance.employee}</td>
+            <td className="border px-4 py-2">{attendance.employee_name}</td>
             <td className="border px-4 py-2">{attendance.shift}</td>
             <td className="border px-4 py-2">{attendance.date}</td>
             <td className="border px-4 py-2">{
@@ -231,8 +231,8 @@ function Attendance() {
             <input
               type="text"
               id="AttendanceName"
-              // value={searchTerm}
-              // onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Attendance Name"
               className="w-full border rounded-md py-2 px-4 mr-2 focus:outline-none"
             />
