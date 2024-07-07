@@ -14,6 +14,7 @@ function Categories() {
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [userdata, setUserdata] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCategory, setFilteredCategory] = useState([]);
 
@@ -28,6 +29,12 @@ function Categories() {
   
   //initial error
   useEffect(() => {
+  // Get data from local storage
+  const data = localStorage.getItem('user_info');
+  
+  if (data) {
+    setUserdata(JSON.parse(data));
+  }
     if (responseError) {
       setError(responseError.error);
     }
@@ -161,22 +168,12 @@ function Categories() {
               />
             </td>
             <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="uom"
-                value={currentEditValues.uom}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
+              {currentEditValues.uom}
+                
             </td>
             <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="shop"
-                value={currentEditValues.shop}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
+              {currentEditValues.shop_name}
+                
             </td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
@@ -184,7 +181,7 @@ function Categories() {
                   onClick={handleUpdate}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
-                  Save
+                  Update
                 </button>
                 <button
                   onClick={handleCancel}
@@ -200,7 +197,8 @@ function Categories() {
             <td className="border px-4 py-2">{category.name}</td>
             <td className="border px-4 py-2">{category.uom}</td>
             <td className="border px-4 py-2">{category.shop_name}</td>
-            <td className="border px-4 py-2">
+            {userdata?.role !== 'isbranch' &&(
+              <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
                   onClick={() => handleEdit(category)}
@@ -216,6 +214,8 @@ function Categories() {
                 </button>
               </div>
             </td>
+            )}
+            
           </>
         )}
       </tr>
@@ -245,12 +245,15 @@ function Categories() {
             </button>
           </div>
         </div>
-        <button
+        {userdata?.role !== 'isbranch' &&(
+          <button
           onClick={handleOpenCategoryModal}
           className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
         >
           Add Category
         </button>
+        )}
+        
       </div>
 
       <table className="w-full border-collapse mb-4 text-sm">
@@ -260,7 +263,10 @@ function Categories() {
             <th className="border-b-2 border-gray-300 px-4 py-2">Category Name</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">UOM</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Shop</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            {userdata?.role !== 'isbranch' &&(
+              <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            )}
+            
           </tr>
         </thead>
         <tbody>{content}</tbody>

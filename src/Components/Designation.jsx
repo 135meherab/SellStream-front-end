@@ -89,11 +89,11 @@ function Designation() {
 
 
   // update function
-  const handleUpdate = async() => {
+  const handleUpdate = async(id) => {
    
    try{
     setEditRowId(null); 
-      await updateDesignation({id:currentEditValues.id, ...currentEditValues}).unwrap()
+      await updateDesignation({id: id, ...currentEditValues}).unwrap()
       toast.success(`Designation updated Successfully!`)
      }catch(err){
       setError(err.data.detail)
@@ -148,8 +148,12 @@ function Designation() {
     content = filteredDesignation.map((designation, index) => (
       <tr key={designation.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
-        {editRowId === Designation.id ? (
+        {editRowId === designation.id ? (
           <>
+            <td className="border px-4 py-2">
+              {currentEditValues.owner}
+                
+            </td>
             <td className="border px-4 py-2">
               <input
                 type="text"
@@ -162,28 +166,20 @@ function Designation() {
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="uom"
-                value={currentEditValues.uom}
+                name="salary"
+                value={currentEditValues.salary}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
             </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="shop"
-                value={currentEditValues.shop}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
+            
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
                   onClick={handleUpdate}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
-                  Save
+                  Update
                 </button>
                 <button
                   onClick={handleCancel}
@@ -208,7 +204,7 @@ function Designation() {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(Designation.id)}
+                  onClick={() => handleDelete(designation.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Delete

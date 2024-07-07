@@ -23,21 +23,14 @@ export const shopApi = apiSlice.injectEndpoints({
     }),
     // Update shop
     updateShop: builder.mutation({
-      query: ({id, ...data}) => ({
-        url: `/shop/update/${id}/`,
-        method: "PATCH",
+      query: (data) => ({
+        url: `/shop/update/`,
+        method: "PUT",
         body: data,
       }),
       invalidatesTags:["Shops"]
     }),
-    deleteShop: builder.mutation({
-      query: (id) => ({
-        url: `/shop/update/${id}/`,
-        method: "DELETE",
-        body: data,
-      }),
-      invalidatesTags:["Shops"]
-    }),
+    
 
     // start branch endpoints
     // Get branches
@@ -59,13 +52,22 @@ export const shopApi = apiSlice.injectEndpoints({
     }),
     // Update branches
     updateBranch: builder.mutation({
-      query: ({id, data}) => ({
+      query: ({id, ...data}) => ({
         url: `/shop/branch/${id}/`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags:["Branch"]
     }),
+    // updateBranch: builder.mutation({
+    //   query: ({id, ...data}) => ({
+    //     url: `/shop/branch/${id}/`,
+    //     method: "PATCH",
+    //     body: data,
+    //   }),
+    //   invalidatesTags:["Branch"]
+    // }),
+
     // Delete branches
     DeleteBranch: builder.mutation({
       query: (id) => ({
@@ -108,7 +110,7 @@ export const {
   useGetShopsQuery, 
   useAddShopMutation,
   useUpdateShopMutation,
-  useDeleteShopMutation,
+ 
   // Branch
   useGetBranchesQuery,
   useGetBranchQuery,

@@ -232,12 +232,12 @@ function Order() {
             </button>
           </div>
         </div>
-        <button
+        {/* <button
           onClick={handleOpenOrderModal}
           className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
         >
           Add Order
-        </button>
+        </button> */}
       </div>
 
       <table className="w-full border-collapse mb-4 text-sm">

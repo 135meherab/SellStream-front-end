@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ShopModal from './modals/ShopModal';
-import { useAddShopMutation, useDeleteShopMutation, useGetShopsQuery, useUpdateShopMutation } from '../features/shop/shopApi';
+import { useAddShopMutation, useGetShopsQuery, useUpdateShopMutation } from '../features/shop/shopApi';
 import { toast } from 'react-toastify';
 
 function Shop() {
@@ -16,7 +16,6 @@ function Shop() {
   const { data: shops, isLoading, isError, error: responseError } = useGetShopsQuery();
  const [addShop] = useAddShopMutation();
  const [updateShop] = useUpdateShopMutation();
-const [deleteShop] = useDeleteShopMutation()
 
 const [expandedShopId, setExpandedShopId] = useState(null);
 
@@ -91,18 +90,7 @@ const [expandedShopId, setExpandedShopId] = useState(null);
     }
   };
 
-  // Delete Shop
-  const handleDelete= async (id)=>{
-    try{
-      await deleteShop(id).unwrap()
-      toast.success('Shop has been deleted successfully')
-      setError('')
-    }catch(error){
-      setError(error)
-      toast.error(error)
-      console.log(error)
-    }
-  }
+
 
   const handleCancel = () => {
     setEditRowId(null);
@@ -152,7 +140,7 @@ const [expandedShopId, setExpandedShopId] = useState(null);
                 name="name"
                 value={currentEditValues.name}
                 onChange={handleInputChange}
-                className="w-[100px]border rounded px-2 py-1"
+                className="w-[100px] border rounded px-2 py-1"
               /> 
             </td>
             <td className="border px-4 py-2">
@@ -174,13 +162,8 @@ const [expandedShopId, setExpandedShopId] = useState(null);
               />
             </td>
             <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="ownerName"
-                value={currentEditValues.user}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
+              {currentEditValues.user}
+                
             </td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
@@ -188,7 +171,7 @@ const [expandedShopId, setExpandedShopId] = useState(null);
                   onClick={handleUpdate}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
-                  Save
+                  Update
                 </button>
                 <button
                   onClick={handleCancel}
@@ -213,12 +196,7 @@ const [expandedShopId, setExpandedShopId] = useState(null);
                 >
                   Edit
                 </button>
-                <button
-                onClick={() => handleDelete(shop.id)}
-                  className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Delete
-                </button>
+               
               </div>
             </td>
           </>
