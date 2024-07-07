@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAddEmployeeMutation, useDeleteEmployeeMutation, useGetEmployeesQuery, useUpdateEmployeeMutation } from '../features/employee/employeeApi.js';
+import { useAddEmployeeMutation, useDeleteEmployeeMutation, useGetEmployeesQuery, useUpdateEmployeeMutation,useGetDesignationsQuery } from '../features/employee/employeeApi.js';
 import EmployeeModal from './modals/EmployeeModal.jsx';
 import { toast } from 'react-toastify';
 
@@ -8,24 +8,30 @@ import { toast } from 'react-toastify';
 const Employee =() => {
   // local state
   const [isEmployeeModalOpen, setEmployeeModalOpen] = useState(false);
-  const [employeeName, setEmployeeName] = useState('');
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
   const [currentEditValues, setCurrentEditValues] = useState({});
+  const [userdata, setUserdata] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredemployee, setFilteredEmployee] = useState([]);
 
 
   // redux
   const { data: employees, isLoading, isError, error: responseError } = useGetEmployeesQuery();
+  const {data: designations} = useGetDesignationsQuery()
   const[addEmployee] = useAddEmployeeMutation()
   const [ updateEmployee] = useUpdateEmployeeMutation()
   const [deleteEmployee] = useDeleteEmployeeMutation()
 
-
   // console.log(employees)
 // initial error
   useEffect(() => {
+  // Get data from local storage
+  const data = localStorage.getItem('user_info');
+  
+  if (data) {
+    setUserdata(JSON.parse(data));
+  }
     if (responseError) {
       setError(responseError.error);
       toast.error(responseError.error);
@@ -105,11 +111,11 @@ const Employee =() => {
   };
 
  // update employee
- const handleUpdate = async() => {
+ const handleUpdate = async(id) => {
     
   try{
   setEditRowId(null);
-  await updateEmployee({id: currentEditValues.id, ...currentEditValues}).unwrap()
+  await updateEmployee({id: id, ...currentEditValues}).unwrap()
   toast.success('Employee has been updated successfully')
   setError('')
   }catch(error){
@@ -168,27 +174,8 @@ const handleDelete= async (id)=>{
             <td className="border px-4 py-2">
               <input
                 type="text"
-                name="employeename"
+                name="fullname"
                 value={currentEditValues.fullname}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="first_name"
-                value={currentEditValues.address}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="last_name"
-                value={currentEditValues.age}
                 onChange={handleInputChange}
                 className="w-[100px] border rounded px-2 py-1"
               />
@@ -199,16 +186,60 @@ const handleDelete= async (id)=>{
                 name="email"
                 value={currentEditValues.email}
                 onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
+                className=" border rounded px-2 py-1"
               />
             </td>
+            <td className="border px-4 py-2">
+              <input
+                type="text"
+                name="phone"
+                value={currentEditValues.phone}
+                onChange={handleInputChange}
+                className=" border rounded px-2 py-1"
+              />
+            </td>
+            <td className="border px-4 py-2">
+             {currentEditValues.gender}
+                
+            </td>
+            <td className="border px-4 py-2">
+              {/* <input
+                type="text"
+                name="first_name"
+                value={currentEditValues.designation_name}
+                onChange={handleInputChange}
+                className="w-[100px] border rounded px-2 py-1"
+              /> */}
+              <select 
+                    id="designation" 
+                    name= "designation"
+                    value={currentEditValues.designation.id} 
+                    onChange={handleInputChange}
+                    className="border rounded-md py-1 px-2 w-40 focus:outline-none"
+                    required
+                >
+                  <option value="designation"  selected>{currentEditValues.designation_name}</option>
+                  {
+                    designations?.results?.map((designation) =>(
+
+                      <option key={designation.id} value={designation.id}>{designation.name}</option>
+                    ))
+                  }
+                  
+                </select>
+            </td>
+            <td className="border px-4 py-2">
+             {currentEditValues.branch_name}
+                
+            </td>
+            
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
                   onClick={handleUpdate}
                   className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
-                  Save
+                  Update
                 </button>
                 <button
                   onClick={handleCancel}
@@ -230,7 +261,9 @@ const handleDelete= async (id)=>{
             <td className="border px-4 py-2">{employee.gender}</td>
             <td className="border px-4 py-2">{employee.designation_name}</td>
             <td className="border px-4 py-2">{employee.branch_name}</td>
-            <td className="border px-4 py-2">
+
+            {userdata?.role !== 'isbranch' &&(
+              <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
                 <button
                   onClick={() => handleEdit(employee)}
@@ -246,6 +279,9 @@ const handleDelete= async (id)=>{
                 </button>
               </div>
             </td>
+            )}
+            
+            
           </>
         )}
       </tr>
@@ -275,12 +311,14 @@ const handleDelete= async (id)=>{
             </button>
           </div>
         </div>
-        <button
-          onClick={handleOpenEmployeeModal}
-          className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
-        >
-          Add employee
-        </button>
+        {userdata?.role !== 'isbranch' && (
+          <button
+            onClick={handleOpenEmployeeModal}
+            className="bg-primary text-white py-2 px-4 rounded-md ml-2 hover:bg-opacity-80"
+          >
+            Add employee
+          </button>
+        )}
       </div>
 
       <table className="w-full border-collapse mb-4 text-sm">
@@ -296,7 +334,11 @@ const handleDelete= async (id)=>{
             <th className="border-b-2 border-gray-300 px-4 py-2">Gender</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Designation</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Branch</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            {userdata?.role !== 'isbranch' &&(
+              <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            )}
+           
+            
           </tr>
         </thead>
         <tbody>{content}</tbody>

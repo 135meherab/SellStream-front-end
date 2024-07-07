@@ -133,10 +133,13 @@ const BranchDashboardPage = () => {
                 <FaUsers className="mr-2" />
                   Employee
                  </Link>
-                <Link to='/branch-dashboard/designation' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                <FaBriefcase className="mr-2" />
-                   Designation
-                 </Link>
+                 {userdata?.role !== 'isbranch' &&(
+                  <Link to='/branch-dashboard/designation' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaBriefcase className="mr-2" />
+                     Designation
+                   </Link>
+                 )}
+                
                 <Link to='/branch-dashboard/attendance' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                 <FaCalendarCheck className="mr-2" />
                   Attendance

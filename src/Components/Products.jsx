@@ -21,7 +21,7 @@ const AllProducts = () => {
   const [deleteProduct] = useDeleteProductMutation()
   const [addProduct] = useAddProductMutation()
   
- console.log(products)
+//  console.log(products)
  //set error
  useEffect(() => {
   if (responseError) {
@@ -155,13 +155,7 @@ useEffect(() => {
         {editRowId === product.id ? (
           <>
             <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="product_code"
-                value={currentEditValues.product_code}
-                onChange={handleInputChange}
-                className=" w-[60px] border rounded px-2 py-1"
-              />
+              {currentEditValues.product_code}  
             </td>
             <td className="border px-4 py-2">
               <input
@@ -182,13 +176,7 @@ useEffect(() => {
               />
             </td>
             <td className="border px-4 py-2">
-              <input
-                type="number"
-                name="category"
-                value={currentEditValues.category}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
+              {currentEditValues.category_name}
             </td>
             <td className="border px-4 py-2">
               <input
@@ -209,13 +197,7 @@ useEffect(() => {
               />
             </td>
             <td className="border px-4 py-2">
-              <input
-                type="number"
-                name="branch"
-                value={currentEditValues.branch}
-                onChange={handleInputChange}
-                className="w-[80px] border rounded px-2 py-1"
-              />
+                {currentEditValues.branch_name}              
             </td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
