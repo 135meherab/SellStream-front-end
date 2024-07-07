@@ -13,7 +13,6 @@ function Attendance() {
   const [isAttendanceModalOpen, setAttendanceModalOpen] = useState(false);
   const [error, setError] = useState('');
   const [editRowId, setEditRowId] = useState(null);
-  const [currentEditValues, setCurrentEditValues] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredAttendance, setFilteredAttendance] = useState([]);
 
@@ -21,7 +20,6 @@ function Attendance() {
   //redux
   const { data: attendances, isLoading, isError, error: responseError } = useGetAttendancesQuery();
   const[addAttendance] = useAddAttendanceMutation()
-  const [updateAttendance] = useUpdateAttendanceMutation()
   const [deleteAttendance] = useDeleteAttendanceMutation()
 
   console.log(attendances)
@@ -74,32 +72,7 @@ function Attendance() {
     // Logic to add a shop
   };
 
-  const handleEdit = (attendance) => {
-    setEditRowId(attendance.id);
-    setCurrentEditValues(attendance);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentEditValues({
-      ...currentEditValues,
-      [name]: value,
-    });
-  };
-
-  const handleUpdate = async() => {
-   
-   try{
-    setEditRowId(null); 
-      await updateAttendance({id:currentEditValues.id, ...currentEditValues}).unwrap()
-      toast.success(`Attendance updated Successfully!`)
-     }catch(err){
-      setError(err.data.detail)
-      toast.error(error)
-      console.log(err.data.detail)
-     }
-    
-  };
+  
 
   // delete attendance
   const handleDelete = async(id) => {
@@ -113,9 +86,7 @@ function Attendance() {
       console.log(err.data.detail)
     }
   };
-  const handleCancel = () => {
-    setEditRowId(null);
-  };
+ 
 
   let content = null;
 
@@ -145,52 +116,8 @@ function Attendance() {
     content = filteredAttendance.map((attendance, index) => (
       <tr key={attendance.id} className="text-center">
         <td className="border px-4 py-2">{index + 1}</td>
-        {editRowId === Attendance.id ? (
-          <>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="name"
-                value={currentEditValues.name}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="uom"
-                value={currentEditValues.uom}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="shop"
-                value={currentEditValues.shop}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
-            </td>
-            <td className="border px-4 py-2">
-              <div className="flex justify-center items-center mx-2">
-                <button
-                  onClick={handleUpdate}
-                  className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={handleCancel}
-                  className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Cancel
-                </button>
-              </div>
-            </td>
-          </>
+        {editRowId === attendance.id ? (
+          <>  </>
         ) : (
           <>
             <td className="border px-4 py-2">{attendance.employee_name}</td>
@@ -199,14 +126,8 @@ function Attendance() {
             <td className="border px-4 py-2">{
             attendance.is_attend ? <p className='text-green-600 font-bold'>Present</p> : <p className='text-red-600 font-bold'>Absent</p>
             }</td>
-            <td className="border px-4 py-2">
+            {/* <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
-                {/* <button
-                  onClick={() => handleEdit(attendance)}
-                  className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Edit
-                </button> */}
                 <button
                   onClick={() => handleDelete(attendance.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
@@ -214,7 +135,7 @@ function Attendance() {
                   Delete
                 </button>
               </div>
-            </td>
+            </td> */}
           </>
         )}
       </tr>
@@ -260,7 +181,7 @@ function Attendance() {
             <th className="border-b-2 border-gray-300 px-4 py-2">Shift</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Date</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Attendance</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Action</th> */}
           </tr>
         </thead>
         <tbody>{content}</tbody>

@@ -206,22 +206,16 @@ function Leave() {
             <td className="border px-4 py-2">{leave.total_day}</td>
             <td className="border px-4 py-2 text-red-600 font-bold">{leave.description}</td>
             
-            <td className="border px-4 py-2">
+            {/* <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
-                {/* <button
-                  onClick={() => handleEdit(Leave)}
-                  className="bg-primary py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
-                >
-                  Edit
-                </button> */}
                 <button
-                  onClick={() => handleDelete(Leave.id)}
+                  onClick={() => handleDelete(leave.id)}
                   className="bg-red-500 py-1 px-2 mx-2 text-white border rounded-md hover:bg-opacity-80"
                 >
                   Delete
                 </button>
               </div>
-            </td>
+            </td> */}
           </>
         )}
       </tr>
@@ -268,7 +262,7 @@ function Leave() {
             <th className="border-b-2 border-gray-300 px-4 py-2">To</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Total Days</th>
             <th className="border-b-2 border-gray-300 px-4 py-2">Description</th>
-            <th className="border-b-2 border-gray-300 px-4 py-2">Action</th>
+            {/* <th className="border-b-2 border-gray-300 px-4 py-2">Action</th> */}
           </tr>
         </thead>
         <tbody>{content}</tbody>

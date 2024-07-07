@@ -22,7 +22,7 @@ export const employeeApi = apiSlice.injectEndpoints({
       }),
     }),
     updateEmployee:builder.mutation({
-      query: ({id, data}) => ({
+      query: ({id, ...data}) => ({
         url:`/employee/employee/${id}/`,
         method: "PATCH",
         body: data,
@@ -54,7 +54,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         }),
       }),
       updateDesignation:builder.mutation({
-        query: ({id, data}) => ({
+        query: ({id, ...data}) => ({
           url:`/employee/designation/${id}/`,
           method: "PATCH",
           body: data,
@@ -86,7 +86,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         }),
       }),
       updateAttendance:builder.mutation({
-        query: ({id, data}) => ({
+        query: ({id, ...data}) => ({
           url:`/employee/attendance/${id}`,
           method: "PATCH",
           body: data,
@@ -116,7 +116,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         }),
       }),
       updateLeave:builder.mutation({
-        query: ({id, data}) => ({
+        query: ({id, ...data}) => ({
           url:`/employee/leave/${id}`,
           method: "PATCH",
           body: data,

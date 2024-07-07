@@ -89,19 +89,29 @@ function Branches() {
   };
 
   // Update Branch
-  const handleUpdate = async () => {
+  const handleUpdate = async (id) => {
   
-   try{
-      setEditRowId(null);
-      await updateBranch({id:currentEditValues.id, ...currentEditValues}).unwrap();
-      toast.success(`Branch Updated Successfully!`)
-      setError('');
-    }catch(err){
-      setError(err.data.detail)
-      toast.error(error)
-      console.log(err.data.detail)
-    }
+  //  try{
+  //     setEditRowId(null);
+  //     await updateBranch({id:currentEditValues.id, ...currentEditValues}).unwrap();
+  //     toast.success(`Branch Updated Successfully!`)
+  //     setError('');
+  //   }catch(err){
+  //     setError(err.data.detail)
+  //     toast.error(error)
+  //     console.log(err)
+  //   }
+    try{
     
+      setEditRowId(null);
+      await  updateBranch({id: id, ...currentEditValues}).unwrap()
+      toast.success(`Branch Updated Successfully!`)
+      setError('')
+     }catch(err){
+      setError(err.data.detail)
+        toast.error(error)
+        console.log(err)
+     }
   };
   
 // Delete Branch
@@ -167,14 +177,8 @@ function Branches() {
                 className="w-[100px] border rounded px-2 py-1"
               />
             </td>
-            <td className="border px-4 py-2">
-              <input
-                type="text"
-                name="shop"
-                value={currentEditValues.shop}
-                onChange={handleInputChange}
-                className="w-[100px] border rounded px-2 py-1"
-              />
+            <td className="border px-4 py-2">           
+                {currentEditValues.shop}           
             </td>
             <td className="border px-4 py-2">
               <div className="flex justify-center items-center mx-2">
