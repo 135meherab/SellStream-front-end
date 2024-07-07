@@ -20,7 +20,7 @@ import Users from './Users';
 import Designation from './Designation';
 import Attendance from './Attendance';
 import userAvatar from '../assets/avater.png';
-import Profile from './Profile';
+import BranchProfile from './BranchProfile';
 import { useLogoutMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedOut } from '../features/auth/authSlice';
@@ -36,7 +36,7 @@ const BranchDashboardPage = () => {
   useEffect(() => {
     // Get data from local storage
     const data = localStorage.getItem('user_info');
-    console.log('data : ',  data)
+
     if (data){
       setuserdata(JSON.parse(data));
     }
@@ -75,73 +75,80 @@ const BranchDashboardPage = () => {
           </button>
         </div>
         <ul className="py-5 space-y-2">
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaHome className="mr-2" />
-            <Link to='/branch-dashboard/main'>Dashboard</Link>
-          </li>
+          <Link to='/branch-dashboard/main' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center"> 
+          <FaHome className="mr-2" />
+          Dashboard
+          </Link>
 
-          
-          <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+          <div className="group relative">
+            
+            <Link to='/branch-dashboard/products' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
             <FaBox className="mr-2" />
-            <Link to=''>Product</Link>
+            Product
             <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
-           <ul className='absolute right-0 bottom-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
-              <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaBox className="mr-2" />
-                    <Link to='/branch-dashboard/products'>Products</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaTags className="mr-2" />
-                    <Link to='/branch-dashboard/category'>Categories</Link>
-                </li>
+            </Link>
+            <ul className='absolute right-0 bottom-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+                <Link to='/branch-dashboard/products' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaBox className="mr-2" />
+                   Products
+                 </Link>
+                <Link to='/branch-dashboard/category' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaTags className="mr-2" />
+                  Categories
+                 </Link>
            </ul>
-          </li>
-        
-
-          <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaShoppingBag className="mr-2" />
-            <Link to=''>Order</Link>
-            <FaChevronRight className='ml-auto transform transition duration-300 group-hover:rotate-90'/>
-            <ul className='absolute right-0 top-0 mt-0 mr-2 text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                  <FaShoppingBag className="mr-2" />
-                  <Link to='/branch-dashboard/purchase'>Purchase</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                  <FaClipboardList className="mr-2" />
-                  <Link to='/branch-dashboard/order'>Orders List</Link>
-                </li>
-            </ul>
-          </li>
+          </div>
           
-          <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-            <FaUserFriends className="mr-2" />
-            <Link to='/branch-dashboard/customer'>Customer</Link>
-          </li>
+          <div className="group relative">
+            <Link to='/branch-dashboard/purchase' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaShoppingBag className="mr-2" />
+              Order
+            <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
+            </Link>
+            <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+                <Link to='/branch-dashboard/purchase' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                  <FaShoppingBag className="mb-2" />
+                  Purchase
+                 </Link>
+                <Link to='/branch-dashboard/order' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaClipboardList className="mb-2" />
+                 Orders List
+                 </Link>
+           </ul>
+          </div>
 
-          <li className="group relative px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-              <FaUsers className="mr-2" />
-              <Link to='' className="flex-grow">Employee</Link>
-              <FaChevronRight className="ml-auto transform transition duration-300 group-hover:rotate-180" />  
-              <ul className="absolute right-0 top-0 mt-0 mr-2 bg-gray-800 text-white rounded shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-opacity duration-300">
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaUsers className="mr-2" />
-                    <Link to='/branch-dashboard/employee'>Employee</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaBriefcase className="mr-2" />
-                    <Link to='/branch-dashboard/designation'>Designation</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaCalendarCheck className="mr-2" />
-                    <Link to='/branch-dashboard/attendance'>Attendance</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
-                    <FaPlaneDeparture className="mr-2" />
-                    <Link to='/branch-dashboard/leave'>Leave</Link>
-                </li>
-              </ul>
-          </li>
+          <Link to='/branch-dashboard/customer' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+          <FaUserFriends className="mr-2" />
+          Customer
+          </Link>
+          
+          <div className="group relative">
+            <Link to='/branch-dashboard/employee' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+            <FaUsers className="mr-2" />
+              Employee
+            <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
+          </Link>
+           <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+                <Link to='/branch-dashboard/employee' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaUsers className="mr-2" />
+                  Employee
+                 </Link>
+                <Link to='/branch-dashboard/designation' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaBriefcase className="mr-2" />
+                   Designation
+                 </Link>
+                <Link to='/branch-dashboard/attendance' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaCalendarCheck className="mr-2" />
+                  Attendance
+                 </Link>
+                <Link to='/branch-dashboard/leave' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+                <FaPlaneDeparture className="mr-2" />
+                  Leave
+                </Link>
+           </ul>
+          </div>
+
+          
 
           
         </ul>
@@ -157,7 +164,7 @@ const BranchDashboardPage = () => {
 
           <h1 className="text-lg font-semibold ">POS Dashboard</h1>
           <div className="relative flex justify-center items-center" onClick={toggleDropdown}>
-            <h1 className="text-lg font-semibold hidden md:block ">Welcome Mr. / Ms. User {userdata.username}</h1>
+            <h1 className="text-lg font-semibold hidden md:block ">Welcome {userdata ? userdata.username : 'User'}</h1>
             <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full cursor-pointer" onClick={toggleDropdown} />
             {isDropdownOpen && (
               <div className="absolute right-0 mt-[125px] mr-[15px] w-48 bg-white border rounded shadow-lg py-1 z-50">
@@ -188,7 +195,7 @@ const BranchDashboardPage = () => {
             <Route path="customer" element={<Customer />} />
             <Route path="user" element={<Users />} />
             <Route path="report" element={<Reports />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<BranchProfile />} />
             <Route path="designation" element={<Designation />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="leave" element={<Leave />} />

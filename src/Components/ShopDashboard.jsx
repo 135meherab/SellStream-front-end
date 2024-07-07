@@ -94,8 +94,8 @@ const ShopDashboardPage = () => {
             <FaBox className="mr-2" />
             Product
             <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
-          </Link>
-           <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+            </Link>
+            <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
                 <Link to='/shop-dashboard/products' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                   <FaBox className="mr-2" />
                    Products
@@ -117,8 +117,8 @@ const ShopDashboardPage = () => {
             <FaShoppingBag className="mr-2" />
               Order
             <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
-          </Link>
-           <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+            </Link>
+            <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
                 <Link to='/shop-dashboard/purchase' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                   <FaShoppingBag className="mb-2" />
                   Purchase
