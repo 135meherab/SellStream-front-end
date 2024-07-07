@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 
 const data = [
   { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -14,18 +14,22 @@ const data = [
 const Barchart = () => {
   return (
     <div style={{ textAlign: 'center', background: '#fff', padding: '20px', borderRadius: '10px', boxShadow: 'none' }}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <BarChart width={600} height={300} data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-          <XAxis dataKey="name" stroke="#333" />
-          <YAxis stroke="#333" />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" fill="#008080" />
-          <Bar dataKey="uv" fill="#FF6347" />
-        </BarChart>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '100%', height: '300px' }}>
+        <ResponsiveContainer>
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+            <XAxis dataKey="name" stroke="#333" />
+            <YAxis stroke="#333" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="pv" fill="#008080" />
+            <Bar dataKey="uv" fill="#FF6347" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
+  </div>
   );
 };
 

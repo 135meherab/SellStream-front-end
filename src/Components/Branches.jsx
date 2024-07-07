@@ -53,7 +53,7 @@ function Branches() {
   // Add Branch
   const handleBranchesModalSubmit = async(formData) => {
     try{
-      if (!shops || !shops.length) {
+      if (!shops || shops.length === 0) {
         toast.error('You need to create a shop first!');
         return;
       }

@@ -6,7 +6,6 @@ function ShopProfile() {
     useEffect(() => {
         // Get data from local storage
         const data = localStorage.getItem('user_info');
-        console.log('data : ',  data)
         if (data){
           setUserdata(JSON.parse(data));
         }
