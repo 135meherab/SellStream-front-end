@@ -3,7 +3,7 @@
 import { useState , useEffect} from 'react';
 
 import avatar from '../assets/avater.png'
-function Profile() {
+function BranchProfile() {
     const [userdata, setUserdata] = useState(null);
     useEffect(() => {
         // Get data from local storage
@@ -33,4 +33,4 @@ function Profile() {
   )
 }
 
-export default Profile
+export default BranchProfile

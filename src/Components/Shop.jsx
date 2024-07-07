@@ -20,7 +20,7 @@ const [deleteShop] = useDeleteShopMutation()
 
 const [expandedShopId, setExpandedShopId] = useState(null);
 
-console.log("Shop Data:", shops);
+// console.log("Shop Data:", shops);
  //initial error
   useEffect(() => {
     // setData(shops)
