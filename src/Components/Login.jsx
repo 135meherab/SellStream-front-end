@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../features/auth/authApi';
 import { useDispatch } from 'react-redux';
 import { userLoggedIn } from '../features/auth/authSlice';
+import login_img from "../assets/Login.png"
+// import '../Components/css/page.css'
+// import {Emailinput} from './forget_password_otp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -72,12 +75,17 @@ const togglePasswordVisibility = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-700 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div className="max-w-md w-full bg-white shadow-md rounded-lg p-8 relative">
+    <div className="min-h-screen login-bg flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="login-card  shadow-md rounded-lg p-8 relative">
       <h2 className="text-3xl font-bold text-center mb-6 text-primary">Login</h2>
-      <form onSubmit={handleLogin} className="space-y-6">
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700">User Name</label>
+      <div className='login-c  flex justify-between items-center '>
+        <div className='login-img'>
+          <img src={login_img} alt="" />
+        </div>
+      <div className=' w-80'>
+        <form onSubmit={handleLogin} >
+        <div className="mb-3">
+          <label htmlFor="username" className=" text-gray-700">User Name</label>
           <input
             type="text"
             id="username"
@@ -87,7 +95,7 @@ const togglePasswordVisibility = () => {
             required
           />
         </div>
-        <div className="mb-6 relative">
+        <div className="mb-5 relative">
           <label htmlFor="password" className="block text-gray-700">Password</label>
           <div className='relative'>
           <input
@@ -112,7 +120,7 @@ const togglePasswordVisibility = () => {
           Login
         </button>
   
-        {error && <p className='text-red-500 text-center'>{error}</p>}
+        {/* {error && <p className='text-red-500 text-center'>{error}</p>} */}
   
         {isLoading && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-75">
@@ -124,14 +132,19 @@ const togglePasswordVisibility = () => {
           </div>
         )}
         <div className="mt-4 text-center">
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-600 text-sm mb-1">
           Don't have an account?{' '}
-          <a href="/sign_up" className="text-blue-500">
+          <a href="/sign_up" className="text-primary font-bold hover:underline">
             Sign Up
           </a>
         </p>
-      </div>
+        {/* <a className='hover:underline text-sm text-gray-600 ' href="/forget_password/">Forgotten password?</a> */}
+        <br />
+        {/* <a className='hover:underline' href="/otp_verification/">otp_verification</a> */}
+       </div>
       </form>
+    </div>
+      </div>
     </div>
   </div>
   
