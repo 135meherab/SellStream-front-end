@@ -9,6 +9,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './Components/Home/Home';
 import SignUp from './Components/sign_up';
+import Emailinput from './Components/forget_password_otp';
+import OTPVerification from './Components/otp';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign_up" element={<SignUp />} />
+        <Route path="/forget_password" element={<Emailinput />} />
+        <Route path="/otp_verification" element={<OTPVerification />} />
         {/* Protected Routes with Role Checks */}
         <Route path="/admin-dashboard/*" element={<PrivateRoute role= 'isadmin'><AdminDashboardPage/></PrivateRoute> }/>
         <Route path="/shop-dashboard/*" element={<PrivateRoute role="isowner"><ShopDashboardPage/></PrivateRoute> }/> {/* Assuming Shop and Branch use same dashboard */}

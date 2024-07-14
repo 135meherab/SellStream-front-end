@@ -1,0 +1,71 @@
+
+.login-bg{
+  background-color: #7183af;
+}
+
+
+.login-card {
+    background-color: #d7e2f8;
+    max-width: 800px;
+    width: 100%;
+  }
+  .login-img {
+    width: 55%;
+  }
+  @media (max-width: 639px){
+    .login-card {
+        max-width: 100%;
+        width: 100%;
+      }
+    .login-c{
+        flex-direction: column;
+    }
+    .login-img{
+        height: auto;
+        order: -1;
+    }
+  }
+  .signup_bg{
+    /* background-color: #b3cafe; */
+    background-color: #7183af;
+  }
+.signup_card{
+  background-color: #d7e2f8 !important;
+    max-width:900px;
+    width: 100%;
+}
+.sign_img{
+  width: 55%;
+}
+@media (max-width: 720px){
+  .signup_card {
+      max-width: 100%;
+      width: 100%;
+    }
+  .signup_crd{
+      flex-direction: column;
+  }
+  .sign_img{
+      height: auto;
+      order: +1;
+  }
+}
+
+.otp-bg{
+    background-color: #b3cafe;
+}
+
+.otp_card{
+    height: 700px;
+    width: 1200px;
+    background-color: #d7e2f8;
+}
+.otp_image{ 
+    width: 550px;
+}
+.otp-verificaton{
+    height: 460px;
+    background-color: #ebedf0;
+    /* border-color: rgb(23, 200, 23); */
+    border-color: rgb(37, 37, 213);
+}
