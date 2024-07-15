@@ -4,7 +4,7 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     // For production
-    baseUrl: 'https://sellstream.onrender.com',
+    baseUrl: 'https://sellstreams1.onrender.com',
     // For local server
     // baseUrl: 'http://127.0.0.1:8000',      
      prepareHeaders: (headers, {getState}) => {
