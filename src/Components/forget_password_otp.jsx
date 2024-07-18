@@ -42,7 +42,7 @@ const Emailinput = () =>{
   
   return (
 
-    <div className="min-h-screen forget-bg flex items-center justify-center m-8 px-4 sm:px-2 lg:px-2">
+    <div className="min-h-screen forget-bg flex items-center justify-center  px-4 sm:px-2 lg:px-2">
     <div className="max-w-md w-full forget-card shadow-md  rounded-lg p-6 relative">
       <h2 className="text-3xl font-bold text-center mb-4 text-primary">Forgot Password</h2>
       <div>
