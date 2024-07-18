@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Routes, Route, Link } from 'react-router-dom';
 import { useAddemailMutation } from "../features/password_forget/password_top";
+import forgotten_img from "../assets/Forgot_password.png"
 import { toast } from "react-toastify";
 
 
@@ -17,7 +18,7 @@ const Emailinput = () =>{
     useEffect(() => {
     if (responseError) {
       setError(responseError.data.error);
-      // toast.error(responseError.data.error);
+      toast.error(responseError.data.error);
     }
  
   }, [responseError]);
@@ -31,19 +32,25 @@ const Emailinput = () =>{
     try{
       const response = await AddEmail({ email }).unwrap();
       toast.success(response.message)
+      navigate('/otp_verification/');
     }catch(err){
-        setError(err.data.error)
-        toast.error(err.data.error)
+        setError(err.data.error || 'An error occurred')
+        // toast.error(err.data.error)
       }
 
   };
   
   return (
 
-    <div className="min-h-screen bg-gray-700 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div className="max-w-md w-full bg-white shadow-md rounded-lg p-8 relative">
-      <h2 className="text-3xl font-bold text-center mb-6 text-primary">Forgot Password</h2>
-      <form onSubmit={handleEmailSubmit} className="space-y-4">
+    <div className="min-h-screen forget-bg flex items-center justify-center m-8 px-4 sm:px-2 lg:px-2">
+    <div className="max-w-md w-full forget-card shadow-md  rounded-lg p-6 relative">
+      <h2 className="text-3xl font-bold text-center mb-4 text-primary">Forgot Password</h2>
+      <div>
+        <div className="forget-img m-auto">
+          <img src={forgotten_img} alt="" />
+        </div>
+        <div>
+        <form onSubmit={handleEmailSubmit} className="space-y-4">
         <div >
           <label htmlFor="username" className="block text-gray-700">Email</label>
           <input
@@ -73,9 +80,10 @@ const Emailinput = () =>{
             <p className='text-primary font-bold'>Please wait 1 second to 1 minute...</p>
           </div>
         )}
-  
         
       </form>
+        </div>
+      </div>
     </div>
   </div>
  
