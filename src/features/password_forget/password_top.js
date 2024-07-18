@@ -13,7 +13,7 @@ export const forgetapi = apiSlice.injectEndpoints({
         }),
         addotp: builder.mutation({
             query: (data) =>({
-                url: "/verify-otp/",
+                url: "shop/verify-otp/",
                 method: "POST",
                 body: data,
             }),
@@ -21,7 +21,7 @@ export const forgetapi = apiSlice.injectEndpoints({
         }),
         addpassword: builder.mutation({
             query: (data) =>({
-                url: "/password-change/",
+                url: "shop/password-change/",
                 method: "POST",
                 body: data,
             }),

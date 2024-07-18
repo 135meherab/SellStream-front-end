@@ -34,22 +34,28 @@ const OTPVerification = () => {
       }
     }
   };
-
-  const handleVerify = () => {
-    alert(`Entered OTP: ${otp.join('')}`);
+  const handleVerify = async () => {
+    const otpCode = otp.join('');
+    try {
+      await AddOtp({ otp: otpCode }).unwrap();
+      toast.success("OTP verified successfully");
+      navigate('/new_password/'); // Redirect to password reset page
+    } catch (err) {
+      setError(err.data.error)
+    }
   };
 
+ 
   return (
-    <div className="otp-bg min-h-screen flex items-center justify-center ">
-      <div className="otp_card rounded-lg  flex justify-between p-20  shadow-lg ">
-        <div className="flex justify-items-center justify-center m-auto">
-          <img className="otp_image  " src={otp_img} alt="" />
+    <div className="otp-bg min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-16">
+      <div className="otp_card rounded-lg  flex justify-between p-6  shadow-lg relative">
+        <div className="otp_image flex justify-items-center justify-center m-auto">
+          <img src={otp_img} alt="" />
         </div>
-        <div className="otp-verificaton  p-8  rounded-lg shadow-lg w-80 pt-20  m-auto ml-0 border ">
-        
+        <div className="otp-verificaton w-80  p-8  rounded-lg shadow-lg  pt-20   m-auto  border ">
           <h2 className="text-2xl font-semibold text-center mb-4">OTP Verification</h2>
           <p className="text-center mb-6">Enter OTP Code sent to your mail</p>
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-6 ">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -57,7 +63,7 @@ const OTPVerification = () => {
                 type="text"
                 value={digit}
                 maxLength="1"
-                className={`w-10 h-10 border border-gray-300 text-center text-lg mx-1 rounded ${digit ? 'bg-gray-100' : 'bg-white'}`}
+                className={`otp_input  w-10 h-10 border border-gray-300 text-center text-lg mx-1 rounded ${digit ? 'bg-gray-200' : 'bg-white'}`}
                 onChange={(e) => handleChange(e, index)}
               />
             ))}
