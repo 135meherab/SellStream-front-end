@@ -82,7 +82,7 @@ const togglePasswordVisibility = () => {
         <div className='login-img'>
           <img src={login_img} alt="" />
         </div>
-      <div className=' w-80'>
+      <div className='w-80'>
         <form onSubmit={handleLogin} >
         <div className="mb-3">
           <label htmlFor="username" className=" text-gray-700">User Name</label>
@@ -138,9 +138,8 @@ const togglePasswordVisibility = () => {
             Sign Up
           </a>
         </p>
-        {/* <a className='hover:underline text-sm text-gray-600 ' href="/forget_password/">Forgotten password?</a> */}
-        <br />
-        {/* <a className='hover:underline' href="/otp_verification/">otp_verification</a> */}
+        <a className='hover:underline text-sm text-gray-600 ' href="/forget_password/">Forgotten password?</a>
+       
        </div>
       </form>
     </div>
