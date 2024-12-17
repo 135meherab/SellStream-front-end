@@ -11,15 +11,17 @@ import '../css/landpage.css'; // Assuming your CSS is in Navbar.css
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
-    { image: one },
+    { image: three },
+    
     { image: two },
-    { image: three }
+    { image: one }
+    
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 3000); // Change slide every 3 seconds
+    }, 4000); // Change slide every 3 seconds
     return () => clearInterval(interval);
   }, [slides.length]);
 

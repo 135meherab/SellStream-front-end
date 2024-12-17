@@ -50,7 +50,7 @@ const Emailinput = () =>{
           <img src={forgotten_img} alt="" />
         </div>
         <div>
-        <form onSubmit={handleEmailSubmit} className="space-y-4">
+        <form onSubmit={handleEmailSubmit} >
         <div >
           <label htmlFor="username" className="block text-gray-700">Email</label>
           <input
@@ -60,7 +60,7 @@ const Emailinput = () =>{
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
+            className="w-full mt-1 px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-primary"
             required
           />
         </div>
