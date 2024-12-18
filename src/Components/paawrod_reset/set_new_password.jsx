@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {  useAddpasswordMutation } from "../../features/password_forget/password_top";
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,6 +14,7 @@ const Newpassword = ({email}) =>{
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const[Addpassword, { isLoading, error: responseError }] = useAddpasswordMutation();
+    const navigate = useNavigate();
 
      //set error
      useEffect(() => {
@@ -38,7 +39,7 @@ const Newpassword = ({email}) =>{
         const response = await Addpassword({email:email, new_password: password, confirm_new_password: confirm_password }).unwrap();
         // Handle successful password change here, e.g., redirect or show a success message.
         toast.success(response.message);
-        Navigate('/login/');
+        navigate('/login/');
       } catch (err) {
         // Handle error if needed, though responseError should cover this.
         // console.log(err)
