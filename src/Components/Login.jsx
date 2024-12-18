@@ -104,7 +104,7 @@ const togglePasswordVisibility = () => {
             >
               Click Login for Branch
             </button>
-            <button
+            {/* <button
               className="bg-primary text-white py-2 px-4 rounded-md hover:bg-opacity-80"
               onClick={() => {
                 setUserName('admin');
@@ -112,7 +112,7 @@ const togglePasswordVisibility = () => {
               }}
             >
               Click Login for Admin
-            </button>
+            </button> */}
           </div>
           <form onSubmit={handleLogin}>
             <div className="mb-3">

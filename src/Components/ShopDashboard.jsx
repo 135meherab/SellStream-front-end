@@ -88,6 +88,7 @@ const ShopDashboardPage = () => {
             <FaSitemap className="mr-2" />
              Branches
           </Link>
+          
           <div className="group relative">
             
             <Link to='/shop-dashboard/products' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
@@ -95,7 +96,7 @@ const ShopDashboardPage = () => {
             Product
             <FaChevronRight className='ml-auto transform transition durations-300 group-hover:rotate-90' />
             </Link>
-            <ul className='absolute right-0 top-0  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
+            <ul className='absolute right-0 -top-full  mt-0 list-none text-white rounded shadow-lg bg-gray-800 opacity-0  group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300'> 
                 <Link to='/shop-dashboard/products' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
                   <FaBox className="mr-2" />
                    Products
@@ -107,10 +108,10 @@ const ShopDashboardPage = () => {
            </ul>
           </div>
 
-          <Link to='/shop-dashboard/sales' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
+          {/* <Link to='/shop-dashboard/sales' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
           <FaChartBar className="mr-2" />
             Sales
-          </Link>
+          </Link> */}
           
           <div className="group relative">
             <Link to='/shop-dashboard/purchase' className="px-4 py-2 hover:bg-gray-700 cursor-pointer flex items-center">
