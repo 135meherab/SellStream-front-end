@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Example with FontAwesome icons
-import axios from 'axios';
+
 
 
 const Login = () => {
@@ -29,7 +29,7 @@ const handleLogin = async (e) => {
 
     try {
       const result = await login({ username, password });
-      console.log(result)
+      // console.log(result)
       if (result.error) {
         // If login fails due to incorrect credentials or other reasons
         setError('Invalid username or password');
@@ -126,6 +126,7 @@ const togglePasswordVisibility = () => {
                 onChange={(e) => setUserName(e.target.value)}
                 className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
                 required
+                autoComplete="username"
               />
             </div>
             <div className="mb-5 relative">
@@ -140,6 +141,7 @@ const togglePasswordVisibility = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
                   required
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"

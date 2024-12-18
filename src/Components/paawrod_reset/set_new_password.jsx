@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Link } from 'react-router-dom';
-import {  useAddpasswordMutation } from "../features/password_forget/password_top";
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import {  useAddpasswordMutation } from "../../features/password_forget/password_top";
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import newpassword_img from "../assets/new_password.png"
+import newpassword_img from "../../assets/new_password.png"
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Example with FontAwesome icons
 
-const Newpassword = () =>{
-
+const Newpassword = ({email}) =>{
+    // const [email,setEmail] = useState();
     const [password,setPassword] = useState('');
     const [confirm_password,setConfirm_password] = useState('');
     const [error, setError] = useState('');
@@ -35,13 +35,13 @@ const Newpassword = () =>{
     const handlePasswordChange = async (e) => {
       e.preventDefault();
       try {
-        const response = await Addpassword({ new_password: password, confirm_new_password: confirm_password }).unwrap();
+        const response = await Addpassword({email:email, new_password: password, confirm_new_password: confirm_password }).unwrap();
         // Handle successful password change here, e.g., redirect or show a success message.
-        toast.success(reponse.message);
-        navigate('/login/');
+        toast.success(response.message);
+        Navigate('/login/');
       } catch (err) {
         // Handle error if needed, though responseError should cover this.
-        console.log(err)
+        // console.log(err)
         setError(err.data?.error || 'An error occurred');
       }
     };
@@ -69,6 +69,7 @@ const Newpassword = () =>{
             onChange={(e) => setPassword(e.target.value)}
             className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
             required
+            autoComplete="current-password"
           />
           <button
               type="button"
@@ -90,6 +91,7 @@ const Newpassword = () =>{
             onChange={handleConfirmPasswordChange}
             className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:border-primary"
             required
+            autoComplete="confirm_password"
           />
           <button
               type="button"
