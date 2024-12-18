@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Routes, Route, Link } from 'react-router-dom';
-import { useAddemailMutation } from "../features/password_forget/password_top";
-import forgotten_img from "../assets/Forgot_password.png"
+import { useAddemailMutation } from "../../features/password_forget/password_top";
+import forgotten_img from "../../assets/Forgot_password.png"
 import { toast } from "react-toastify";
 
 
-const Emailinput = () =>{
+const Emailinput = ({onEmail}) =>{
 
     const [email,setEmail] = useState('');
     const [error, setError] = useState('');
     const[AddEmail, { isLoading, error: responseError }] = useAddemailMutation();
     const navigate = useNavigate();
    
-  
+    // const em = onEmail(email)
      //set error
     useEffect(() => {
     if (responseError) {
@@ -32,6 +32,7 @@ const Emailinput = () =>{
     try{
       const response = await AddEmail({ email }).unwrap();
       toast.success(response.message)
+      onEmail(email);
       navigate('/otp_verification/');
     }catch(err){
         setError(err.data.error || 'An error occurred')

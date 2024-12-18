@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import otp_img from "../assets/otp_img.png";
-import { useAddotpMutation } from "../features/password_forget/password_top";
+import otp_img from "../../assets/otp_img.png";
+import { useAddotpMutation } from "../../features/password_forget/password_top";
 import { toast } from "react-toastify";
-import '../Components/css/page.css';
+import '../../Components/css/page.css';
 
-const OTPVerification = () => {
+const OTPVerification = ({email}) => {
+  // const [email,setEmail] = useState();
   const [otp, setOtp] = useState(Array(6).fill(''));
   const [error, setError] = useState('');
   const [AddOtp, { isLoading, error: responseError }] = useAddotpMutation();
@@ -34,9 +35,10 @@ const OTPVerification = () => {
   };
 
   const handleVerify = async () => {
+    // console.log(email,otpCode);
     const otpCode = otp.join('');
     try {
-      await AddOtp({ otp: otpCode }).unwrap();
+      await AddOtp({ otp: otpCode, email:email }).unwrap();
       toast.success("OTP verified successfully");
       navigate('/new_password/'); // Redirect to password reset page
     } catch (err) {
