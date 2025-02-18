@@ -8,8 +8,8 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 <br><br/>
 # Live link
-<a> [sell-stream.netlify.app](https://sell-stream.netlify.app)</a>
-Trial account : Username: Shamim01 | Password : Shamim01
+<a> [sell-stream.netlify.app](https://sell-stream.netlify.app)</a><br><br/>
+# Trial account -> Username: Shamim01 | Password : Shamim01
 <br><br/>
 # Aim or Our Project
 Our software solution is designed to assist businesses in streamlining their accounting operations, managing sales, and overseeing their employees' performance with ease. We believe that our application can help businesses achieve greater efficiency and productivity while minimizing errors and delays.
