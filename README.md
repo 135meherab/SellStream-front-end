@@ -9,16 +9,19 @@ Currently, two official plugins are available:
 <br><br/>
 # Live link
 <a> [sell-stream.netlify.app](https://sell-stream.netlify.app)</a>
+Trial account : Username: Shamim01 | Password : Shamim01
 <br><br/>
 # Aim or Our Project
 Our software solution is designed to assist businesses in streamlining their accounting operations, managing sales, and overseeing their employees' performance with ease. We believe that our application can help businesses achieve greater efficiency and productivity while minimizing errors and delays.
 <br><br/>
 # App Features
- * Admin  Log in.
+ * Admin  Log in or register.
+ * Add your Shop.
+ * Add your Branches under the shop if exist.
  * Add category for products.
  * Add the products in the specific category.
- * Add the Employee category.
- * Add the employee to the specific category.
+ * Add the Employee Designation.
+ * Add the Employee to the specific Designation.
  * Sells(Total sells, sells report, sells refer monthly sells check)
  * Every Employee’s salary management.
  * Auto monthly Revenue generated.
